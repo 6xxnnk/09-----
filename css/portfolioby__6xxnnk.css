@@ -171,12 +171,12 @@ img{ max-width:100%; display:block; }
   color: #222;
 }
 
-.bio-list {
+.social-list {
   list-style: none;
   margin: 0.8rem 0 0;
   padding: 0;
 }
-.bio-list li {
+.social-list li {
   margin: 0.2rem 0;
 }
 .bio a {

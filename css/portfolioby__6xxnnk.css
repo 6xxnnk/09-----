@@ -1,0 +1,121 @@
+/* ====== Base: rem 통일 (1rem = 10px) ====== */
+:root{
+  --maxw: 120rem;          /* 1200px */
+  --hero-h-min: 54rem;     /* 540px */
+  --hero-h-max: 92rem;     /* 920px */
+  --radius-pill: 999rem;
+  --shadow-deep: 0 1.2rem 4rem rgba(0,0,0,.25), 0 .1rem 0 rgba(0,0,0,.2) inset;
+  --text: #111;
+  --muted: #6b7280;
+  --accent: #0d6efd;
+}
+
+*{ box-sizing: border-box; }
+html{ font-size:62.5%; scroll-behavior:smooth; }
+body{
+  margin:0; color:var(--text); background:#fff;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Roboto, "Helvetica Neue", Arial, "Apple SD Gothic Neo",
+               "Noto Sans KR", "Malgun Gothic", sans-serif;
+  line-height:1.5;
+}
+.wrap{ min-height:100dvh; display:flex; flex-direction:column; }
+
+/* ====== HERO ====== */
+.hero{
+  min-height: clamp(var(--hero-h-min), 90vh, var(--hero-h-max));
+  display:grid; place-items:center;
+  padding: 6rem 2rem 4rem;
+  position:relative; overflow:hidden;
+}
+.hero::before{
+  content:""; position:absolute; inset:-20%;
+  background: radial-gradient(80% 60% at 50% 30%, rgba(13,110,253,.08), transparent 60%);
+  pointer-events:none;
+}
+.hero__inner{ width:100%; max-width:var(--maxw); display:flex; flex-direction:column; align-items:center; gap:3rem; }
+
+/* “portfolio” 로고 */
+.logo{
+  font-size: clamp(5.6rem, 7vw, 12.4rem);
+  font-weight:800; letter-spacing:-.02em; line-height:1;
+  display:flex; gap:.04em; user-select:none;
+}
+.logo span{ display:inline-block; transform: translateY(0); }
+.logo .p{ color:#e11d48 }
+.logo .o1{ color:#0ea5e9 }
+.logo .r{ color:#f59e0b }
+.logo .t{ color:#10b981 }
+.logo .f{ color:#ef4444 }
+.logo .o2{ color:#22c55e }
+.logo .l{ color:#3b82f6 }
+.logo .i{ color:#8b5cf6 }
+.logo .o3{ color:#f97316 }
+
+/* 검색 바 */
+.search-wrap{
+  width: min(110rem, 92vw);
+  background:#fff; border-radius:5.6rem;
+  box-shadow: 0 .8rem 2.2rem rgba(0,0,0,.18);
+  padding: .6rem; position:relative;
+}
+.search-bar{
+  display:flex; align-items:center; gap:.8rem;
+  border: .2rem solid #111; border-radius:5.6rem; padding: .8rem;
+  box-shadow: 0 1rem 3rem rgba(0,0,0,.25);
+}
+.input-area{
+  position:relative; flex:1;
+  display:flex; align-items:center; gap:.8rem;
+  padding: .4rem .8rem .4rem 1.2rem; border-radius: 4rem;
+}
+.input-area input{
+  width:100%; border:0; outline:0; background:transparent;
+  font-size: clamp(1.6rem, 1.2vw, 2.2rem); padding:.8rem 0;
+}
+.typing-ghost{
+  position:absolute; left:1.2rem; right:1rem; top:50%; transform:translateY(-50%);
+  pointer-events:none; white-space:nowrap; overflow:hidden; text-overflow:clip;
+  color:#9aa0a6; font-size: clamp(1.6rem, 1.2vw, 2.2rem);
+}
+.typing-ghost.hidden{ display:none; }
+
+.select{
+  display:flex; align-items:center; gap:.6rem;
+  padding: .6rem 1rem; border-left:.1rem solid #e5e7eb;
+}
+.select select{
+  border:0; background:transparent; outline:0;
+  font-size: clamp(1.4rem, 1vw, 1.8rem); color:#374151;
+  appearance:none; padding-right:1.2rem; cursor:pointer;
+}
+.select .caret{
+  width:0; height:0; border-left:.6rem solid transparent;
+  border-right:.6rem solid transparent; border-top:.8rem solid #6b7280;
+  pointer-events:none; transform: translateY(.1rem);
+}
+
+.btn{
+  border:0; outline:0; cursor:pointer; border-radius: var(--radius-pill);
+  padding: 1.1rem 2.2rem; font-size: clamp(1.6rem, 1.1vw, 2rem);
+  font-weight:700; color:#fff; background: var(--accent);
+  box-shadow: 0 1rem 2.2rem rgba(13,110,253,.35);
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+}
+.btn:hover{ transform: translateY(-.1rem); filter: brightness(1.03); }
+.btn:active{ transform: translateY(0); box-shadow: 0 .6rem 1.8rem rgba(13,110,253,.38); }
+
+.hint{ color:var(--muted); font-size:clamp(1.2rem, .9vw, 1.4rem); }
+
+/* ====== CONTENT ====== */
+#content{ padding: 8rem 2rem 14rem; background:#fafafa; }
+.content__inner{ max-width:var(--maxw); margin:0 auto; }
+h2{ font-size:clamp(2.8rem, 2.2vw, 4rem); margin:0 0 1rem; }
+p{ color:#374151; max-width:70ch; }
+
+/* ====== 작은 화면 ====== */
+@media (max-width: 64rem){ /* 640px */
+  .search-bar{ flex-wrap:wrap; padding:.6rem; gap:.4rem; }
+  .select{ width:100%; justify-content:flex-end; border-left:0; border-top:.1rem solid #e5e7eb; padding-top:.6rem; }
+  .btn{ width:100%; }
+}

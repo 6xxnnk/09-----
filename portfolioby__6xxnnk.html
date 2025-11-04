@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>portfolioby__6xxnnk</title>
+    <link rel="stylesheet" href="css/portfolioby__6xxnnk.css" />
+</head>
+<body>
+    <div class="wrap">
+
+    <!-- HERO -->
+    <header class="hero" aria-labelledby="heroTitle">
+      <div class="hero__inner">
+        <h1 id="heroTitle" class="logo" aria-label="portfolio">
+          <span class="p">p</span><span class="o1">o</span><span class="r">r</span><span class="t">t</span>
+          <span class="f">f</span><span class="o2">o</span><span class="l">l</span><span class="i">i</span><span class="o3">o</span>
+        </h1>
+
+        <form class="search-wrap" id="searchForm" role="search">
+          <div class="search-bar">
+            <div class="input-area">
+              <input id="q" name="q" type="text" aria-label="검색어 입력" autocomplete="off" />
+              <div id="typingGhost" class="typing-ghost" aria-hidden="true"></div>
+            </div>
+
+            <div class="select" aria-label="카테고리 선택">
+              <select id="cat" name="cat" aria-label="All Categories">
+                <option>All Categories</option>
+                <option>Branding</option>
+                <option>UI/UX</option>
+                <option>Web Publishing</option>
+                <option>Photography</option>
+                <option>Motion</option>
+              </select>
+              <span class="caret" aria-hidden="true"></span>
+            </div>
+
+            <button class="btn" type="submit">Search</button>
+          </div>
+        </form>
+
+        <p class="hint">Search를 누르면 아래 섹션으로 이동합니다 · 엔터도 가능</p>
+      </div>
+    </header>
+
+    <!-- CONTENT (목표 스크롤 지점) -->
+    <section id="content">
+      <div class="content__inner">
+        <h2>Showcase</h2>
+        <p>
+          여기에 실제 포트폴리오 그리드가 들어갈 자리. 이후 섹션별 JS로
+          필터/정렬/무한스크롤 등을 붙일 예정.
+        </p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- 섹션별 스크립트: hero 전용 -->
+  <script src="js/hero.js" defer></script>
+</body>
+</html>

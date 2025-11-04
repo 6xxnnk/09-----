@@ -3,61 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Yunkyung Cho – Portfolio</title>
+  <title>Portfolio</title>
   <link rel="stylesheet" href="css/portfolioby__6xxnnk.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Butterfly+Kids&family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="wrap">
 
-    <!-- 01. HERO : 검색형 인트로 + 스크롤 내러티브 시작 -->
-     <!-- 01. HERO -->
+<!--  -->
     <header class="hero" aria-labelledby="heroTitle">
-      <div class="hero__inner">
-        <h1 id="heroTitle" class="logo" aria-label="portfolio">
-          <span class="p">p</span><span class="o1">o</span><span class="r">r</span><span class="t">t</span>
-          <span class="f">f</span><span class="o2">o</span><span class="l">l</span><span class="i">i</span><span class="o3">o</span>
-        </h1>
+  <div class="hero__inner">
+    <h1 id="heroTitle" class="logo" aria-label="portfolio">
+      <span class="p">p</span><span class="o1">o</span><span class="r">r</span><span class="t">t</span>
+      <span class="f">f</span><span class="o2">o</span><span class="l">l</span><span class="i">i</span><span class="o3">o</span>
+    </h1>
 
-        <!-- Search -->
-        <form class="search-wrap" id="searchForm" role="search">
-          <div class="search-bar">
-            <div class="input-area">
-              <input id="q" name="q" type="text" aria-label="검색어 입력" autocomplete="off" />
-              <div id="typingGhost" class="typing-ghost"></div>
-            </div>
-
-            <div class="select" aria-label="카테고리 선택">
-              <select id="cat" name="cat" aria-label="All Categories">
-                <option>All Categories</option>
-                <option>Branding</option>
-                <option>UI/UX</option>
-                <option>Web Publishing</option>
-                <option>Photography</option>
-                <option>Motion</option>
-              </select>
-              <span class="caret" aria-hidden="true"></span>
-            </div>
-
-            <button class="btn" type="submit">Search</button>
-          </div>
-        </form>
-
-        <p class="hint">Search를 누르면 아래 섹션으로 이동합니다 · 엔터도 가능</p>
+    <!-- ✅ .hero__inner 안으로 이동 -->
+    <form class="search-wrap" id="searchForm" role="search">
+      <div class="search-bar">
+        <div class="input-area">
+          <input id="q" name="q" type="text" aria-label="검색어 입력" autocomplete="off" />
+          <div id="typingGhost" class="typing-ghost"></div>
+        </div>
+        <div class="select" aria-label="카테고리 선택">
+          <select id="cat" name="cat" aria-label="All Categories">
+            <option>All Categories</option>
+            <option>Branding</option>
+            <option>UI/UX</option>
+            <option>Web Publishing</option>
+            <option>Photography</option>
+            <option>Motion</option>
+          </select>
+          <span class="caret" aria-hidden="true"></span>
+        </div>
+        <button class="btn" type="submit">Search</button>
       </div>
-    </header>
+    </form>
 
-    <!-- 임시 컨텐츠 -->
-    <section id="content">
-      <div class="container">
-        <h2>Showcase</h2>
-        <p>검색 버튼 클릭 시 여기로 스무스 스크롤됩니다.</p>
-      </div>
-    </section>
-
+    <p class="hero__hint">
+      <span class="divider"></span>
+      © 2026 Yunkyung Cho
+      <span class="divider"></span>
+    </p>
   </div>
+</header>
 <!-- =========================
   02. ABOUT ME (Scroll Narrative → 정보 카드형)
 ========================= -->
+
 <section class="about section" id="about" aria-labelledby="aboutTitle">
   <div class="container">
     <h2 id="aboutTitle" class="section__title">About Me</h2>
@@ -72,7 +69,7 @@
         <h3 class="about__name">조윤경 <span class="about__name--sub">Yunkyung Cho</span></h3>
         <ul class="about__list">
           <li><strong>Birth</strong> 1996.10.24</li>
-          <li><strong>Email</strong> <a href="mailto:your@email.com">your@email.com</a></li>
+          <li><strong>Email</strong> <a href="mailto:your@email.com">wholovesthesun@naver.com</a></li>
           <li><strong>Base</strong> Busan ↔ Seoul</li>
         </ul>
       </div>

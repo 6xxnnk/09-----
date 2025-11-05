@@ -10,9 +10,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Butterfly Kids, Cabin, Londrina Solid, Climate Crisis -->
   <link href="https://fonts.googleapis.com/css2?family=Butterfly+Kids&family=Cabin:ital,wght@0,400..700;1,400..700&family=Londrina+Solid&family=Climate+Crisis&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gasoek+One&display=swap" rel="stylesheet">
+  <!-- Swiper CDN -->
 
-  <!-- CSS -->
+
+
   <link rel="stylesheet" href="css/portfolioby__6xxnnk.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </head>
 <body>
   <div class="wrap">
@@ -62,13 +67,18 @@
     <section class="about section about-cvmap" id="about" aria-labelledby="aboutTitle">
       <div class="container">
 
-        <!-- 손글씨 타이틀 (별 삭제됨) -->
+        <!-- 손글씨 타이틀 -->
         <div class="cv-center" role="group" aria-label="About me heading" data-reveal>
           <svg class="ink-title-svg" viewBox="0 0 1200 220" aria-labelledby="aboutTitle">
-            <title id="aboutTitle">About me</title>
-            <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" class="ink-title-stroke">About me</text>
+            <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" class="ink-title-stroke">About me*</text>
           </svg>
         </div>
+
+        <!-- 프로필 이미지 -->
+<!--         <div class="profile">
+          <img src="img/Polaroid Stack.png" alt="#">
+        </div> -->
+
 
         <!-- 3x3 그리드로 모든 요소 한 화면에 배치 -->
         <div class="cv-map-grid">
@@ -103,8 +113,11 @@
             <ul class="list-plain">
               <li>~ 2022 와이폴라리스 : IT기업 마케팅 사원
                 <br>(국제인공지능대전/리테일테크쇼 등 전시 기획·콘텐츠 운영)</li>
-              <li>~ 2024 기아오토큐 동김해서비스 : 고객응대 & 문서관리</li>
-              <li>브랜드 간 SNS 협업 콘텐츠 다수 제작</li>
+                <li> <br> </li>
+              <li>~ 2024 기아오토큐 동김해서비스 
+                <br>  고객응대 및 문서관리</li>
+              <li> <br> </li>
+              <li>~ 2025 브랜드 간 SNS 협업 콘텐츠 다수 제작</li>
             </ul>
           </article>
 
@@ -128,161 +141,390 @@
       </div>
     </section>
 
-    <!-- 섹션 간격은 제거(히어로 바로 다음이 섹션2가 보이도록) -->
-
     <!-- =========================
       03. PROJECTS (세로 1열 큰 카드 + 지그재그 아이폰 4대)
     ========================= -->
-    <section class="projects section" id="works" aria-labelledby="projectsTitle">
-      <div class="container">
-        <h2 id="projectsTitle" class="section__title section__title--xxl climate">Projects</h2>
+<section class="section" id="projects">
 
-        <div class="project-list column">
-          <!-- Nespresso — iMac -->
-          <article class="imac-card device device--imac"
-                   data-images="img/nespresso-1.jpg,img/nespresso-2.jpg,img/nespresso-3.jpg">
-            <div class="imac">
-              <div class="imac__bezel">
-                <div class="device__screen imac__screen">
-                  <img src="img/nespresso-1.jpg" alt="Nespresso Redesign Preview">
+  <div class="container">
+    <h2 class="projects">Projects.</h2>
+    <div class="projects-grid">
+
+      <!-- iMac 1: Nespresso -->
+      <div class="imac-shell">
+        <div class="top-panel">
+          <div class="facetime"></div>
+          <div class="display-panel">
+            <img src="img/nespresso-1-vert.jpg" alt="Nespresso Redesign">
+          </div>
+        </div>
+        <div class="bottom-panel"><div class="apple-logo"></div></div>
+        <div class="stand"><div class="stand-right"></div><div class="stand-left"></div></div>
+      </div>
+      <div class="device-meta">
+        <div>
+          <h3>Nespresso Website Redesign</h3>
+          <p>Responsive Web · HTML/CSS/JS</p>
+        </div>
+        <a class="link" href="https://example.com/nespresso" target="_blank" rel="noopener">홈페이지 보기 →</a>
+      </div>
+
+      <!-- iMac 2: Tamburins -->
+      <div class="imac-shell">
+        <div class="top-panel">
+          <div class="facetime"></div>
+          <div class="display-panel">
+            <img src="img/tamburins-1-vert.jpg" alt="Tamburins Redesign">
+          </div>
+        </div>
+        <div class="bottom-panel"><div class="apple-logo"></div></div>
+        <div class="stand"><div class="stand-right"></div><div class="stand-left"></div></div>
+      </div>
+      <div class="device-meta">
+        <div>
+          <h3>Tamburins Web Redesign</h3>
+          <p>Figma · Styleguide</p>
+        </div>
+        <a class="link" href="https://example.com/tamburins" target="_blank" rel="noopener">홈페이지 보기 →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+      <!-- Glossier — iPhone (1대) -->
+      <section class="section" id="phones">
+  <div class="container">
+    <div class="phones-grid">
+
+      <!-- Glossier: 세로 스크롤(스크린 안에서 위로 자동 이동) -->
+      <div class="phone-row">
+        <div class="phone phone-glossier">
+          <div class="frame-base">
+            <div class="frame-base-light"></div>
+            <div class="side-button mute"></div>
+            <div class="side-button volume-up"></div>
+            <div class="side-button volume-down"></div>
+            <div class="side-button hold"></div>
+            <div class="stripe top"></div>
+            <div class="stripe bottom"></div>
+            <div class="port"></div>
+
+            <div class="layer2">
+              <div class="layer2-light"></div>
+              <div class="layer2-light light-right"></div>
+
+              <div class="screen">
+                <div class="mask">
+                  <div class="left-pie"></div>
+                  <div class="right-pie"></div>
+                  <div class="speaker"></div>
+                  <div class="camera"><div class="lenz left"></div><div class="lenz right"></div></div>
                 </div>
-              </div>
-              <div class="imac__stand"></div>
-            </div>
-            <div class="device__meta">
-              <h3 class="device__title">Nespresso Website Redesign</h3>
-              <p class="device__desc">Responsive Web · HTML/CSS/JS</p>
-            </div>
-          </article>
 
-          <!-- Tamburins — iMac -->
-          <article class="imac-card device device--imac"
-                   data-images="img/tamburins-1.jpg,img/tamburins-2.jpg">
-            <div class="imac">
-              <div class="imac__bezel">
-                <div class="device__screen imac__screen">
-                  <img src="img/tamburins-1.jpg" alt="Tamburins Redesign Preview">
-                </div>
-              </div>
-              <div class="imac__stand"></div>
-            </div>
-            <div class="device__meta">
-              <h3 class="device__title">Tamburins Web Redesign</h3>
-              <p class="device__desc">Figma · Styleguide</p>
-            </div>
-          </article>
-
-          <!-- Glossier — iPhone (1대) -->
-          <article class="iphone-card device device--iphone"
-                   data-images="img/glossier-1.jpg,img/glossier-2.jpg,img/glossier-3.jpg">
-            <div class="iphone">
-              <div class="iphone__frame">
-                <div class="device__screen iphone__screen">
-                  <img src="img/glossier-1.jpg" alt="Glossier App Preview">
-                </div>
-              </div>
-              <div class="iphone__shadow" aria-hidden="true"></div>
-            </div>
-            <div class="device__meta">
-              <h3 class="device__title">Glossier Mobile App</h3>
-              <p class="device__desc">Figma + Front-end</p>
-            </div>
-          </article>
-
-          <!-- Zigzag — iPhone 4대 그리드 -->
-          <article class="iphone-grid-card">
-            <div class="device__meta">
-              <h3 class="device__title">Zigzag App Redesign</h3>
-              <p class="device__desc">UX Flow · Product Thinking</p>
-            </div>
-
-            <div class="iphone-grid">
-              <!-- 아이폰 목업 1 -->
-              <div class="device device--iphone small" data-images="img/zigzag-1.jpg">
-                <div class="iphone">
-                  <div class="iphone__frame">
-                    <div class="device__screen iphone__screen">
-                      <img src="img/zigzag-1.jpg" alt="Zigzag Screen 1">
-                    </div>
+                <div class="screen-inner">
+                  <div class="stack" id="glossierStack">
+                    <img src="img/glossier-1.jpg" alt="">
+                    <img src="img/glossier-2.jpg" alt="">
+                    <img src="img/glossier-3.jpg" alt="">
                   </div>
-                  <div class="iphone__shadow" aria-hidden="true"></div>
                 </div>
-              </div>
-              <!-- 아이폰 목업 2 -->
-              <div class="device device--iphone small" data-images="img/zigzag-2.jpg">
-                <div class="iphone">
-                  <div class="iphone__frame">
-                    <div class="device__screen iphone__screen">
-                      <img src="img/zigzag-2.jpg" alt="Zigzag Screen 2">
-                    </div>
-                  </div>
-                  <div class="iphone__shadow" aria-hidden="true"></div>
-                </div>
-              </div>
-              <!-- 아이폰 목업 3 -->
-              <div class="device device--iphone small" data-images="img/zigzag-3.jpg">
-                <div class="iphone">
-                  <div class="iphone__frame">
-                    <div class="device__screen iphone__screen">
-                      <img src="img/zigzag-3.jpg" alt="Zigzag Screen 3">
-                    </div>
-                  </div>
-                  <div class="iphone__shadow" aria-hidden="true"></div>
-                </div>
-              </div>
-              <!-- 아이폰 목업 4 -->
-              <div class="device device--iphone small" data-images="img/zigzag-4.jpg">
-                <div class="iphone">
-                  <div class="iphone__frame">
-                    <div class="device__screen iphone__screen">
-                      <img src="img/zigzag-4.jpg" alt="Zigzag Screen 4">
-                    </div>
-                  </div>
-                  <div class="iphone__shadow" aria-hidden="true"></div>
-                </div>
-              </div>
-            </div>
-          </article>
-
+              </div><!-- .screen -->
+            </div><!-- .layer2 -->
+          </div><!-- .frame-base -->
+        </div>
+        <div class="phone-meta">
+          <h3>Glossier Mobile App</h3>
+          <p>Figma + Front-end</p>
+          <a class="link" href="https://example.com/glossier" target="_blank" rel="noopener">홈페이지 보기 →</a>
         </div>
       </div>
-    </section>
 
-    <!-- =========================
-      04. INSTAGRAM COLLABS
-    ========================= -->
-    <section class="collabs section" id="collabs" aria-labelledby="collabsTitle">
-      <div class="container">
-        <h2 id="collabsTitle" class="section__title section__title--xxl climate">Instagram Collab</h2>
+       <!-- Zigzag: 아이폰 4대 1줄 -->
+      <div class="phone-row">
+        <div class="zigzag-row">
+          <!-- iPhone 1 -->
+          <div class="frame-base">
+            <div class="frame-base-light"></div>
+            <div class="side-button mute"></div>
+            <div class="side-button volume-up"></div>
+            <div class="side-button volume-down"></div>
+            <div class="side-button hold"></div>
+            <div class="stripe top"></div>
+            <div class="stripe bottom"></div>
+            <div class="port"></div>
+            <div class="layer2">
+              <div class="layer2-light"></div>
+              <div class="layer2-light light-right"></div>
+              <div class="screen">
+                <div class="mask">
+                  <div class="left-pie"></div><div class="right-pie"></div>
+                  <div class="speaker"></div>
+                  <div class="camera"><div class="lenz left"></div><div class="lenz right"></div></div>
+                </div>
+                <img id="background" src="img/zigzag-1.jpg" alt="">
+              </div>
+            </div>
+          </div>
+          <!-- iPhone 2 -->
+          <div class="frame-base">
+            <div class="frame-base-light"></div>
+            <div class="side-button mute"></div>
+            <div class="side-button volume-up"></div>
+            <div class="side-button volume-down"></div>
+            <div class="side-button hold"></div>
+            <div class="stripe top"></div>
+            <div class="stripe bottom"></div>
+            <div class="port"></div>
+            <div class="layer2">
+              <div class="layer2-light"></div>
+              <div class="layer2-light light-right"></div>
+              <div class="screen">
+                <div class="mask">
+                  <div class="left-pie"></div><div class="right-pie"></div>
+                  <div class="speaker"></div>
+                  <div class="camera"><div class="lenz left"></div><div class="lenz right"></div></div>
+                </div>
+                <img id="background" src="img/zigzag-2.jpg" alt="">
+              </div>
+            </div>
+          </div>
+          <!-- iPhone 3 -->
+          <div class="frame-base">
+            <div class="frame-base-light"></div>
+            <div class="side-button mute"></div>
+            <div class="side-button volume-up"></div>
+            <div class="side-button volume-down"></div>
+            <div class="side-button hold"></div>
+            <div class="stripe top"></div>
+            <div class="stripe bottom"></div>
+            <div class="port"></div>
+            <div class="layer2">
+              <div class="layer2-light"></div>
+              <div class="layer2-light light-right"></div>
+              <div class="screen">
+                <div class="mask">
+                  <div class="left-pie"></div><div class="right-pie"></div>
+                  <div class="speaker"></div>
+                  <div class="camera"><div class="lenz left"></div><div class="lenz right"></div></div>
+                </div>
+                <img id="background" src="img/zigzag-3.jpg" alt="">
+              </div>
+            </div>
+          </div>
+          <!-- iPhone 4 -->
+          <div class="frame-base">
+            <div class="frame-base-light"></div>
+            <div class="side-button mute"></div>
+            <div class="side-button volume-up"></div>
+            <div class="side-button volume-down"></div>
+            <div class="side-button hold"></div>
+            <div class="stripe top"></div>
+            <div class="stripe bottom"></div>
+            <div class="port"></div>
+            <div class="layer2">
+              <div class="layer2-light"></div>
+              <div class="layer2-light light-right"></div>
+              <div class="screen">
+                <div class="mask">
+                  <div class="left-pie"></div><div class="right-pie"></div>
+                  <div class="speaker"></div>
+                  <div class="camera"><div class="lenz left"></div><div class="lenz right"></div></div>
+                </div>
+                <img id="background" src="img/zigzag-4.jpg" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <div class="collab-grid">
-          <article class="collab-tile" data-brand="ERA Denim">
-            <div class="tile__inner">
-              <div class="tile__label">ERA Denim</div>
-              <div class="tile__slot">Content Slot</div>
-            </div>
-          </article>
-          <article class="collab-tile" data-brand="ABIB">
-            <div class="tile__inner">
-              <div class="tile__label">ABIB</div>
-              <div class="tile__slot">Content Slot</div>
-            </div>
-          </article>
-          <article class="collab-tile" data-brand="KIRSH">
-            <div class="tile__inner">
-              <div class="tile__label">KIRSH</div>
-              <div class="tile__slot">Content Slot</div>
-            </div>
-          </article>
-          <article class="collab-tile" data-brand="PORTER">
-            <div class="tile__inner">
-              <div class="tile__label">PORTER</div>
-              <div class="tile__slot">Content Slot</div>
-            </div>
-          </article>
+        <div class="phone-meta">
+          <h3>Zigzag App Redesign</h3>
+          <p>UX Flow · Product Thinking</p>
+          <a class="link" href="https://example.com/zigzag" target="_blank" rel="noopener">홈페이지 보기 →</a>
         </div>
       </div>
-    </section>
+
+    </div>
+  </div>
+</section>
+<!-- =========================
+     05. INSTAGRAM — 6xxnnk
+     (stories 없음, 갤러리 부제목 삭제)
+========================= -->
+<section id="instagram" class="ig section" aria-labelledby="igTitle">
+  <div class="container ig__container">
+    <header class="ig__header">
+      <div class="ig__profile">
+        <img class="ig__avatar" src="img/ig/avatar-6xxnnk.jpg" alt="6xxnnk avatar" />
+        <div class="ig__meta">
+          <h2 id="igTitle" class="ig__username">6xxnnk</h2>
+          <p class="ig__bio">Ad/Seeding · 협찬 콘텐트 포트폴리오</p>
+        </div>
+      </div>
+      <ul class="ig__stats" aria-label="profile stats">
+        <li><strong>234</strong><span>posts</span></li>
+        <li><strong>1,927</strong><span>followers</span></li>
+        <li><strong>512</strong><span>following</span></li>
+      </ul>
+    </header>
+
+    <!-- 갤러리: 브랜드별 9개 -->
+    <div class="ig__grid">
+      <!-- 마뗑킴 -->
+      <article class="gallery-item" data-brand="마뗑킴"
+        data-images="img/ig/matinkim-1.jpg,img/ig/matinkim-2.jpg,img/ig/matinkim-3.jpg">
+        <div class="post-card">
+          <span class="post-badge">post</span>
+          <div class="post-thumb">
+            <img src="img/ig/matinkim-1.jpg" alt="마뗑킴 협찬 피드" loading="lazy">
+          </div>
+          <footer class="post-meta">
+            <span class="brand">MATIN KIM</span>
+            <span class="hashtag">#ad #seeding</span>
+          </footer>
+        </div>
+      </article>
+
+      <!-- 키르시 -->
+      <article class="gallery-item" data-brand="키르시"
+        data-images="img/ig/kirsh-1.jpg,img/ig/kirsh-2.jpg">
+        <div class="post-card">
+          <span class="post-badge">post</span>
+          <div class="post-thumb">
+            <img src="img/ig/kirsh-1.jpg" alt="키르시 협찬 피드" loading="lazy">
+          </div>
+          <footer class="post-meta">
+            <span class="brand">KIRSH</span>
+            <span class="hashtag">#ad #gifted</span>
+          </footer>
+        </div>
+      </article>
+
+      <!-- 포터코리아 -->
+      <article class="gallery-item" data-brand="포터코리아"
+        data-images="img/ig/porter-1.jpg,img/ig/porter-2.jpg">
+        <div class="post-card">
+          <span class="post-badge">post</span>
+          <div class="post-thumb">
+            <img src="img/ig/porter-1.jpg" alt="포터코리아 협찬 피드" loading="lazy">
+          </div>
+          <footer class="post-meta">
+            <span class="brand">PORTER KOREA</span>
+            <span class="hashtag">#ad</span>
+          </footer>
+        </div>
+      </article>
+
+      <!-- 아비브 -->
+      <article class="gallery-item" data-brand="아비브"
+        data-images="img/ig/abib-1.jpg,img/ig/abib-2.jpg,img/ig/abib-3.jpg">
+        <div class="post-card">
+          <span class="post-badge">post</span>
+          <div class="post-thumb">
+            <img src="img/ig/abib-1.jpg" alt="아비브 협찬 피드" loading="lazy">
+          </div>
+          <footer class="post-meta">
+            <span class="brand">ABIB</span>
+            <span class="hashtag">#gifted</span>
+          </footer>
+        </div>
+      </article>
+
+      <!-- LMC -->
+      <article class="gallery-item" data-brand="엘엠씨"
+        data-images="img/ig/lmc-1.jpg,img/ig/lmc-2.jpg">
+        <div class="post-card">
+          <span class="post-badge">post</span>
+          <div class="post-thumb">
+            <img src="img/ig/lmc-1.jpg" alt="LMC 협찬 피드" loading="lazy">
+          </div>
+          <footer class="post-meta">
+            <span class="brand">LMC</span>
+            <span class="hashtag">#seeding</span>
+          </footer>
+        </div>
+      </article>
+
+      <!-- 폴리수엠 -->
+      <article class="gallery-item" data-brand="폴리수엠"
+        data-images="img/ig/polissuem-1.jpg,img/ig/polissuem-2.jpg">
+        <div class="post-card">
+          <span class="post-badge">post</span>
+          <div class="post-thumb">
+            <img src="img/ig/polissuem-1.jpg" alt="폴리수엠 협찬 피드" loading="lazy">
+          </div>
+          <footer class="post-meta">
+            <span class="brand">POLISSUEM</span>
+            <span class="hashtag">#ad</span>
+          </footer>
+        </div>
+      </article>
+
+      <!-- 리트리버클럽 -->
+      <article class="gallery-item" data-brand="리트리버클럽"
+        data-images="img/ig/retrieverclub-1.jpg,img/ig/retrieverclub-2.jpg">
+        <div class="post-card">
+          <span class="post-badge">post</span>
+          <div class="post-thumb">
+            <img src="img/ig/retrieverclub-1.jpg" alt="리트리버클럽 협찬 피드" loading="lazy">
+          </div>
+          <footer class="post-meta">
+            <span class="brand">RETRIEVER CLUB</span>
+            <span class="hashtag">#gifted</span>
+          </footer>
+        </div>
+      </article>
+
+      <!-- 피지컬에듀케이션뎁트 -->
+      <article class="gallery-item" data-brand="피지컬에듀케이션뎁트"
+        data-images="img/ig/ped-1.jpg,img/ig/ped-2.jpg">
+        <div class="post-card">
+          <span class="post-badge">post</span>
+          <div class="post-thumb">
+            <img src="img/ig/ped-1.jpg" alt="피지컬에듀케이션뎁트 협찬 피드" loading="lazy">
+          </div>
+          <footer class="post-meta">
+            <span class="brand">PHYSICAL EDUCATION DEPT.</span>
+            <span class="hashtag">#ad</span>
+          </footer>
+        </div>
+      </article>
+
+      <!-- aippo -->
+      <article class="gallery-item" data-brand="aippo"
+        data-images="img/ig/aippo-1.jpg,img/ig/aippo-2.jpg,img/ig/aippo-3.jpg">
+        <div class="post-card">
+          <span class="post-badge">post</span>
+          <div class="post-thumb">
+            <img src="img/ig/aippo-1.jpg" alt="aippo 협찬 피드" loading="lazy">
+          </div>
+          <footer class="post-meta">
+            <span class="brand">AIPPO</span>
+            <span class="hashtag">#gifted</span>
+          </footer>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- Lightbox (배경 투명, 이미지만 확대 + 스와이프) -->
+  <div id="lightbox" class="ig-lb" aria-hidden="true">
+    <button id="lbClose" class="ig-lb__close" aria-label="close">×</button>
+
+    <div class="ig-lb__stage">
+      <div id="lbSwiper" class="swiper ig-lb__swiper">
+        <div class="swiper-wrapper"></div>
+
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
   </div>
 
@@ -292,6 +534,8 @@
   <script src="js/about-ink.js" defer></script>
   <script src="js/projects.js" defer></script>
   <script src="js/projects-devices.js" defer></script>
+  <script src="js/glossier-auto-scroll.js" defer></script>
+  <script src="js/instagram-lightbox.js" defer></script>
   <script src="js/collabs.js" defer></script>
 </body>
 </html>

@@ -241,131 +241,105 @@
         </div>
       </div>
 
-       <!-- Zigzag: 아이폰 4대 1줄 -->
-      <div class="phone-row">
-        <div class="zigzag-row">
-          <!-- iPhone 1 -->
-          <div class="frame-base">
-            <div class="frame-base-light"></div>
-            <div class="side-button mute"></div>
-            <div class="side-button volume-up"></div>
-            <div class="side-button volume-down"></div>
-            <div class="side-button hold"></div>
-            <div class="stripe top"></div>
-            <div class="stripe bottom"></div>
-            <div class="port"></div>
-            <div class="layer2">
-              <div class="layer2-light"></div>
-              <div class="layer2-light light-right"></div>
-              <div class="screen">
-                <div class="mask">
-                  <div class="left-pie"></div><div class="right-pie"></div>
-                  <div class="speaker"></div>
-                  <div class="camera"><div class="lenz left"></div><div class="lenz right"></div></div>
-                </div>
-                <img id="background" src="img/zigzag-1.jpg" alt="">
-              </div>
-            </div>
-          </div>
-          <!-- iPhone 2 -->
-          <div class="frame-base">
-            <div class="frame-base-light"></div>
-            <div class="side-button mute"></div>
-            <div class="side-button volume-up"></div>
-            <div class="side-button volume-down"></div>
-            <div class="side-button hold"></div>
-            <div class="stripe top"></div>
-            <div class="stripe bottom"></div>
-            <div class="port"></div>
-            <div class="layer2">
-              <div class="layer2-light"></div>
-              <div class="layer2-light light-right"></div>
-              <div class="screen">
-                <div class="mask">
-                  <div class="left-pie"></div><div class="right-pie"></div>
-                  <div class="speaker"></div>
-                  <div class="camera"><div class="lenz left"></div><div class="lenz right"></div></div>
-                </div>
-                <img id="background" src="img/zigzag-2.jpg" alt="">
-              </div>
-            </div>
-          </div>
-          <!-- iPhone 3 -->
-          <div class="frame-base">
-            <div class="frame-base-light"></div>
-            <div class="side-button mute"></div>
-            <div class="side-button volume-up"></div>
-            <div class="side-button volume-down"></div>
-            <div class="side-button hold"></div>
-            <div class="stripe top"></div>
-            <div class="stripe bottom"></div>
-            <div class="port"></div>
-            <div class="layer2">
-              <div class="layer2-light"></div>
-              <div class="layer2-light light-right"></div>
-              <div class="screen">
-                <div class="mask">
-                  <div class="left-pie"></div><div class="right-pie"></div>
-                  <div class="speaker"></div>
-                  <div class="camera"><div class="lenz left"></div><div class="lenz right"></div></div>
-                </div>
-                <img id="background" src="img/zigzag-3.jpg" alt="">
-              </div>
-            </div>
-          </div>
-          <!-- iPhone 4 -->
-          <div class="frame-base">
-            <div class="frame-base-light"></div>
-            <div class="side-button mute"></div>
-            <div class="side-button volume-up"></div>
-            <div class="side-button volume-down"></div>
-            <div class="side-button hold"></div>
-            <div class="stripe top"></div>
-            <div class="stripe bottom"></div>
-            <div class="port"></div>
-            <div class="layer2">
-              <div class="layer2-light"></div>
-              <div class="layer2-light light-right"></div>
-              <div class="screen">
-                <div class="mask">
-                  <div class="left-pie"></div><div class="right-pie"></div>
-                  <div class="speaker"></div>
-                  <div class="camera"><div class="lenz left"></div><div class="lenz right"></div></div>
-                </div>
-                <img id="background" src="img/zigzag-4.jpg" alt="">
-              </div>
-            </div>
-          </div>
-        </div>
+<section class="proj proj--zigzag-v2" id="zigzag">
+  <h2 class="proj__title">Zigzag App Redesign</h2>
+  <p class="kicker">기존 홈/탐색/상세/체크아웃 플로우의 밀도·가독성·전환 요소를 재배치 <br>
+        스크롤 피로를 낮추고, 필터/정렬 접근성을 높임 <br>
+        상세에서 비주얼–리뷰–옵션 순서를 재구성해 CTA 도달률을 개선
+      </p>
 
-        <div class="phone-meta">
-          <h3>Zigzag App Redesign</h3>
-          <p>UX Flow · Product Thinking</p>
-          <a class="link" href="https://example.com/zigzag" target="_blank" rel="noopener">홈페이지 보기 →</a>
+  <div class="zz-layout">
+    <!-- 왼쪽: 2x2 썸네일 -->
+    <div class="zz-left" id="zzThumbs">
+      <button class="zz-thumb is-active" data-target="1" aria-label="썸네일 1">
+        <img src="img/zigzag-HOME.jpg" alt="">
+        <span class="dot">1</span>
+      </button>
+      <button class="zz-thumb" data-target="2" aria-label="썸네일 2">
+        <img src="img/zigzag-PRODUCT.jpg" alt="">
+        <span class="dot">2</span>
+      </button>
+      <button class="zz-thumb" data-target="3" aria-label="썸네일 3">
+        <img src="img/zigzag-ORDER.jpg" alt="">
+        <span class="dot">3</span>
+      </button>
+      <button class="zz-thumb" data-target="4" aria-label="썸네일 4">
+        <img src="img/zigzag-MYPAGE.jpg " alt="">
+        <span class="dot">4</span>
+      </button>
+    </div>
+
+    <!-- 오른쪽: 각 썸네일에 대응하는 슬라이더 4개 중 1개만 표시 -->
+    <div class="zz-right" id="zzRight">
+      <!-- S1 -->
+      <div class="zz-swiper is-active" data-id="1">
+        <div class="swiper" id="zz-s1">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="img/zigzag-HOME-mockip.png" alt=""></div>
+            <div class="swiper-slide"><img src="img/zigzag-PRODUCT-mockip.png" alt=""></div>
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
         </div>
       </div>
 
+      <!-- S2 -->
+      <div class="zz-swiper" data-id="2">
+        <div class="swiper" id="zz-s2">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="img/zigzag-PRODUCT-mockip.png" alt=""></div>
+            <div class="swiper-slide"><img src="img/zigzag-ORDER-mockip.png" alt=""></div>
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </div>
+
+      <!-- S3 -->
+      <div class="zz-swiper" data-id="3">
+        <div class="swiper" id="zz-s3">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="img/zigzag-ORDER-mockip.png" alt=""></div>
+            <div class="swiper-slide"><img src="img/zigzag-MYPAGE-mockip.png" alt=""></div>
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </div>
+
+      <!-- S4 -->
+      <div class="zz-swiper" data-id="4">
+        <div class="swiper" id="zz-s4">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="img/zigzag-MYPAGE-mockip.png" alt=""></div>
+            <div class="swiper-slide"><img src="img/zigzag-HOME-mockip.png" alt=""></div>
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+
 <!-- =========================
-     05. INSTAGRAM — 6xxnnk
-     (stories 없음, 갤러리 부제목 삭제)
+     05. INSTAGRAM 
 ========================= -->
 <section id="instagram" class="ig section" aria-labelledby="igTitle">
   <div class="container ig__container">
     <header class="ig__header">
       <div class="ig__profile">
-        <img class="ig__avatar" src="img/ig/avatar-6xxnnk.jpg" alt="6xxnnk avatar" />
+        <img class="ig__avatar" src="img/Polaroid Stack.png" alt="6xxnnk avatar" />
         <div class="ig__meta">
           <h2 id="igTitle" class="ig__username">6xxnnk</h2>
           <p class="ig__bio">Ad/Seeding · 협찬 콘텐트 포트폴리오</p>
         </div>
       </div>
       <ul class="ig__stats" aria-label="profile stats">
-        <li><strong>234</strong><span>posts</span></li>
-        <li><strong>1,927</strong><span>followers</span></li>
-        <li><strong>512</strong><span>following</span></li>
+        <li><strong>777</strong><span>posts</span></li>
+        <li><strong>2,217</strong><span>followers</span></li>
+        <li><strong>256</strong><span>following</span></li>
       </ul>
     </header>
 
@@ -529,12 +503,15 @@
   </div>
 
   <!-- JS (분리 유지) -->
+  <script src="js/cursor-sun.js" defer></script>
   <script src="js/hero.js" defer></script>
   <script src="js/about-cvmap.js" defer></script>
   <script src="js/about-ink.js" defer></script>
   <script src="js/projects.js" defer></script>
   <script src="js/projects-devices.js" defer></script>
   <script src="js/glossier-auto-scroll.js" defer></script>
+  <script src="js/zigzag-panels.js" defer></script>
+  <script src="js/zigzag-swipers.js" defer></script>
   <script src="js/instagram-lightbox.js" defer></script>
   <script src="js/collabs.js" defer></script>
 </body>

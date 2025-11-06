@@ -18,13 +18,97 @@
   --shadow: 0 1rem 3rem rgba(0,0,0,.12);
 }
 *{box-sizing:border-box}
-html{ font-size:62.5%; scroll-behavior:smooth; }
+html{ font-size:62.5%; scroll-behavior:smooth;  cursor: none;
+overflow-x: hidden;}
 body{
   margin:0; color:var(--text); background:var(--bg);
   font-family: ui-sans-serif, -apple-system, "Noto Sans KR", "Segoe UI", Roboto, Arial, sans-serif;
   line-height:1.5; 
 }
 img{ max-width:100%; display:block; }
+
+/* 폼/인터랙티브 요소는 시스템 커서로 복구 (접근성) */
+a, button, [role="button"], input, textarea, select {
+  cursor: auto !important;
+}
+/* 커스텀 해상도 안전 영역 */
+#cursorSun {
+  position: fixed;
+  left: 0; top: 0;
+  width: 32px; height: 32px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  font-size: 24px;
+  line-height: 32px;
+  text-align: center;
+  user-select: none;
+  will-change: transform;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.18));
+}
+
+/* 클릭시 살짝 눌리는 느낌 */
+#cursorSun.is-down { transform: translate(-50%, -50%) scale(.92); }
+
+/* 링크/버튼 위에서는 조금 커지기 */
+a:hover ~ #cursorSun,
+button:hover ~ #cursorSun,
+[role="button"]:hover ~ #cursorSun {
+  font-size: 26px;
+}
+
+
+
+/* ===== Scrollbar (WebKit 계열) ===== */
+:root{
+  --sun-thumb: #f2b705;   /* 태양 노랑 */
+  --sun-thumb-2: #f7c841; /* 하이라이트 */
+  --sun-track: #fff7d1;   /* 밝은 트랙 */
+  --sun-border: #ffed99;  /* 얇은 외곽선 */
+}
+
+/* 크롬/엣지/사파리 */
+*::-webkit-scrollbar{
+  width: 12px;
+  height: 12px;
+}
+*::-webkit-scrollbar-track{
+  background: linear-gradient(180deg, var(--sun-track), #ffffff);
+  border-left: 1px solid var(--sun-border);
+}
+*::-webkit-scrollbar-thumb{
+  background: radial-gradient(circle at 30% 30%, var(--sun-thumb-2), var(--sun-thumb));
+  border: 2px solid #fff;
+  border-radius: 999rem;
+  box-shadow: inset 0 0 6px rgba(0,0,0,.12);
+}
+*::-webkit-scrollbar-thumb:hover{
+  background: radial-gradient(circle at 30% 30%, #ffd24d, #f2b705);
+}
+
+/* 파이어폭스 */
+html{
+  scrollbar-width: thin;
+  scrollbar-color: var(--sun-thumb) var(--sun-track);
+}
+
+/* 라이트박스 내부처럼 어두운 배경에선 대비 강화(선택) */
+.ig-lb *::-webkit-scrollbar-track { background: #0b0b0b; border-left: 1px solid #111; }
+.ig-lb *::-webkit-scrollbar-thumb { border-color: #0b0b0b; }
+.ig-lb html { scrollbar-color: var(--sun-thumb) #0b0b0b; }
+
+/* 모션 최소화 선호 시 부드러운 추종 비활성 느낌 보정 */
+@media (prefers-reduced-motion: reduce){
+  #cursorSun { transition: none !important; }
+}
+
+
+
+
+
+
+
+
 
 
 .wrap{ min-height:100dvh; display:flex; flex-direction:column; }
@@ -491,42 +575,243 @@ img{ max-width:100%; display:block; }
 
 /* ===============================
    Section 4 — Phones (Glossier / Zigzag)
-=============================== */
-.phones-grid{ display:grid; gap:4rem }
-.phone-row{
-  display:grid; gap:2rem; align-items:center;
+   (이 파일만 전체 교체 붙여넣기)
+================================= */
+
+/* 필요 변수(없으면 기본값으로 동작) */
+:root{
+  --bd: #e5e7eb;
+  --muted: #6b7280;
 }
+
+/* 공통 레이아웃 */
+.phones-grid{ display:grid; gap:4rem; }
+.phone-row{ display:grid; gap:2rem; align-items:center; }
 @media (min-width:980px){
   .phone-row{ grid-template-columns: 360px 1fr; }
 }
-.phone-meta{ border:1px solid var(--bd); border-radius:1.2rem; padding:1.6rem }
-.phone-meta h3{ margin:0 0 .6rem; font-size:1.8rem }
-.phone-meta p{ margin:0 0 1.2rem; color:var(--muted); font-size:1.4rem }
-.phone-meta .link{ display:inline-block; padding:.8rem 1.2rem; border:1px solid var(--bd); border-radius:.8rem; text-decoration:none; font-weight:700 }
 
-/* Glossier: 세로 스크롤 뷰어 */
+/* 메타 카드 */
+.phone-meta{
+  border:1px solid var(--bd);
+  border-radius:1.2rem;
+  padding:1.6rem;
+}
+.phone-meta h3{ margin:0 0 .6rem; font-size:1.8rem; }
+.phone-meta p{ margin:0 0 1.2rem; color:var(--muted); font-size:1.4rem; }
+.phone-meta .link{
+  display:inline-block; padding:.8rem 1.2rem;
+  border:1px solid var(--bd); border-radius:.8rem;
+  text-decoration:none; font-weight:700;
+}
+
+/* ========== Glossier: 세로 스크롤 뷰어 ========== */
+/* 프레임 내부 스크린 컨테이너는 HTML의 .screen 안에 존재 */
 .phone-glossier .screen-inner{
   position:absolute; inset:0; overflow:hidden;
 }
+
+/* 화면 스택(세로 길게 이어붙인 이미지) */
 .phone-glossier .stack{
   position:absolute; left:0; top:0; width:100%;
   transition: transform 14s linear; /* 자동 스크롤 */
 }
-.phone-glossier .stack img{ width:100%; display:block }
-.phone-glossier.in-view .stack{ transform: translateY(-66%); } /* 뷰포트에 들어오면 자동 스크롤 */
-.phone-glossier .stack.reset{ transform: translateY(0); transition:transform .8s ease; }
+.phone-glossier .stack img{ width:100%; display:block; }
 
-/* Zigzag: 가로 슬라이더 */
+/* 뷰포트 들어오면 자동 스크롤 업 */
+.phone-glossier.in-view .stack{ transform: translateY(-66%); }
 
-/* ====== Zigzag: 4대 1줄 배치 ====== */
-.zigzag-row{
-  display:grid;
-  grid-template-columns: repeat(4, minmax(0,1fr));
-  gap:1.6rem;
+/* 재진입 시 초기화용 */
+.phone-glossier .stack.reset{
+  transform: translateY(0);
+  transition: transform .8s ease;
 }
-.zigzag-row .frame-base{ margin:0; } /* 한 줄 정렬용 */
-.slider-nav button{
-  border:1px solid var(--bd); background:#fff; padding:.6rem .9rem; border-radius:.6rem; cursor:pointer; font-weight:700;
+
+/* ========== Zigzag: 2×2 썸네일 + 패널 스와이퍼 ========== */
+
+/* ===============================
+   Zigzag Redesign Section
+   (윤경 포트폴리오 무드 버전)
+================================= */
+
+.proj--zigzag-v2 {
+  margin: 8rem 0;
+}
+.proj--zigzag-v2 .proj__title {
+  margin: 0 0 .6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.proj--zigzag-v2 .kicker {
+  color: #6b7280;
+  margin: 0 0 3rem;
+  line-height: 1.6;
+  font-size: 1.5rem;
+}
+
+/* 전체 레이아웃 */
+.zz-layout {
+  display: grid;
+  grid-template-columns: min(46rem, 45%) 1fr;
+  gap: 3rem;
+  align-items: center; /* 오른쪽 슬라이드가 중앙정렬되도록 */
+}
+
+/* 왼쪽 2×2 썸네일 */
+.zz-left {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 썸네일 사이즈 축소 (살짝 작게) */
+.zz-thumb {
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+  aspect-ratio: 9 / 19;
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  transition: transform .25s ease, box-shadow .25s ease, outline-color .25s;
+  outline: 2px solid transparent;
+}
+.zz-thumb:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.1);
+}
+.zz-thumb.is-active {
+  outline-color: #d6c098; /* 은은한 골드 포커스 */
+}
+.zz-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .3s ease;
+}
+.zz-thumb:hover img {
+  transform: scale(1.02);
+}
+
+/* 썸네일 넘버 뱃지 (윤경 무드: 블러+미색+얇은 폰트) */
+.zz-thumb .dot {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,0.4);
+  backdrop-filter: blur(6px);
+  color: #2b2b2b;
+  font: 600 13px/1 "Manrope", sans-serif;
+  border: 1px solid rgba(255,255,255,0.5);
+  transition: all .2s ease;
+}
+.zz-thumb.is-active .dot {
+  background: #d6c098;
+  color: #111;
+  border-color: #d6c098;
+}
+
+/* 오른쪽 슬라이드 영역 */
+.zz-right {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;   /* 중앙정렬 */
+  height: 600px;         /* 살짝 높이 키움 */
+  min-height: 560px;
+}
+
+/* 패널 토글 (opacity 방식 유지) */
+.zz-swiper {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .3s ease;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.zz-swiper.is-active {
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* 슬라이드 자체 크기 조금 확대 (세로 강조) */
+.zz-swiper .swiper {
+  width: 420px;
+  height: 620px;
+  border: none;
+  border-radius: 1.6rem;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,.12);
+}
+.zz-swiper .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.zz-swiper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+  box-shadow: none;
+  transition: transform .5s ease;
+}
+.zz-swiper img:hover {
+  transform: scale(1.02);
+}
+
+/* Swiper 네비게이션 — 윤경 포트폴리오 톤 맞춤 */
+.zz-swiper .swiper-button-prev,
+.zz-swiper .swiper-button-next {
+  --swiper-navigation-size: 34px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(4px);
+  color: #111;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  transition: all .25s ease;
+}
+.zz-swiper .swiper-button-prev:hover,
+.zz-swiper .swiper-button-next:hover {
+  background: #d6c098;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* 네비게이션 위치 조정 */
+.zz-swiper .swiper-button-prev { left: -60px; }
+.zz-swiper .swiper-button-next { right: -60px; }
+
+/* 작은 화면 대응 */
+@media (max-width:900px){
+  .zz-layout {
+    grid-template-columns: 1fr;
+  }
+  .zz-left { order: 2; }
+  .zz-right { order: 1; height: 520px; }
+  .zz-swiper .swiper { width: 360px; height: 520px; }
+  .zz-swiper .swiper-button-prev,
+  .zz-swiper .swiper-button-next { display: none; }
 }
 
 /* ===============================

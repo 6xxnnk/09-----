@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Butterfly Kids, Cabin, Londrina Solid, Climate Crisis -->
   <link href="https://fonts.googleapis.com/css2?family=Butterfly+Kids&family=Cabin:ital,wght@0,400..700;1,400..700&family=Londrina+Solid&family=Climate+Crisis&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Gasoek+One&display=swap" rel="stylesheet">
   <!-- Swiper CDN -->
 
@@ -157,11 +158,12 @@
 ========================= -->  
 <section class="projects">
   <div class="container">
-<strong class="projects-title">Table of contents...</strong>
+<strong class="projects-title">Table of contents</strong>
 <div class="projects-grid">
 
 
 <!-- 1: Nespresso -->
+<div id="nespresso" class="nespresso">...01</div>
 <div class="imac-shell">
   <div class="top-panel">
     <div class="facetime"></div>
@@ -216,6 +218,7 @@
 
 
 <!-- Tamburins iMac -->
+<div id="tamburins" class="nespresso">...02</div>
 <div class="imac-shell">
   <div class="top-panel">
     <div class="facetime"></div>
@@ -280,10 +283,11 @@
   </div>
 </div>
 
-</section>
 
 <!-- 2: Glossier — iPhone (1대) -->
+
       <section class="phones" id="phones">
+        <div id="glossier" class="glossier">03...</div>
   <div class="container">
     <div class="phones-grid">
 
@@ -301,30 +305,43 @@
               title="Glossier — mobile"
               loading="lazy"
               allow="fullscreen *; autoplay *; clipboard-write *; geolocation *"
-              sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox"
+              sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock 
+              allow-popups allow-popups-to-escape-sandbox"
             ></iframe>
           </div>
         </div>
       </div>
+
+          <div class="mask">
+      <span class="speaker"></span>
+      <span class="camera">
+        <span class="lenz left"></span>
+        <span class="lenz right"></span>
+      </span>
+    </div>
+  </div>
+
+  <!-- 사이드 버튼들 -->
+  <span class="side-button mute"></span>
+  <span class="side-button volume-up"></span>
+  <span class="side-button volume-down"></span>
+  <span class="side-button hold"></span>
+
+  <!-- 하단 포트 -->
+  <span class="port"></span>
     </div>
   </div>
   <!-- (선택) 메타 카드 -->
-  <div class="phone-meta">
-    <h3>Glossier Mobile</h3>
-    <p>Live site in iPhone frame</p>
-    <a class="link" href="https://6xxnnk.github.io/glossier.renewal/" target="_blank" rel="noopener">사이트 열기 →</a>
+  <div class="phone-meta phone-meta--glossier">
+  <h3>Glossier Mobile</h3>
+  <p>Live site in iPhone frame</p>
+  <a class="link" href="https://6xxnnk.github.io/glossier.renewal/" target="_blank" rel="noopener">사이트 열기 →</a>
   </div>
 </div>
 
 <!-- 3 zigzag -->
+<div id="zigzag" class="glossier">04...</div>
 <section class="proj proj--zigzag-v2" id="zigzag">
-  <h2 class="proj__title">Visual redesign</h2>
-  <p class="kicker">기존 홈/탐색/상세/체크아웃 플로우의 밀도·가독성·전환 요소를 재배치 <br>
-        스크롤 피로를 낮추고, 필터/정렬 접근성을 높임 <br>
-        상세에서 비주얼–리뷰–옵션 순서를 재구성해 CTA 도달률을 개선
-      </p>
-
-  <button class="zzOpenBtn" aria-label="지그재그 앱 리디자인 상세 보기" id="zzOpenBtn">details</button>
 
   <div class="zz-layout">
     <!-- 왼쪽: 2x2 썸네일 -->
@@ -398,13 +415,23 @@
       </div>
     </div>
   </div>
+
+  <div class="phone-meta phone-meta--zigzag">
+  <h3>ZIGGZAG Mobile</h3>
+  <p>기존 홈/탐색/상세/체크아웃 플로우의 밀도·가독성·전환 요소를 재배치 <br>
+        스크롤 피로를 낮추고, 필터/정렬 접근성을 높임 <br>
+        상세에서 비주얼–리뷰–옵션 순서를 재구성해 CTA 도달률을 개선</p>
+  <a class="link" href="https://6xxnnk.github.io/zigzag.renewal/" target="_blank" rel="noopener">사이트 열기 →</a>
+
 </section>
+
 
 
 
 
 <!--4. 29cm -->
 <section class="cm-section-29" id="cm29">
+  <div id="29CM" class="glossier">04...</div>
   <div class="cm-head">
     <h2 class="cm-title">29CM — Mobile App Mockups</h2>
     <small class="cm-sub">hover = pause · auto spin</small>
@@ -682,6 +709,5 @@
   <script src="js/instagram-lightbox.js" defer></script>
   <script src="js/collabs.js" defer></script>
 
-  <script src="js/tooltips-init.js" defer></script>
 </body>
 </html>

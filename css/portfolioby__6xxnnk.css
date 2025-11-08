@@ -1,9 +1,4 @@
 @charset "UTF-8";
-
-
-
-
-
 /* ===== Global: 1rem = 10px ===== */
 :root{
   --maxw: 120rem;
@@ -17,7 +12,8 @@
   --card-bd: #e5e7eb;
   --shadow: 0 1rem 3rem rgba(0,0,0,.12);
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box; 
+}
 html{ font-size:62.5%; scroll-behavior:smooth;  cursor: none;
 overflow-x: hidden;}
 body{
@@ -473,10 +469,6 @@ html{
   100% { opacity: 1; transform: translate(10px, -30%) scale(1); }
 }
 
-/* 살짝 컬러 강조 */
-.tooltip-email:hover { color: #0d6efd; }
-.tooltip-insta:hover { color: #ff4d4d; }
-
 /* 위치 기준을 위해 a 태그는 relative */
 .tooltip-email,
 .tooltip-insta {
@@ -542,6 +534,8 @@ html{
 }
 .projects {
   margin:50rem 0;
+  display:flex; flex-direction:column; align-items:center;
+  height: 250vh;
 }
 
 .projects-title {
@@ -552,19 +546,29 @@ html{
   font-weight: 500;
 }
 
-/* ===============================
-   iMac (Realistic)  — CLASS version
-   구조:
-   .imac-shell > .top-panel(.facetime, .display-panel>img)
-                > .bottom-panel(.apple-logo)
-                > .stand(.stand-right, .stand-left)
-=============================== */
+.nespresso {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  font-family: doto, sans-serif;
+  font-size: 15rem;
+}
+
+.glossier {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  font-family: doto, sans-serif;
+  font-size: 15rem;
+}
+
+
+
 .imac-shell{
   position:relative;
   width:1200px;                 /* 900px → 1200px */
   height:904px;                 /* 678px → 904px (비율 유지) */
   margin:0 auto;
-  filter: drop-shadow(0 18px 36px rgba(0,0,0,.28));
 }
 .imac-shell .top-panel{
   position:relative;
@@ -699,7 +703,6 @@ html{
   width: 220px;
   border: none; border-radius: 12px; overflow: hidden;
   background: linear-gradient(180deg,#f7f7f7,#f1f1f1);
-  box-shadow: 0 18px 36px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.8);
   z-index: 30;
   user-select: none;
 }
@@ -734,7 +737,7 @@ html{
 .meta-window .window-controls{ display:flex; gap:8px; }
 .meta-window .window-controls > span{
   width: 12px; height: 12px; border-radius: 50%;
-  display:inline-block; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+  display:inline-block;
 }
 .meta-window .window-close{ background:#ee5f5b; }
 .meta-window .window-minimize{ background:#f7d54a; }
@@ -763,7 +766,6 @@ html{
   padding:10px 16px; border-radius:999rem; font-weight:800;
   letter-spacing:.02em; text-decoration:none;
   border:1px solid #111; background:#111; color:#fff;
-  box-shadow:0 10px 24px rgba(0,0,0,.12);
   transition:transform .12s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
 }
 .meta-btn:hover{
@@ -789,7 +791,8 @@ html{
   position:relative; box-shadow: inset 2px 0 12px #494949; margin:0 auto;
 }
 .layer2{
-  width:306.6px; height:651.4px; background:#000; border-radius:44.6px; position:absolute; left:50%; top:6.5px; transform:translateX(-50%);
+  width:306.6px; height:651.4px; background:#000000; border-radius:44.6px; position:absolute; 
+  left:50%; top:6.5px; transform:translateX(-50%);
   box-shadow: -2px 0px 15px 1.5px #494949;
 }
 .screen{
@@ -799,7 +802,8 @@ html{
 
 
 .side-button{
-  position:absolute; width:3px; background: linear-gradient(to bottom, #494949 0%,#aaaaaa 12%,#dddddd 50%,#aaaaaa 88%,#494949 100%);
+  position:absolute; width:3px; 
+  background: linear-gradient(to bottom, #494949 0%,#aaaaaa 12%,#dddddd 50%,#aaaaaa 88%,#494949 100%);
 }
 .mute{height:25px; top:75px; left:-1px; border-radius:1.5px 0 0 1.5px}
 .volume-up{height:50px; top:125px; left:-1px; border-radius:1.5px 0 0 1.5px}
@@ -864,17 +868,60 @@ html{
 }
 
 /* 메타 카드 */
-.phone-meta{
-  border:1px solid var(--bd);
-  border-radius:1.2rem;
-  padding:1.6rem;
+.phone-meta {
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(240, 240, 240, 0.9);
+  padding: 2.4rem 2rem;
+  text-align: center;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  transition: box-shadow .25s ease, transform .25s ease;
 }
-.phone-meta h3{ margin:0 0 .6rem; font-size:1.8rem; }
-.phone-meta p{ margin:0 0 1.2rem; color:var(--muted); font-size:1.4rem; }
-.phone-meta .link{
-  display:inline-block; padding:.8rem 1.2rem;
-  border:1px solid var(--bd); border-radius:.8rem;
-  text-decoration:none; font-weight:700;
+
+.phone-meta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.1);
+}
+
+/* 제목 */
+.phone-meta h3 {
+  font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+  font-weight: 500;
+  font-size: 1.9rem;
+  color: #111;
+  letter-spacing: .01em;
+  margin: 0 0 .6rem;
+}
+
+/* 설명 텍스트 */
+.phone-meta p {
+  font-size: 1.4rem;
+  color: #9e9e9e;
+  margin: 0 0 1.8rem;
+  line-height: 1.6;
+}
+
+/* 링크 버튼 */
+.phone-meta .link {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 1.4rem;
+  padding: .9rem 1.6rem;
+  color: #fff;
+  background: linear-gradient(90deg, #f2bebe, #f7dede);
+  border-radius: 999rem;
+  text-decoration: none;
+  border: none;
+  transition: all .25s ease;
+  box-shadow: 0 4px 14px rgba(242, 200, 200, 0.35);
+}
+
+.phone-meta .link:hover {
+  background: linear-gradient(90deg, #f7dede, #f2bebe);
+  transform: translateY(-1px);
 }
 
 /* ========== Glossier: 세로 스크롤 뷰어 ========== */

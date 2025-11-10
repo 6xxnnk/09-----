@@ -262,7 +262,7 @@ button:hover ~ #cursorSun,
 }
 /* 리스트 공통 */
 .list-plain{ list-style:none; margin:.8rem auto 0; 
-  padding:0; color:#374151; max-width:85%; word-break:keep-all; 
+  padding:0; color:#000000; max-width:85%; word-break:keep-all; 
   overflow-wrap:anywhere; }
 
 .list-plain li{ margin:.2rem 0; 
@@ -1172,6 +1172,149 @@ button:hover ~ #cursorSun,
 
 
 
+/* ================= Contact (Glossier mood) ================ */
+.contact{
+  padding: 8rem 1.6rem;
+  background: #fff;
+}
+.contact__wrap{
+  width: min(960px, 92vw);
+  margin: 0 auto;
+}
+
+/* Title */
+.contact__head{ text-align:right; margin-bottom: 2.8rem; }
+.contact__title{
+  margin: 0 0 .6rem;
+  font-family: 'Gasoek One', sans-serif;
+  font-weight: 500;
+  font-size: clamp(5.2rem, 6vw, 9.2rem);
+  line-height: 1;
+  color: #000;
+  ;
+}
+.contact__title em{ font-style: italic; text-decoration: underline; }
+.contact__title span{ color: #000; }
+.contact__subtitle{
+  margin: 0;
+  color: #374151;
+  font-size: clamp(1.4rem, 1.4vw, 1.6rem);
+  letter-spacing: .02em;
+}
+
+/* Card */
+.contact__card{
+  margin: 2.4rem auto 1.2rem;
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+  box-shadow:
+    0 16px 38px rgba(0,0,0,.10),
+    inset 0 0 0 1px rgba(240,240,240,.95);
+  padding: clamp(1.6rem, 3vw, 2.4rem);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.6rem;
+}
+@media (min-width: 720px){
+  .contact__card{
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+}
+
+/* Info rows */
+.contact__info{ display: grid; gap: 1.0rem; }
+.contact__row{
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 1.2rem;
+  align-items: center;
+  margin: 0;
+}
+.contact__row dt{
+  margin: 0;
+  text-transform: lowercase;
+  font-weight: 800;
+  letter-spacing: .02em;
+  color: #111;
+}
+.contact__row dd{
+  margin: 0;
+  color: #2b2b2b;
+  word-break: break-all;
+}
+.contact__link{
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .4rem .8rem;
+  border-radius: 8px;
+  color: #00376b;
+  font-weight: 700;
+  border: 1px dashed transparent;
+  transition: border-color .18s ease, transform .12s ease, background .18s ease;
+}
+.contact__link:hover{
+  background: var(--accent-2, #FFE8EB);
+  border-color: #111;
+  transform: translateY(-1px);
+}
+
+/* Actions (buttons) */
+.contact__actions{
+  display: flex;
+  gap: .8rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+@media (min-width: 720px){
+  .contact__actions{ justify-content: flex-end; }
+}
+.btn-contact{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.0rem 1.6rem;
+  border-radius: 999rem;
+  font-weight: 800;
+  letter-spacing: .02em;
+  text-decoration: none;
+  border: 1px solid #111;
+  transition: transform .12s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+}
+.btn-contact:hover{ transform: translateY(-1px); box-shadow: 0 14px 34px rgba(0,0,0,.18); }
+
+.btn-contact--primary{
+  background: #111; color: #fff; border-color: #111;
+}
+.btn-contact--primary:hover{
+  background: var(--accent-2, #FFE8EB);
+  color: #111;
+}
+
+.btn-contact--ghost{
+  background: transparent; color: #111; border-color: #111;
+}
+.btn-contact--ghost:hover{
+  color: #fff; background: #111; border-color: #111;
+}
+
+/* Small note */
+.contact__hint{
+  margin: .4rem 0 0;
+  text-align: center;
+  color: #6b7280;
+  font-size: 1.3rem;
+}
+
+
+
+
+
+
+
 /* ===========================
    RESPONSIVE ONLY (add-on)
    - iPhone:  ≤ 428px (42.8rem)
@@ -1401,31 +1544,8 @@ button:hover ~ #cursorSun,
 }
 .gallery-item:hover .hover-indicator{ opacity:1; }
 
-/* ===== Lightbox (그대로) ===== */
-.ig-lb{ position:fixed; inset:0; background:transparent; display:none; align-items:center; justify-content:center; z-index:50; }
-.ig-lb.is-open{ display:flex; }
-.ig-lb__stage{
-  width:min(92vw, 108rem); height:min(92vh, 88rem);
-  display:grid; place-items:center; pointer-events:auto; transform:scale(.94); opacity:0; transition:transform .22s ease, opacity .22s ease;
-}
-.ig-lb.is-open .ig-lb__stage{ transform:scale(1); opacity:1; }
-.ig-lb__swiper{ width:100%; height:100%; border-radius:1rem; background:rgba(173,173,173,.95); }
-.ig-lb__swiper .swiper-slide{ display:grid; place-items:center; }
-.ig-lb__swiper img{ width:auto; height:auto; max-width:100%; max-height:100%; object-fit:contain; display:block; }
-.swiper-button-prev, .swiper-button-next{
-  color:#fff; width:4.2rem; height:4.2rem; backdrop-filter:blur(.6rem); border-radius:999rem;
-}
-.swiper-button-prev:after, .swiper-button-next:after{ font-size:1.8rem; }
-.swiper-pagination-bullet{ background:#fff; opacity:.5; }
-.swiper-pagination-bullet-active{ opacity:1; }
-.ig-lb__close{
-  position:absolute; top:16rem; right:46rem; width:4rem; height:4rem; border-radius:999rem;
-  border:.1rem solid #111; background:#fff; font-size:2.4rem; line-height:3.8rem; cursor:pointer;
-  box-shadow:.2rem .2rem 0 #111; z-index:60;
-}
-.ig-lb__close:hover{ transform:translateY(-.1rem); }
 
-/* ===== 탭/피드(네가 주신 스타일 유지) ===== */
+/* ===== 탭/피드===== */
 .tabset{ margin-top:2rem; }
 .tabset__nav{ display:flex; gap:.8rem; border-bottom:.1rem solid var(--card-bd); }
 .tabset__btn{ border:0; background:#f3f4f6; padding:1.2rem 2rem; font-weight:700; border-radius:1rem 1rem 0 0; cursor:pointer; font-size:1.6rem; }
@@ -1453,9 +1573,7 @@ button:hover ~ #cursorSun,
   .tabset__panel{ padding:1.4rem; }
   .feeds{ grid-template-columns: 1fr; gap:1.2rem; }
 
-  /* Contact */
-  .contact__cta{ flex-wrap:wrap; }
-}
+
 
 
 /* ---------- iPad (43rem ~ 83.4rem) ---------- */

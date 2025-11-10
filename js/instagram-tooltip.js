@@ -125,6 +125,32 @@
   function scan(root = document) {
     root.querySelectorAll(TIP_SELECTOR).forEach(bind);
   }
+  // contact-tooltips-off.js
+// Contact 섹션 안의 모든 툴팁을 제거/차단합니다.
+document.addEventListener('DOMContentLoaded', () => {
+  const scope = document.querySelector('.contact');
+  if (!scope) return;
+
+  // 1) title → 제거, data-tooltip/data-tt → 제거
+  scope.querySelectorAll('[title], [data-tooltip], [data-tt]').forEach(el => {
+    el.removeAttribute('title');
+    el.removeAttribute('data-tooltip');
+    el.removeAttribute('data-tt');
+  });
+
+  // 2) CSS-툴팁 클래스가 남아있더라도 무력화용 클래스 부여
+  scope.classList.add('no-float-tt');
+
+  // 3) UnifiedTooltip(전역 JS 툴팁) 있는 경우: Contact 내부는 스킵하도록 마킹
+  //  - unified-tooltip.js에 shouldSkip 가드가 없는 경우에도, 아래에서 즉시 숨김 처리
+  if (window.UnifiedTooltip && typeof window.UnifiedTooltip.hide === 'function') {
+    // 마우스가 contact 안에 있을 땐 항상 숨김
+    scope.addEventListener('mouseenter', () => window.UnifiedTooltip.hide(), { passive: true });
+    scope.addEventListener('mousemove', () => window.UnifiedTooltip.hide(), { passive: true });
+    scope.addEventListener('mouseleave', () => window.UnifiedTooltip.hide(), { passive: true });
+    scope.addEventListener('focusin',  () => window.UnifiedTooltip.hide(), { passive: true });
+  }
+});
 
   // 초기 바인딩 + DOM 변화 감지
   scan();

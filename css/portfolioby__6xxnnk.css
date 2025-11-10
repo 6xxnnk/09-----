@@ -926,6 +926,86 @@ button:hover ~ #cursorSun,
 .cm-section-29 .cm-rim{ position:absolute; inset:-.1rem; border-radius:calc(var(--cm-radius-outer) + .2rem); pointer-events:none; box-shadow:0 0 0 .1rem rgba(255,255,255,.8), 0 0 1.8rem .4rem rgba(255,205,130,.18); }
 .cm-section-29 .cm-cap{ margin-top:.8rem; text-align:center; color:#475569; font-size:.95rem; }
 
+/* ====== 29CM meta 카드 (오렌지 톤 리디자인) ====== */
+.phone-meta--29cm {
+  border: 1px solid #ffc27a;
+  border-radius: 2rem;
+  background: #fafafa;
+  box-shadow: 0 .6rem 1.8rem rgba(0,0,0,.06),
+              inset 0 0 0 .1rem rgba(255, 200, 120, .9);
+  padding: 2.4rem 2rem;
+  text-align: center;
+  width: 30%;
+  max-width: 70rem;
+  transition: box-shadow .25s ease, transform .25s ease;
+  font-size: 1.5rem;
+  margin: 5rem auto;
+}
+
+.phone-meta--29cm:hover {
+  transform: translateY(-.2rem);
+  box-shadow: 0 1rem 2.6rem rgba(255, 179, 95, .22);
+}
+
+/* ===== 제목 / 설명 ===== */
+.phone-meta--29cm h3 {
+  font-family: 'Poppins','Noto Sans KR',sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+  color: #111;
+  letter-spacing: .01em;
+  margin: 0 0 .8rem;
+}
+
+.phone-meta--29cm .meta-desc {
+  font-size: 1.5rem;
+  color: #4a3a28;
+  margin: 0 0 1.6rem;
+  line-height: 1.65;
+}
+
+/* ===== 버튼 ===== */
+.phone-meta--29cm .meta-actions {
+  display: flex;
+  gap: .8rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.phone-meta--29cm .meta-actions .meta-btn {
+  --glow: rgba(255, 179, 95, .45);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 12rem;
+  padding: 1rem 1.6rem;
+  border-radius: 999rem;
+  font-weight: 700;
+  font-size: 1.35rem;
+  text-decoration: none;
+  border: .12rem solid transparent;
+  background: radial-gradient(
+    80% 140% at 50% 0%,
+    #fff2e0,
+    #ffd9a0 45%,
+    #ffb35f 100%
+  );
+  color: #111;
+  box-shadow:
+    0 .6rem 1.6rem var(--glow),
+    inset 0 1px 0 #fff;
+  transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+}
+
+.phone-meta--29cm .meta-actions .meta-btn:hover {
+  transform: translateY(-.1rem);
+  filter: saturate(1.08);
+}
+
+.phone-meta--29cm .meta-actions .meta-btn:active {
+  transform: translateY(0);
+}
+
 @keyframes cm-osc{
   0%   { transform: rotateY(0deg) rotateX(0deg) translateY(0) }
   25%  { transform: rotateY(10deg) rotateX(1.2deg) translateY(-.4rem) }
@@ -937,13 +1017,7 @@ button:hover ~ #cursorSun,
 /* =========================================================
    Instagram-like Grid
 ========================================================= */
-/* ================================
-   Instagram-like Grid — Final CSS
-   (바로 복사·붙여넣기)
-================================ */
 
-/* 안전 토큰(없으면 기본값) */
-/* ===== Tokens ===== */
 :root{
   --card-bd:#e5e7eb;
   --ink:#111;
@@ -1179,7 +1253,7 @@ button:hover ~ #cursorSun,
 }
 .contact__wrap{
   width: min(960px, 92vw);
-  margin: 0 auto;
+  margin-top: 30rem;
 }
 
 /* Title */

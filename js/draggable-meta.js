@@ -1,178 +1,201 @@
-// =========================================================
-//  draggable-meta.js
-//  v2025.11.08 — 드래그 가능한 MacOS-style 메타 카드 + Hover Tooltip
-// =========================================================
 
-document.addEventListener("DOMContentLoaded", () => {
-  const els = document.querySelectorAll("[data-draggable]");
+// =========================================================
+// draggable-meta.smooth.js  (bounded to .device--imac)
+// • translate3d + rAF로 부드럽게
+// • Pointer Events로 mouse/touch 통합
+// • 이동 중 레이아웃 읽기 최소화(시작 시만 측정)
+// v2025.11.10
+// =========================================================
+document.addEventListener('DOMContentLoaded', () => {
+  const wins = document.querySelectorAll('[data-draggable]');
 
-  // -----------------------------
-  // 1) Tooltip (재사용 1개만 생성)
-  // -----------------------------
-  const tooltip = document.createElement("div");
-  tooltip.className = "draggable-tooltip";
+  // ---------- 0) Tooltip(동일) ----------
+  const tooltip = document.createElement('div');
+  tooltip.className = 'draggable-tooltip';
   Object.assign(tooltip.style, {
-    position: "fixed",
-    top: "0px",
-    left: "0px",
-    transform: "translate(-50%, -8px)",
-    padding: "8px 10px",
-    fontSize: "12px",
-    fontWeight: "700",
-    letterSpacing: "0.02em",
-    color: "#111",
-    background: "linear-gradient(180deg,#fffdf4,#fff7cc)",
-    border: "1px solid rgba(0,0,0,.12)",
-    borderRadius: "10px",
-    boxShadow: "0 10px 24px rgba(0,0,0,.12), inset 0 1px 0 #ffffff",
-    pointerEvents: "none",
-    zIndex: "99999",
-    opacity: "0",
-    transition: "opacity .15s ease, transform .15s ease",
-    whiteSpace: "nowrap"
+    position:'fixed', top:'0px', left:'0px', transform:'translate(-50%,-8px)',
+    padding:'8px 10px', fontSize:'12px', fontWeight:'700', letterSpacing:'0.02em',
+    color:'#111', background:'linear-gradient(180deg,#fffdf4,#fff7cc)',
+    border:'1px solid rgba(0,0,0,.12)', borderRadius:'10px',
+    boxShadow:'0 10px 24px rgba(0,0,0,.12), inset 0 1px 0 #fff',
+    pointerEvents:'none', zIndex:'99999', opacity:'0',
+    transition:'opacity .15s ease, transform .15s ease', whiteSpace:'nowrap'
   });
   document.body.appendChild(tooltip);
 
-  let ttTimer = null;
-
-  function showTooltip(target, clientX = null, clientY = null) {
-    clearTimeout(ttTimer);
-
-    // 커스텀 문구가 있으면 사용, 없으면 기본 문구
-    const text =
-      target.getAttribute("data-tooltip") ||
-      "드래그해서 위치를 바꿔보세요";
-
+  const showTT = (target,x=null,y=null)=>{
+    const text = target.getAttribute('data-tooltip') || '드래그해서 위치를 바꿔보세요';
     tooltip.textContent = text;
-    tooltip.style.opacity = "1";
-
-    // 위치: 커서 기준이 있으면 커서 근처, 없으면 카드 상단 중앙
-    if (clientX != null && clientY != null) {
-      tooltip.style.left = `${clientX}px`;
-      tooltip.style.top = `${clientY - 14}px`;
-      tooltip.style.transform = "translate(-50%, -100%)";
-    } else {
+    tooltip.style.opacity = '1';
+    if(x!=null && y!=null){
+      tooltip.style.left = `${x}px`;
+      tooltip.style.top  = `${y-14}px`;
+      tooltip.style.transform = 'translate(-50%, -100%)';
+    }else{
       const r = target.getBoundingClientRect();
-      tooltip.style.left = `${r.left + r.width / 2}px`;
-      tooltip.style.top = `${r.top - 10}px`;
-      tooltip.style.transform = "translate(-50%, -100%)";
+      tooltip.style.left = `${r.left + r.width/2}px`;
+      tooltip.style.top  = `${Math.max(8, r.top - 10)}px`;
+      tooltip.style.transform = 'translate(-50%, -100%)';
     }
-  }
+  };
+  const moveTT = (x,y)=>{
+    tooltip.style.left = `${x}px`;
+    tooltip.style.top  = `${y-14}px`;
+    tooltip.style.transform = 'translate(-50%, -100%)';
+  };
+  const hideTT = ()=> tooltip.style.opacity = '0';
 
-  function moveTooltip(clientX, clientY) {
-    tooltip.style.left = `${clientX}px`;
-    tooltip.style.top = `${clientY - 14}px`;
-    tooltip.style.transform = "translate(-50%, -100%)";
-  }
+  // ---------- 1) Drag ----------
+  wins.forEach(win=>{
+    const bound = win.closest('.device--imac') || win.closest('.project') || win.closest('section') || document.body;
+    if(getComputedStyle(bound).position === 'static'){ bound.style.position = 'relative'; }
 
-  function hideTooltip(delay = 0) {
-    clearTimeout(ttTimer);
-    ttTimer = setTimeout(() => {
-      tooltip.style.opacity = "0";
-    }, delay);
-  }
+    // 핸들(없으면 자체)
+    const handle = win.querySelector('[data-drag-handle]') || win;
 
-  // -----------------------------
-  // 2) Drag logic
-  // -----------------------------
-  els.forEach(win => {
-    const handle = win.querySelector("[data-drag-handle]") || win;
-    let startX = 0, startY = 0;
-    let startLeft = 0, startTop = 0;
+    // 내부 상태
     let dragging = false;
+    let startClientX = 0, startClientY = 0;
+    let startTx = 0, startTy = 0;           // 시작 translate 값
+    let curTx = 0, curTy = 0;               // 현재 translate 값
+    let rafId = 0;
+    let maxL = 0, maxT = 0, minL = 0, minT = 0; // 경계
+    let zSeed = 1000;
 
-    // 초기 위치가 지정되지 않았다면 스타일 기준 포지션 지정
-    const cs = window.getComputedStyle(win);
-    if (cs.position === "static") {
-      win.style.position = "absolute";
-    }
+    // 초기 위치가 left/top로 잡혀있다면 translate로 전환
+    const normalizeInitialTransform = ()=>{
+      const cs = getComputedStyle(win);
+      if(cs.position === 'static') win.style.position = 'absolute';
+      // left/top -> transform 변환
+      const left = parseFloat(win.style.left || 0);
+      const top  = parseFloat(win.style.top  || 0);
+      if(left || top){
+        win.style.transform = `translate3d(${left}px, ${top}px, 0)`;
+        win.style.left = '0'; win.style.top = '0';  // 좌표 기준 transform으로 통일
+      }
+      // 현재 transform 파싱
+      const m = getComputedStyle(win).transform;
+      if(m && m !== 'none'){
+        const vals = m.match(/matrix\(([^)]+)\)/) || m.match(/matrix3d\(([^)]+)\)/);
+        if(vals){
+          const nums = vals[1].split(',').map(parseFloat);
+          if(nums.length === 6){ curTx = nums[4]; curTy = nums[5]; }
+          else if(nums.length === 16){ curTx = nums[12]; curTy = nums[13]; }
+        }
+      }
+      startTx = curTx; startTy = curTy;
+    };
 
-    const onDown = (e) => {
-      const isTouch = e.type.startsWith("touch");
-      const p = isTouch ? e.touches[0] : e;
+    normalizeInitialTransform();
+
+    // 경계 갱신(창 크기/리사이즈 시)
+    const updateBounds = ()=>{
+      const br = bound.getBoundingClientRect();
+      const ww = win.offsetWidth, wh = win.offsetHeight;
+      minL = 0; minT = 0;
+      maxL = Math.max(0, br.width  - ww);
+      maxT = Math.max(0, br.height - wh);
+    };
+    updateBounds();
+    window.addEventListener('resize', updateBounds, {passive:true});
+
+    // 렌더러(rAF 한곳에서만 DOM 쓰기)
+    let nextTx = 0, nextTy = 0, needsRender = false;
+    const render = ()=>{
+      rafId = 0;
+      if(!needsRender) return;
+      needsRender = false;
+      win.style.transform = `translate3d(${nextTx}px, ${nextTy}px, 0)`;
+    };
+
+    const onPointerDown = (e)=>{
+      // 버튼 위에서는 툴팁/드래그 비활성(포트폴리오 버튼 클릭 방해 X)
+      if(e.target.closest('.meta-actions')) return;
 
       dragging = true;
-      win.classList.add("dragging");
+      win.classList.add('dragging');
+      win.style.zIndex = String(++zSeed);
+      hideTT();
 
-      // offsetLeft/Top 대신 getBoundingClientRect + 부모 offset 보정
-      const parent = win.closest(".imac-shell") || document.body;
-      const pr = parent.getBoundingClientRect();
-      const wr = win.getBoundingClientRect();
+      startClientX = e.clientX;
+      startClientY = e.clientY;
 
-      startLeft = wr.left - pr.left + parent.scrollLeft;
-      startTop  = wr.top  - pr.top  + parent.scrollTop;
+      // 현재 tx/ty 다시 읽고 시작값으로 고정(레이아웃 읽기 최소화)
+      const m = getComputedStyle(win).transform;
+      curTx = startTx; curTy = startTy;
+      if(m && m !== 'none'){
+        const vals = m.match(/matrix\(([^)]+)\)/) || m.match(/matrix3d\(([^)]+)\)/);
+        if(vals){
+          const nums = vals[1].split(',').map(parseFloat);
+          if(nums.length === 6){ curTx = nums[4]; curTy = nums[5]; }
+          else if(nums.length === 16){ curTx = nums[12]; curTy = nums[13]; }
+        }
+      }
+      startTx = curTx; startTy = curTy;
 
-      startX = p.clientX;
-      startY = p.clientY;
-
-      document.addEventListener(isTouch ? "touchmove" : "mousemove", onMove, { passive: false });
-      document.addEventListener(isTouch ? "touchend" : "mouseup", onUp, { once: true });
-
-      hideTooltip(0); // 드래그 시작하면 툴팁 숨김
+      updateBounds();
+      handle.setPointerCapture?.(e.pointerId);
     };
 
-    const onMove = (e) => {
-      if (!dragging) return;
-      const isTouch = e.type.startsWith("touch");
-      const p = isTouch ? e.touches[0] : e;
-      if (!isTouch) e.preventDefault();
+    const onPointerMove = (e)=>{
+      if(!dragging) return;
+      e.preventDefault(); // 스크롤/텍스트 선택 방지
 
-      const dx = p.clientX - startX;
-      const dy = p.clientY - startY;
+      const dx = e.clientX - startClientX;
+      const dy = e.clientY - startClientY;
 
-      let left = startLeft + dx;
-      let top  = startTop  + dy;
+      let tx = startTx + dx;
+      let ty = startTy + dy;
 
-      const parent = win.closest(".imac-shell") || document.body;
-      const pr = parent.getBoundingClientRect();
-      const pw = pr.width, ph = pr.height;
-      const ww = win.offsetWidth, wh = win.offsetHeight;
+      // 경계(섹션 내부) — 제한 없애려면 아래 4줄 주석 처리
+      if(tx < minL) tx = minL;
+      if(ty < minT) ty = minT;
+      if(tx > maxL) tx = maxL;
+      if(ty > maxT) ty = maxT;
 
-      // 살짝 밖으로도 나갈 수 있게 약간의 여유
-      left = Math.min(Math.max(left, -ww * 0.6), pw - ww * 0.4);
-      top  = Math.min(Math.max(top, -wh * 0.6), ph - wh * 0.4);
-
-      win.style.left = `${left}px`;
-      win.style.top  = `${top}px`;
-      win.style.right = "auto";
-      win.style.bottom = "auto";
+      nextTx = tx; nextTy = ty;
+      needsRender = true;
+      if(!rafId) rafId = requestAnimationFrame(render);
     };
 
-    const onUp = () => {
+    const onPointerUp = ()=>{
+      if(!dragging) return;
       dragging = false;
-      win.classList.remove("dragging");
-      document.removeEventListener("mousemove", onMove);
-      document.removeEventListener("touchmove", onMove);
+      win.classList.remove('dragging');
+      cancelAnimationFrame(rafId);
+      rafId = 0;
+      // 최종 위치를 현재 transform으로 고정
+      const m = getComputedStyle(win).transform;
+      if(m && m !== 'none'){
+        const vals = m.match(/matrix\(([^)]+)\)/) || m.match(/matrix3d\(([^)]+)\)/);
+        if(vals){
+          const nums = vals[1].split(',').map(parseFloat);
+          if(nums.length === 6){ startTx = nums[4]; startTy = nums[5]; }
+          else if(nums.length === 16){ startTx = nums[12]; startTy = nums[13]; }
+        }
+      }
     };
 
-    handle.addEventListener("mousedown", onDown);
-    handle.addEventListener("touchstart", onDown, { passive: true });
+    handle.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('pointermove', onPointerMove, {passive:false});
+    window.addEventListener('pointerup', onPointerUp, {passive:true});
+    window.addEventListener('pointercancel', onPointerUp, {passive:true});
 
-    // -----------------------------
-    // 3) Tooltip events
-    // -----------------------------
-    // 마우스
-    win.addEventListener("mouseenter", (e) => {
-      if (dragging) return;
-      showTooltip(win);
+    // ---------- 2) Tooltip ----------
+    win.addEventListener('mouseenter', (e)=>{
+      if(dragging) return;
+      // 버튼 위에서는 툴팁 비활성
+      if(e.target.closest('.meta-actions')) return;
+      showTT(win);
     });
-    win.addEventListener("mousemove", (e) => {
-      if (dragging) return;
-      // 핸들 위에 있을 때만 커서 따라다니게 하려면 handle.contains(e.target) 체크
-      moveTooltip(e.clientX, e.clientY);
+    win.addEventListener('mousemove', (e)=>{
+      if(dragging) return;
+      if(e.target.closest('.meta-actions')){ hideTT(); return; }
+      moveTT(e.clientX, e.clientY);
     });
-    win.addEventListener("mouseleave", () => hideTooltip(50));
-
-    // 포커스 (접근성)
-    win.addEventListener("focusin", () => showTooltip(win));
-    win.addEventListener("focusout", () => hideTooltip(0));
-
-    // 터치: 짧게 힌트 표시
-    win.addEventListener("touchstart", (e) => {
-      if (dragging) return;
-      const t = e.touches[0];
-      showTooltip(win, t.clientX, t.clientY);
-      hideTooltip(900); // 0.9s 뒤 자동 숨김
-    }, { passive: true });
+    win.addEventListener('mouseleave', hideTT);
+    win.addEventListener('focusin', ()=> showTT(win));
+    win.addEventListener('focusout', hideTT);
   });
 });
+

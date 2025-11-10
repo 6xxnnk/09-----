@@ -31,6 +31,7 @@ html{
   scroll-behavior:smooth;
   cursor:none;
   overflow-x:hidden;
+  
 }
 body{
   margin:0;
@@ -41,6 +42,14 @@ body{
   /* 전체 문서 중앙 대칭: 가터 + 컨테이너 중앙 */
   padding-inline: var(--gutter);
 }
+html, body{
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none; 
+}
+
 img{ max-width:100%; display:block; }
 
 /* 포커스 가능한 요소는 시스템 커서 유지(접근성) */
@@ -189,100 +198,146 @@ button:hover ~ #cursorSun,
 
   width: var(--cv-w);
   height: calc(var(--cv-h) * var(--cv-scale));   /* 섹션 높이도 스케일에 맞춤 */
+  margin:0 auto;
   min-height: initial;
   position:relative;
   display:flex; justify-content:center; align-items:center; text-align:center;
   overflow:visible;
-  margin-top: 20rem;
 
   /* 중앙 정렬 + 동일 좌표계 */
-  transform-origin: top left;
+  transform-origin: top center;
   transform:
-    translateX(calc((100vw - 2*var(--gutter) - (var(--cv-w) * var(--cv-scale))) / 2))
     scale(var(--cv-scale));
   margin-inline:auto;
 }
 
-.cv-center{ position:relative; z-index:2; }
-.ink-title-svg{ display:block; height:20rem; margin:0 auto 3rem; overflow:visible; width:max-content; }
+.cv-center{   
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%); /* 진짜 중앙 */
+  z-index: 2; text-align: center;}
+.cv-center[data-reveal]{ 
+  transform: translate(-50%, -50%) translateY(1.2rem) !important;
+  opacity:0;
+}
+.cv-center[data-reveal].is-visible{
+  transform: translate(-50%, -50%) translateY(0) !important;
+  opacity:1; transition: transform .6s ease, opacity .6s ease;
+}
+.ink-title-svg{
+  display:block; width:auto; height:26rem;
+  margin: 0 auto; overflow:visible; 
+  pointer-events:none; /* 드래그 방지(선택) */
+}
 
 /* 손글씨 텍스트(rem 통일) */
 .ink-title-stroke{
   font-family:"Butterfly Kids", cursive; font-weight:400;
-  font-size:9rem; letter-spacing:.02em; fill:transparent;
+  font-size:16rem; letter-spacing:.02em; fill:transparent;
   stroke:#0f172a; stroke-width:.15rem; stroke-linecap:round; stroke-linejoin:round;
-  transition:fill .45s ease .9s; margin:0 auto
+  transition:fill .1s ease .9s; margin:0 auto
 }
 .ink-title-svg.is-drawn .ink-title-stroke{  height:20rem; margin:0 auto 3rem; overflow:visible; width:max-content; animation:ink-draw .9s ease forwards; fill:#0f172a0f; }
-.ink-title-svg.is-drawn .ink-star-stroke{ animation:ink-draw .7s ease .15s forwards; }
+.ink-title-svg.is-drawn .ink-star-stroke{ animation:ink-draw .1s ease .15s forwards; }
 @keyframes ink-draw{ to{ stroke-dashoffset:0; } }
 
 
-/* 리스트 공통 */
-.list-plain{ list-style:none; margin:.8rem auto 0; padding:0; color:#374151; max-width:85%; word-break:keep-all; overflow-wrap:anywhere; }
-.list-plain li{ margin:.2rem 0; font-size:1.1rem; }
 
 /* 버블 공통(rem 통일) */
 .bubble{
   position:absolute; border:.16rem solid rgba(0,0,0,.15); border-radius:50%;
   background: radial-gradient(circle at 50% 50%, #f8fbff 0%, #ffffff 80%);
   display:flex; flex-direction:column; justify-content:flex-start; align-items:center; text-align:center;
-  font-family:"Cabin", sans-serif; color:#111; letter-spacing:.02em; z-index:1; padding-top:0.7rem;
+  font-family:"Cabin", sans-serif; color:#111; 
+  letter-spacing:.02em; z-index:1; padding-top:0.7rem;
   opacity:0; transform:translateY(1.2rem); transition:opacity .6s ease, transform .6s ease;
   box-shadow: inset 0 0 1rem rgba(13,110,253,.08), 0 .2rem 1.4rem rgba(0,0,0,.06);
 }
 .bubble.is-visible{ opacity:1; transform:none; }
 .bubble__label{
-  font-family:"Londrina Solid", cursive; font-weight:400; font-size:2rem;
-  text-transform:lowercase; margin:0 0 1.2rem;
+  font-family:"Londrina Solid", cursive; font-weight:400; font-size:3.2rem;
+  text-transform:lowercase; margin:1rem 0 .6rem;
 }
+/* 리스트 공통 */
+.list-plain{ list-style:none; margin:.8rem auto 0; 
+  padding:0; color:#374151; max-width:85%; word-break:keep-all; 
+  overflow-wrap:anywhere; }
 
-/* ===== 버블 위치/크기: 데스크탑 좌표로 고정 ===== */
-/* 새 bio */
+.list-plain li{ margin:.2rem 0; 
+  font-size:1.8rem; }
+
+
+.bubble--bio .list-plain li{ font-size:1.7rem; color: #000;}
+
 .bubble--bio{
-  top:-6.4rem; left:60rem;
-  width:25rem; height:10rem; z-index:7; background:#fff;
+  left: calc(50% + 10rem);
+  top:  calc(50% - 40rem);
+  width: 35rem; height: 13rem;
+  z-index: 4;
+  border: .1rem solid color-mix(in oklab, #ffb300 65%, #ffffff 35%);
+  box-shadow:
+    0 .8rem 1.6rem rgba(255, 193, 7, 0.3),
+    0 0 1.4rem rgba(255, 183, 0, 0.25),
+    inset 0 0 0.2rem rgba(255, 213, 0, 0.3);
+  border-radius: 50%;
+  backdrop-filter: blur(4px);
+  transition: transform .4s ease, box-shadow .4s ease;
 }
-.bubble--bio .list-plain li{ font-size:1.2rem; }
 
-/* bio2 */
+/* hover 시 살짝 반짝이게 */
+.bubble--bio:hover{
+  transform: scale(1.05);
+  box-shadow:
+    0 1rem 3rem rgba(255, 196, 0, 0.4),
+    0 0 3rem rgba(255, 230, 100, 0.35),
+    inset 0 0 1.4rem rgba(255, 240, 140, 0.4);
+}
+
+.bubble--bio .bubble__label{ font-weight:800; }
+.bubble--bio .list-plain li{ font-size:1.8rem; }
+
+/* bio2 — bio 오른쪽 아래로 */
 .bubble--bio2{
-  top:0.5rem; left:70rem;        /* 59% of 120rem ≈ 70.8rem → 70rem로 스냅 */
-  width:40rem; height:15rem; background:#fff;
+  left: calc(50% + 30rem);
+  top:  calc(50% - 35rem);
+  width: 60rem; height: 20rem; background:#fff;
 }
 
-/* 교육 */
+/* education — 좌상단, 타이틀과 충분히 이격 */
 .bubble--edu{
-  top:8rem; left:0rem;        /* 18% of 120rem = 21.6rem */
-  width:42rem; height:20rem;
+  left: calc(50% - 90rem);
+  top:  calc(50% - 30rem);
+  width: 60rem; height: 26rem;
 }
 
-/* 성격 */
+/* character — 좌하단 */
 .bubble--char{
-  top:64rem; right:48rem;        /* 40% of 120rem = 48rem */
-  width:40rem; height:18rem; background:#fff;
+  left: calc(50% - 70rem);
+  top:  calc(50% + 12rem);
+  width: 50rem; height: 23rem; background:#fff;
 }
 
-/* 경력 */
+/* experience — 우하단(가장 큰 버블) */
 .bubble--exp{
-  top:36rem; right:9.6rem;       /* 8% = 9.6rem */
-  width:45rem; height:30rem;
+  left: calc(50% + 40rem);
+  top:  calc(50% + 5rem);
+  width: 60rem; height: 35rem;
+  z-index: 3;
 }
 
-/* 소셜 */
+/* social — 하단 중앙 살짝 왼쪽 */
 .bubble--social{
-  bottom:-3.2rem; left:14.4rem;  /* 12% = 14.4rem */
-  width:26rem; height:10rem;
+  left: calc(50% - 90rem);
+  top:  calc(50% + 30rem);
+  width: 35rem; height: 18rem;
 }
-.bubble--social .list-plain li a{ color:#000; }
-.bubble--social .list-plain li a:hover{ text-decoration:underline; }
 
-/* 스킬 */
+/* skills — 하단 중앙 살짝 오른쪽 */
 .bubble--skills{
-  bottom:-24rem; left:36rem; transform:translateX(-10%);
-  width:25rem; height:23rem;
+  left: calc(50% + 5rem);
+  top:  calc(50% + 30rem);
+  width: 28rem; height: 18rem;
 }
-
 /* 별 장식 */
 .bubble::before, .bubble::after{
   content:"✷ "; position:absolute; font-size:1.2rem; opacity:.65;
@@ -293,6 +348,7 @@ button:hover ~ #cursorSun,
 @keyframes twinkle{ 0%{opacity:.5; transform:scale(1.2) rotate(0deg)} 100%{opacity:1; transform:scale(1.7) rotate(15deg)} }
 
 /* 말풍선 */
+
 .tooltip-email::after,
 .tooltip-insta::after{
   position:absolute; z-index:999; content:""; display:none; top:0; left:100%;
@@ -310,7 +366,12 @@ button:hover ~ #cursorSun,
 .tooltip-insta:hover::after,
 .tooltip-insta:hover::before{ display:block; animation:pop .25s ease forwards; }
 @keyframes pop{ 0%{opacity:0; transform:translate(1rem,-40%) scale(.9)} 100%{opacity:1; transform:translate(1rem,-30%) scale(1)} }
-.tooltip-email, .tooltip-insta{ position:relative; text-decoration:none; font-weight:600; cursor:pointer; }
+.tooltip-email, .tooltip-insta{ 
+  position: relative;
+  color: #111;      
+  text-decoration: underline;    
+  font-weight: 500;
+  cursor: pointer; }
 
 /* =========================================================
    SECTION 3: PROJECTS (iMac / iPhone) — rem 통일
@@ -324,16 +385,36 @@ button:hover ~ #cursorSun,
   font-size:12rem; margin-bottom:50rem; text-align:left;
   font-family:'Gasoek One', cursive; font-weight:500;
 }
-.nespresso, .glossier{
-  display:flex; align-items:center; font-family:doto, sans-serif; font-size:15rem;
+.nespresso, .tamburins, .glossier{
+  display:flex; font-family:doto, sans-serif; font-size:15rem;
 }
-.nespresso{ justify-content:right; }
-.glossier{ justify-content:left; }
+.nespresso {
+  align-items:left;
 
-/* iMac Shell (px → rem) */
-.imac-shell{
-  position:relative; width:120rem; height:90.4rem; margin:0 auto;
 }
+/* iMac Shell (px → rem) */
+/* 1) iMac 래퍼: 실제 레이아웃 크기(폭×높이)만 키움 */
+.device--imac{
+  --imac-w-base: 120rem;   /* 기존 기준 폭 */
+  --imac-h-base: 90.4rem;  /* 기존 기준 높이 (비율 0.753333) */
+  --imac-scale: 1.25;      /* ← 여기 숫자만 키우면 전체 커짐 (예: 1.4, 1.6) */
+
+  width:  calc(var(--imac-w-base) * var(--imac-scale));
+  height: calc(var(--imac-h-base) * var(--imac-scale));
+  margin: 0 auto;
+  position: relative;
+}
+
+/* 2) 실제 iMac 쉘: 기준 크기를 유지하고, 래퍼 안에서 균일 스케일 */
+.device--imac .imac-shell{
+  position: absolute;
+  left: 0; top: 0;
+  width: var(--imac-w-base);
+  height: var(--imac-h-base);
+  transform-origin: top left;     /* 좌상단 기준 확장 */
+  transform: scale(var(--imac-scale));
+}
+
 .imac-shell .top-panel{
   position:relative; width:100%; height:65rem; border-radius:2.7rem 2.7rem 0 0; background:#070707;
   box-shadow: inset 0 .1rem 0 rgba(255,255,255,.06), inset 0 0 0 .1rem rgba(255,255,255,.04), 0 .2rem 0 rgba(0,0,0,.4);
@@ -400,8 +481,130 @@ button:hover ~ #cursorSun,
 @supports (content-visibility:auto){
   .imac-shell .figma-embed, .imac-shell .site-embed{ content-visibility:auto; }
 }
+/* 공통 팝업 스타일 (요청하신 디자인) */
+.floating-window{
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 500px; max-width: 86vw;
+  background-color: #f6f6f6;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,.3);
+  overflow: hidden;
+  z-index: 9999;
+}
 
-/* iPhone Frame (rem 통일) */
+/* 아이맥 오른쪽 하단 겹치게: 포지션 수정용 모디파이어 */
+.floating-window--imac-br{
+  position: absolute;
+  width: 50rem;              /* 500px */
+  right: -5.6rem;            /* 바깥으로 5.6rem */
+  bottom: -2.2rem;           /* 아래로 2.2rem */
+  top: auto; left: auto;
+
+}
+
+/* 헤더/버튼 (요청안 그대로) */
+.window-header{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:8px 12px; background-color:#e6e6e6; border-bottom:1px solid #d6d6d6;
+}
+.window-title{ margin:0; font-size:14px; font-weight:bold; }
+.window-controls{ display:flex; gap:8px; }
+.window-minimize,.window-maximize,.window-close{
+  width:12px; height:12px; border-radius:50%;
+}
+.window-minimize{ background-color:#f7d54a; }
+.window-maximize{ background-color:#62c462; }
+.window-close{ background-color:#ee5f5b; }
+.window-content{ padding:12px; }
+
+/* iMac 프레임이 팝업을 덮지 않도록 보장 */
+.device--imac .imac-shell{ z-index: 1; }
+.device--imac .floating-window{ z-index: 2; }
+
+
+/* =============================
+   Portfolio Mood — Meta Actions
+   ============================= */
+:root{
+  --pf-ink:#0f172a;            /* 잉크 */
+  --pf-cream:#fffdf4;          /* 종이 크림 */
+  --pf-cream-2:#fff7e6;
+  --pf-sun:#ffb95e;            /* 따뜻한 포인트 */
+  --pf-sun-2:#ff9f47;
+  --pf-sky:#3b82f6;
+  --pf-shadow: 0 .6rem 1.6rem rgba(15,23,42,.08);
+}
+
+.meta-actions{
+  display:flex; gap:1.2rem; flex-wrap:wrap; margin-top:1.4rem;
+}
+
+/* 공통 버튼: 스티커 느낌(잉크 테두리 + 종이 배경 + 투명 그림자) */
+.meta-btn{
+  --bd: var(--pf-ink);
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:1rem 1.9rem; border-radius:999rem;
+  font-weight:700; font-size:1.5rem; letter-spacing:.01em;
+  text-decoration:none; position:relative;
+  border:.16rem solid var(--bd);
+  box-shadow: 2px 2px 0 var(--pf-ink), var(--pf-shadow);
+  transition: transform .18s ease, box-shadow .18s ease, background .2s ease, color .2s ease;
+  background: linear-gradient(180deg, var(--pf-cream) 0%, var(--pf-cream-2) 100%);
+  color:var(--pf-ink);
+}
+.meta-btn:hover{
+  transform: translateY(-2px);
+  box-shadow: 3px 3px 0 var(--pf-ink), 0 1.2rem 2.2rem rgba(15,23,42,.12);
+}
+.meta-btn:active{ transform: translateY(0); box-shadow: 1px 1px 0 var(--pf-ink), var(--pf-shadow); }
+.meta-btn:focus-visible{ outline:2px dashed var(--pf-ink); outline-offset:3px; }
+
+/* 프라이머리(홈페이지 보기) – 태양 포인트 */
+.meta-btn--primary{
+  background: linear-gradient(135deg, var(--pf-sun) 0%, var(--pf-sun-2) 100%);
+  color:#111; border-color:#111;
+}
+.meta-btn--primary:hover{
+  filter:saturate(1.05) brightness(1.02);
+}
+
+/* 고스트(작업과정 보기) – 투명/잉크 점선 */
+.meta-btn--ghost{
+  background:transparent;
+  border-style:dashed;
+  color:var(--pf-ink);
+}
+.meta-btn--ghost:hover{
+  background:linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+}
+
+/* ▶ 화살표 미세 인터랙션(텍스트에 화살표가 없을 때) */
+.meta-btn[data-arrow]::after{
+  content:""; width:.7rem; height:.7rem; margin-left:.6rem;
+  border-right:2px solid currentColor; border-bottom:2px solid currentColor;
+  transform: rotate(-45deg); transition: transform .2s ease;
+}
+.meta-btn[data-arrow]:hover::after{ transform: rotate(-45deg) translate(2px,-2px); }
+
+/* Tamburins 같이 다크 무드 카드 안에서는 반전 테마 */
+.meta-window[data-theme="dark"] .meta-btn{
+  --bd:#0b0b0b;
+  background:linear-gradient(180deg,#121212,#0b0b0b);
+  color:#fff; border-color:#0b0b0b;
+  box-shadow: 2px 2px 0 #000, 0 .8rem 1.8rem rgba(0,0,0,.35);
+}
+.meta-window[data-theme="dark"] .meta-btn--primary{
+  background:linear-gradient(135deg,#222,#101010);
+  color:#fff;
+}
+.meta-window[data-theme="dark"] .meta-btn--ghost{
+  background:transparent; border-color:#2b2b2b; color:#e5e7eb;
+}
+
+
+/****************************** iPhone Frame (rem 통일) *********************************/
 .frame-base{
   display:block; width:31.96rem; height:66.44rem; background:#fff; border-radius:4.86rem;
   position:relative; margin:0 auto; box-shadow: inset .2rem 0 1.2rem #494949;
@@ -720,3 +923,288 @@ button:hover ~ #cursorSun,
 /* Reveal */
 [data-reveal]{ opacity:0; transform:translateY(1.2rem); }
 [data-reveal].is-visible{ opacity:1; transform:none; transition:.6s ease; }
+
+
+/* ===========================
+   RESPONSIVE ONLY (add-on)
+   - iPhone:  ≤ 428px (42.8rem)
+   - iPad:    429px ~ 834px (42.9rem ~ 83.4rem)
+   - Desktop: ≥ 1025px (102.5rem)
+=========================== */
+
+/* ---------- iPhone (≤ 428px) ---------- */
+@media (max-width: 42.8rem){
+
+  :root{
+    --gutter: 1.6rem;
+  }
+
+  /* 모바일은 커스텀 커서 숨김 */
+  #cursorSun{ display:none !important; }
+
+  body{ padding-inline: var(--gutter); }
+
+  /* Hero */
+  .hero{ padding:4rem 0 2.4rem; }
+  .search-wrap{
+    width: 100%;
+    padding: .4rem;
+    border-radius: 3.2rem;
+    margin-top: .4rem;
+  }
+  .search-bar{
+    gap:.6rem; padding:.6rem; border-width:.3rem; border-radius:3.2rem;
+    box-shadow: 0 .6rem 1.6rem rgba(0,0,0,.18);
+  }
+  .input-area{ padding:.2rem .8rem; }
+  .input-area input,
+  .typing-ghost{ font-size:1.6rem; }
+  .hero__subcopy{ font-size:1.5rem; }
+  .hero__hint{ font-size:1.3rem; }
+
+  /* ABOUT CV MAP */
+  .about-cvmap{
+    margin-top: 8rem;
+    /* 이미 내부에서 scale 계산을 하므로 별도 너비 제어 X */
+  }
+  .ink-title-svg{ height:12rem; margin:0 auto 2rem; }
+  .ink-title-stroke{ font-size:6.4rem; }
+
+  /* 버블: 폰에서 살짝 축소/높이 자동 */
+  .bubble{
+    transform: translateY(.8rem);
+    padding-top:.5rem;
+  }
+  .bubble__label{ font-size:1.6rem; }
+  .list-plain{ max-width:92%; }
+  .list-plain li{ font-size:1.2rem; }
+
+  /* 위치가 겹칠 수 있는 버블 일부만 사이즈 다운 */
+  .bubble--bio{ width:22rem; height:auto; padding:1rem; }
+  .bubble--bio2{ width:30rem; height:auto; padding:1rem; left:58rem; }
+  .bubble--edu{ width:34rem; height:auto; padding:1rem; }
+  .bubble--char{ width:30rem; height:auto; padding:1rem; }
+  .bubble--exp{ width:36rem; height:auto; padding:1rem; }
+  .bubble--social{ width:24rem; height:auto; padding:1rem; }
+  .bubble--skills{ width:22rem; height:auto; padding:1rem; }
+
+  /* Projects 섹션 */
+  .projects{
+    margin:16rem 0;
+    height:auto;
+  }
+  .projects-title{
+    font-size:5.6rem;
+    margin-bottom:8rem;
+    text-align:center;
+  }
+  .nespresso, .glossier{ font-size:6.4rem; justify-content:center; }
+
+  /* iMac 프레임은 여백 안에서 자동 스케일 느낌으로 */
+  .imac-shell{
+    width: 100%;
+    height: auto;
+  }
+  .imac-shell .display-panel{ inset:2.6rem 2rem; }
+  .imac-shell .bottom-panel{ height:6.4rem; }
+  .imac-shell .apple-logo{ transform: scale(.9); }
+
+  /* Phone frame */
+  .frame-base{ width:28rem; height:58rem; border-radius:3.6rem; }
+  .layer2{ width:26.8rem; height:56.8rem; border-radius:3.2rem; }
+  .screen{ width:25rem; height:54.8rem; border-radius:3rem; }
+
+  /* Phones grid & 메타 */
+  .phones-grid{ gap:2.4rem; }
+  .phone-row{
+    grid-template-columns: 1fr; 
+    justify-content:center; 
+  }
+  .phone-pair{
+    grid-template-columns: 1fr; 
+    gap:1.6rem;
+    justify-content:center;
+  }
+  .phone-meta{
+    max-width: none;
+    border-radius:1.6rem;
+    padding:1.6rem;
+  }
+  .phone-meta h3{ font-size:1.7rem; }
+  .phone-meta p{ font-size:1.3rem; }
+
+  /* Glossier 세로 스크롤 뷰어 */
+  .phone-glossier .stack{ transition-duration: 12s; }
+
+  /* Zigzag */
+  .proj--zigzag-v2{ margin:6rem 0; }
+  .proj--zigzag-v2 .proj__title{ font-size:7.2rem; }
+  .zz-layout{
+    grid-template-columns: 1fr;
+    gap:2rem;
+    margin-top:3.2rem;
+  }
+  .zz-left{ grid-template-columns: 1fr 1fr; gap:1.2rem; }
+  .zz-right{
+    height:auto; 
+    padding-left:0; 
+    min-height:58rem;
+  }
+  .zz-swiper .swiper{
+    width: 100%;
+    height: 58rem;
+    border-radius:1.2rem;
+  }
+  .zz-swiper .swiper-button-prev{ left:.6rem; }
+  .zz-swiper .swiper-button-next{ right:.6rem; }
+
+  /* 29CM */
+  .cm-layout{
+    grid-template-columns: 1fr;
+    gap:2rem;
+  }
+  .cm-left{ order:2; }
+  .cm-right{ order:1; grid-template-columns: 1fr 1fr; gap:1.2rem; }
+
+  .cm-swiper.swiper{
+    width: 100%;
+    height: 58rem;
+    border-radius:1.2rem;
+  }
+  .cm-swiper .swiper-button-prev{ left:.6rem; }
+  .cm-swiper .swiper-button-next{ right:.6rem; }
+
+  .cm-section-29 .cm-title{ font-size:4.6rem; }
+  .cm-section-29 .cm-sub{ font-size:1.2rem; }
+  .cm-section-29 .cm-row{
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    --gap:1.2rem;
+  }
+  .cm-section-29 .cm-phone{
+    width: 100%;
+    max-width: 20rem;
+    animation-duration: 14s;
+  }
+
+  /* Instagram-like Grid */
+  .ig{ padding-top:4rem; }
+  .ig__title strong,
+  .ig__title p{ font-size:6.8rem; }
+  .ig__container{ gap:1.6rem; }
+  .ig__header{ gap:1rem; }
+  .ig__avatar{ width:5.6rem; height:5.6rem; }
+  .ig__username{ font-size:1.8rem; }
+  .ig__stats{ gap:1.2rem; }
+  .ig__grid{ grid-template-columns: repeat(2, 1fr); gap:.4rem; }
+
+  /* Lightbox(stage를 화면 꽉 채우도록) */
+  .ig-lb__stage{
+    width:100vw; height:100vh;
+  }
+  .ig-lb__swiper{ border-radius:.6rem; }
+  .ig-lb__close{
+    top: 1.2rem; right: 1.2rem;
+    width:3.6rem; height:3.6rem; line-height:3.4rem;
+  }
+
+  /* Tabs */
+  .tabset__btn{ padding:1rem 1.2rem; font-size:1.4rem; }
+  .tabset__panel{ padding:1.4rem; }
+  .feeds{ grid-template-columns: 1fr; gap:1.2rem; }
+
+  /* Contact */
+  .contact__cta{ flex-wrap:wrap; }
+}
+
+
+/* ---------- iPad (43rem ~ 83.4rem) ---------- */
+@media (min-width: 42.9rem) and (max-width: 83.4rem){
+
+  :root{
+    --gutter: clamp(2rem, 4vw, 3.2rem);
+  }
+
+  /* Hero */
+  .hero{ padding:5rem 0 3rem; }
+  .search-wrap{ width:min(96%, 86rem); }
+
+  /* ABOUT CV MAP */
+  .about-cvmap{ margin-top: 12rem; }
+  .ink-title-svg{ height:16rem; }
+  .ink-title-stroke{ font-size:7.6rem; }
+
+  /* Projects */
+  .projects{ margin:28rem 0; height:auto; }
+  .projects-title{ font-size:8rem; margin-bottom:18rem; }
+  .nespresso, .glossier{ font-size:10rem; }
+
+  /* iMac */
+  .imac-shell{ width: 96%; height:auto; margin:0 auto; }
+
+  /* Phones grid */
+  .phone-row{
+    grid-template-columns: 32rem 1fr;
+  }
+  .phone-pair{
+    grid-template-columns: 1fr 1fr;
+    gap:2rem;
+  }
+
+  /* Zigzag */
+  .zz-layout{
+    grid-template-columns: min(40rem,48%) 1fr;
+    gap:2.4rem;
+  }
+  .zz-right{ padding-left: 12rem; }
+  .zz-swiper .swiper{ width: 40rem; height: 64rem; }
+
+  /* 29CM */
+  .cm-layout{
+    grid-template-columns: 1fr min(40rem,48%);
+    gap:2.4rem;
+  }
+  .cm-right{ grid-template-columns: 1fr 1fr; gap:1.6rem; }
+  .cm-swiper.swiper{ width:min(52rem, 92%); height:64rem; }
+
+  .cm-section-29 .cm-title{ font-size:5.2rem; }
+  .cm-section-29 .cm-row{
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    --gap:1.6rem;
+  }
+  .cm-section-29 .cm-phone{ width:22rem; animation-duration:16s; }
+
+  /* Instagram-like Grid */
+  .ig__title strong,
+  .ig__title p{ font-size:9.6rem; }
+  .ig__grid{ grid-template-columns: repeat(3, 1fr); }
+  .feeds{ grid-template-columns: 1fr 1fr; }
+}
+
+
+/* ---------- Desktop (≥ 1025px) ---------- */
+@media (min-width: 102.5rem){
+
+
+  :root{
+    --gutter: clamp(3.2rem, 4vw, 6rem);
+  }
+
+  /* 넓은 화면에서 타이포/간격 소폭 업 */
+  .hero{ padding:6rem 0 4rem; }
+  .projects-title{ font-size:12rem; }
+
+ .about-cvmap{
+    --cv-scale: 1 !important;
+    transform: scale(1);         /* ← translateX 제거 */
+  }
+  .zz-swiper .swiper-button-prev{ transform:translateX(-.4rem); }
+  .zz-swiper .swiper-button-next{ transform:translateX(.4rem); }
+
+  .cm-section-29 .cm-row{
+    grid-template-columns: repeat(4, minmax(22rem, 1fr));
+  }
+  .cm-section-29 .cm-phone{ width:26rem; }
+  .ig__grid{ grid-template-columns: repeat(3, 1fr); }
+
+
+}

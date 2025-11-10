@@ -426,180 +426,145 @@
       </div>
     </figure>
   </div>
+
+  <div class="phone-meta phone-meta--29cm g-card-meta2">
+  <h3>29CM App Redesign</h3>
+  <p class="meta-desc">
+    모바일 UX를 재구성한 <strong>포토샵 디자인</strong></p>
+
+  <div class="meta-actions">
+    <a class="meta-btn" href="https://6xxnnk.github.io/29cm.prototype/" target="_blank" rel="noopener">프로토타입 보기</a>
+    <a class="meta-btn meta-btn--ghost" href="https://notion.so/29cm-redesign-process" target="_blank" rel="noopener">작업과정 보기</a>
+  </div>
+</div>
 </section>
 
 <!-- 
 =========================
       04. instagram (갤러리 + 라이트박스)
     ========================= -->
-<section id="instagram" class="ig section" aria-labelledby="igTitle">
+<section class="ig" id="insta">
+
+
+  <div class="ig__container">  
+    
   <div class="ig__title">
-    <strong><br>
-          Get  <br>
-          people <br>
-          talking about</strong>
-          <p>your brand.</p>  
-      
+    <strong><br>Get<br>people<br>talking about</strong>
+    <p>your brand.</p>
   </div>
-  <div class="container ig__container">
-    <header class="ig__header">
-      <div class="ig__profile">
-        <img class="ig__avatar" src="img/Polaroid Stack.png" alt="6xxnnk avatar" />
-        <div class="ig__meta">
-          <h2 id="igTitle" class="ig__username">6xxnnk</h2>
-          <p class="ig__bio">Ad/Seeding · 협찬 콘텐트 포트폴리오</p>
+    <!-- 프로필 헤더 -->
+    <header class="ig-hd">
+      <div class="ig-hd__avatar">
+        <img src="img/your-avatar.jpg" alt="프로필 사진">
+      </div>
+
+      <div class="ig-hd__main">
+        <div class="ig-hd__row">
+          <h1 class="ig-hd__username">
+            eyesmag
+            <span class="ig-verified" aria-label="인증됨"></span>
+            <button class="ig-ellipsis" aria-label="더 보기">⋯</button>
+          </h1>
+          <div class="ig-actions">
+            <button class="ig-btn ig-btn--primary">팔로잉 ▾</button>
+            <button class="ig-btn">메시지 보내기</button>
+            <button class="ig-btn ig-btn--icon" aria-label="추천">
+              <svg viewBox="0 0 24 24" class="ig-icon"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 3.99 4 6.5 4c1.74 0 3.41 1.01 4.22 2.56C11.09 5.01 12.76 4 14.5 4c2.5 0 4.5 2 4.5 4.5 0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <ul class="ig-counters">
+          <li><strong>5.9천</strong><span>게시물</span></li>
+          <li><strong>116.4만</strong><span>팔로워</span></li>
+          <li><strong>1</strong><span>팔로우</span></li>
+        </ul>
+
+        <div class="ig-bio">
+          <div class="ig-bio__name">eyesmagazine 아이즈매거진</div>
+          <div class="ig-bio__desc">패션&라이프스타일 웹 매거진</div>
+          <div class="ig-bio__links">
+            <a href="https://www.eyesmag.com" target="_blank" rel="noopener">www.eyesmag.com</a>
+            <span class="dot">•</span>
+            <a href="#" target="_blank" rel="noopener">@eyesmag</a>
+          </div>
+          <div class="ig-bio__mutual">
+            <img src="img/friend1.jpg" alt="" class="mutual">
+            <img src="img/friend2.jpg" alt="" class="mutual">
+            <img src="img/friend3.jpg" alt="" class="mutual">
+            <span>님 외 40명이 팔로우합니다</span>
+          </div>
         </div>
       </div>
-      <ul class="ig__stats" aria-label="profile stats">
-        <li><strong>777</strong><span>posts</span></li>
-        <li><strong>2,217</strong><span>followers</span></li>
-        <li><strong>256</strong><span>following</span></li>
-      </ul>
     </header>
 
-    <!-- 갤러리: 브랜드별 9개 -->
-    <div class="ig__grid">
-      <!-- 마뗑킴 -->
-      <article class="gallery-item" data-brand="마뗑킴"
-        data-images="img/ig/matinkim-1.jpg,img/ig/matinkim-2.jpg,img/ig/matinkim-3.jpg">
-        <div class="post-card">
-          <div class="post-thumb">
-            <img src="img/마뗑킴1.jpg" alt="마뗑킴 협찬 피드" loading="lazy">
-          </div>
-          <footer class="post-meta">
-            <span class="brand">MATIN KIM</span>
-            <span class="hashtag">#ad #seeding</span>
-          </footer>
+    <!-- 탭바(형식만 유지) -->
+    <nav class="ig-tabs" role="tablist">
+      <button class="ig-tab is-active" data-tab="posts" aria-selected="true">
+        <svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></svg>
+        <span>게시물</span>
+      </button>
+      <button class="ig-tab" data-tab="reels">
+        <svg viewBox="0 0 24 24"><path d="M3 5h18v14H3zM7 5l4 6M13 5l4 6"/></svg>
+        <span>릴스</span>
+      </button>
+      <button class="ig-tab" data-tab="tagged">
+        <svg viewBox="0 0 24 24"><path d="M20.59 13.41L12 22l-8.59-8.59V4h9.41L22 12.59zM7 7a2 2 0 104 0 2 2 0 00-4 0z"/></svg>
+        <span>태그됨</span>
+      </button>
+      <span class="ig-tabs__underline"></span>
+    </nav>
+  </div>
+
+  <!-- 피드 그리드 (각 카드에 data-link만 채우면 됨) -->
+  <div class="ig__grid">
+    <article class="gallery-item"
+      data-brand="마뗑킴"
+      data-link="https://www.instagram.com/p/XXXXXX/">
+      <div class="post-card">
+        <div class="post-thumb tooltip-ig" data-tooltip="인스타그램으로 이동합니다">
+          <img src="img/마뗑킴1.jpg" alt="마뗑킴 협찬 피드" loading="lazy">
         </div>
-      </article>
+        <footer class="post-meta">
+          <span class="brand">MATIN KIM</span>
+          <span class="hashtag">#광고 Rough and Undefined @matinkim_magazine
+가을이 오면 가디건 위에 나시 입고
+블루진에 마뗑킴 모자를 얹어봐 ⋆⋆⋆ 👖🧢</span>
+        </footer>
+      </div>
+    </article>
 
-      <!-- 키르시 -->
-      <article class="gallery-item" data-brand="키르시"
-        data-images="img/ig/kirsh-1.jpg,img/ig/kirsh-2.jpg">
-        <div class="post-card">
-          <span class="post-badge">post</span>
-          <div class="post-thumb">
-            <img src="img/ig/kirsh-1.jpg" alt="키르시 협찬 피드" loading="lazy">
-          </div>
-          <footer class="post-meta">
-            <span class="brand">KIRSH</span>
-            <span class="hashtag">#ad #gifted</span>
-          </footer>
+    <article class="gallery-item" data-brand="키르시"
+      data-link="https://www.instagram.com/p/YYYYYY/">
+      <div class="post-card">
+        <div class="post-thumb tooltip-ig" data-tooltip="인스타그램으로 이동합니다">
+          <img src="img/ig/kirsh-1.jpg" alt="키르시 협찬 피드" loading="lazy">
         </div>
-      </article>
+        <footer class="post-meta">
+          <span class="brand">KIRSH</span>
+          <span class="hashtag">#ad #gifted</span>
+        </footer>
+      </div>
+    </article>
 
-      <!-- 포터코리아 -->
-      <article class="gallery-item" data-brand="포터코리아"
-        data-images="img/ig/porter-1.jpg,img/ig/porter-2.jpg">
-        <div class="post-card">
-          <span class="post-badge">post</span>
-          <div class="post-thumb">
-            <img src="img/ig/porter-1.jpg" alt="포터코리아 협찬 피드" loading="lazy">
-          </div>
-          <footer class="post-meta">
-            <span class="brand">PORTER KOREA</span>
-            <span class="hashtag">#ad</span>
-          </footer>
+    <article class="gallery-item" data-brand="포터코리아"
+      data-link="https://www.instagram.com/p/ZZZZZZ/">
+      <div class="post-card">
+        <div class="post-thumb tooltip-ig" data-tooltip="인스타그램으로 이동합니다">
+          <img src="img/ig/porter-1.jpg" alt="포터코리아 협찬 피드" loading="lazy">
         </div>
-      </article>
+        <footer class="post-meta">
+          <span class="brand">PORTER KOREA</span>
+          <span class="hashtag">#ad</span>
+        </footer>
+      </div>
+    </article>
 
-      <!-- 아비브 -->
-      <article class="gallery-item" data-brand="아비브"
-        data-images="img/ig/abib-1.jpg,img/ig/abib-2.jpg,img/ig/abib-3.jpg">
-        <div class="post-card">
-          <span class="post-badge">post</span>
-          <div class="post-thumb">
-            <img src="img/ig/abib-1.jpg" alt="아비브 협찬 피드" loading="lazy">
-          </div>
-          <footer class="post-meta">
-            <span class="brand">ABIB</span>
-            <span class="hashtag">#gifted</span>
-          </footer>
-        </div>
-      </article>
- 
+    <!-- 아래 카드들도 동일하게 data-link만 채워주세요 -->
+    <!-- ... -->
+  </div>
+</section>
 
-
-
-
-      <!-- LMC -->
-      <article class="gallery-item" data-brand="엘엠씨"
-        data-images="img/ig/lmc-1.jpg,img/ig/lmc-2.jpg">
-        <div class="post-card">
-          <span class="post-badge">post</span>
-          <div class="post-thumb">
-            <img src="img/ig/lmc-1.jpg" alt="LMC 협찬 피드" loading="lazy">
-          </div>
-          <footer class="post-meta">
-            <span class="brand">LMC</span>
-            <span class="hashtag">#seeding</span>
-          </footer>
-        </div>
-      </article>
-
-      <!-- 폴리수엠 -->
-      <article class="gallery-item" data-brand="폴리수엠"
-        data-images="img/ig/polissuem-1.jpg,img/ig/polissuem-2.jpg">
-        <div class="post-card">
-          <span class="post-badge">post</span>
-          <div class="post-thumb">
-            <img src="img/ig/polissuem-1.jpg" alt="폴리수엠 협찬 피드" loading="lazy">
-          </div>
-          <footer class="post-meta">
-            <span class="brand">POLISSUEM</span>
-            <span class="hashtag">#ad</span>
-          </footer>
-        </div>
-      </article>
-
-      <!-- 리트리버클럽 -->
-      <article class="gallery-item" data-brand="리트리버클럽"
-        data-images="img/ig/retrieverclub-1.jpg,img/ig/retrieverclub-2.jpg">
-        <div class="post-card">
-          <span class="post-badge">post</span>
-          <div class="post-thumb">
-            <img src="img/ig/retrieverclub-1.jpg" alt="리트리버클럽 협찬 피드" loading="lazy">
-          </div>
-          <footer class="post-meta">
-            <span class="brand">RETRIEVER CLUB</span>
-            <span class="hashtag">#gifted</span>
-          </footer>
-        </div>
-      </article>
-
-      <!-- 피지컬에듀케이션뎁트 -->
-      <article class="gallery-item" data-brand="피지컬에듀케이션뎁트"
-        data-images="img/ig/ped-1.jpg,img/ig/ped-2.jpg">
-        <div class="post-card">
-          <span class="post-badge">post</span>
-          <div class="post-thumb">
-            <img src="img/ig/ped-1.jpg" alt="피지컬에듀케이션뎁트 협찬 피드" loading="lazy">
-          </div>
-          <footer class="post-meta">
-            <span class="brand">PHYSICAL EDUCATION DEPT.</span>
-            <span class="hashtag">#ad</span>
-          </footer>
-        </div>
-      </article>
-
-      <!-- aippo -->
-      <article class="gallery-item" data-brand="aippo"
-        data-images="img/ig/aippo-1.jpg,img/ig/aippo-2.jpg,img/ig/aippo-3.jpg">
-        <div class="post-card">
-          <span class="post-badge">post</span>
-          <div class="post-thumb">
-            <img src="img/ig/aippo-1.jpg" alt="aippo 협찬 피드" loading="lazy">
-          </div>
-          <footer class="post-meta">
-            <span class="brand">AIPPO</span>
-            <span class="hashtag">#gifted</span>
-          </footer>
-        </div>
-      </article>  <!--  -->
-
-
-  </div><!-- .post-gallery -->
-</section><!-- .portfolio -->
 
 
   <!-- Lightbox (배경 투명, 이미지만 확대 + 스와이프) -->
@@ -608,7 +573,9 @@
 
     <div class="ig-lb__stage">
       <div id="lbSwiper" class="swiper ig-lb__swiper">
-        <div class="swiper-wrapper"></div>      
+        <div class="swiper-wrapper">
+          
+        </div>      
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
         <div class="swiper-pagination"></div>
@@ -651,7 +618,7 @@
 
   <script src="js/cm29-mockups.js" defer></script>
 
-  <script src="js/instagram-lightbox.js" defer></script>
+  <script src="js/instagram.js" defer></script>
 
   <script src="js/collabs.js" defer></script>
 

@@ -1120,7 +1120,7 @@ button:hover ~ #cursorSun,
 
 /* 항상 4열 유지(데스크탑 디자인) */
 .cm-section-29 .cm-row{
-  --gap:2rem;
+  --gap:10rem;
   width:100%; margin:0 auto; max-width:var(--design-w);
   display:grid; gap:var(--gap);
   grid-template-columns: repeat(4, minmax(22rem, 1fr));

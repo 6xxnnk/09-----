@@ -352,23 +352,26 @@ button:hover ~ #cursorSun,
 /* 말풍선 */
 
 .tooltip-email::after,
-.tooltip-insta::after{
+.tooltip-insta::after, .tooltip-portfolio::after{
   position:absolute; z-index:999; content:""; display:none; top:0; left:100%;
   transform:translate(1rem,-30%); padding:1rem 1.5rem; border-radius:1rem; font-size:1.6rem; background:#fff; color:#111;
   border:.15rem solid #ddd; box-shadow:0 .3rem 1rem rgba(0,0,0,.1); white-space:nowrap; pointer-events:none;
 }
-.tooltip-email::before, .tooltip-insta::before{
+.tooltip-email::before, .tooltip-insta::before, .tooltip-portfolio::before{
   position:absolute; content:""; display:none; top:50%; left:calc(100% + .2rem);
   transform:translateY(-50%); border:.6rem solid transparent; border-right-color:#fff;
 }
 .tooltip-email::after{ content:"📧 이메일 보내기"; }
 .tooltip-insta::after{ content:"📷 인스타그램 방문하기"; }
+.tooltip-portfolio::after{ content:"📄 이력서 보기"; }
 .tooltip-email:hover::after,
 .tooltip-email:hover::before,
 .tooltip-insta:hover::after,
-.tooltip-insta:hover::before{ display:block; animation:pop .25s ease forwards; }
+.tooltip-insta:hover::before,
+.tooltip-portfolio:hover::after,
+.tooltip-portfolio:hover::before{ display:block; animation:pop .25s ease forwards; }
 @keyframes pop{ 0%{opacity:0; transform:translate(1rem,-40%) scale(.9)} 100%{opacity:1; transform:translate(1rem,-30%) scale(1)} }
-.tooltip-email, .tooltip-insta{ 
+.tooltip-email, .tooltip-insta, .tooltip-portfolio{ 
   position: relative;
   color: #111;      
   text-decoration: underline;    
@@ -383,6 +386,11 @@ button:hover ~ #cursorSun,
   display:flex; flex-direction:column; align-items:center;
   height:250vh; /* 원래 의도 유지 */
 }
+.projects-p  {  
+  font-size:1.6rem;
+  color:#6b7280;
+  display:block;
+  text-align:right;}
 .projects-title{
   font-size:12rem; margin-bottom:50rem; 
   text-align:left;
@@ -522,7 +530,7 @@ button:hover ~ #cursorSun,
 
 .floating-window--imac-br {
   right:5%;
-  bottom:20%;
+  bottom:30%;
   left:auto;
   top:auto;
 }
@@ -652,6 +660,8 @@ button:hover ~ #cursorSun,
   align-items: start;
   width: min(100%, var(--design-w, 120rem));
   margin-inline: auto;
+
+
 }
 
 /* 아이폰 2대 나란히 */
@@ -660,7 +670,8 @@ button:hover ~ #cursorSun,
   grid-template-columns: 32rem 32rem; /* 프레임 가로 고정 */
   gap: 2.4rem;
   justify-content: center;
-  align-items: start;
+  align-items: start; 
+  
 }
 /* 하드웨어 디테일 */
 .phone-glossier .side-button{ position:absolute; width:.3rem; background:linear-gradient(to bottom,#494949 0%,#aaa 12%,#ddd 50%,#aaa 88%,#494949 100%); }
@@ -725,6 +736,8 @@ button:hover ~ #cursorSun,
   z-index: 10;
 }
 
+
+
 /* =============== Meta 카드 (Glossier 무드) =============== */
 .g-card-meta.phone-meta{
   border:1px solid #f2a8bb; border-radius:2rem; background:linear-gradient(180deg,#fff 0%,#fafafa 100%);
@@ -784,9 +797,7 @@ button:hover ~ #cursorSun,
 
 
 /* ========== Zigzag(썸네일/스와이퍼) ========== */
-/* ============================
-   ZigZag — margin 통일 / rem 통일
-============================ */
+
 /* 섹션 상하 여백을 다른 섹션(.section { padding:10rem 0 })과 톤 맞춤 */
 .zigzag {display:flex; flex-direction:column; align-items:flex-end;}
 .proj--zigzag-v2{
@@ -851,156 +862,132 @@ button:hover ~ #cursorSun,
 .zz-swiper .swiper-button-prev{ left:-6rem; }
 .zz-swiper .swiper-button-next{ right:-6rem; }
 
+
+
+.proj--zigzag-v2{
+  margin: 10rem 0;               /* 기존 8rem → 10rem로 통일 */
+}
+
+/* 서브 카피 */
+.proj--zigzag-v2 .kicker{
+  color:#9e9e9e; margin:0 0 3rem; line-height:1.6; font-size:1.5rem;
+}
+
+/* 레이아웃: 폭/중앙 대칭 유지 + 상단 간격만 3rem로 단정 */
+.zz-layout{
+  width: min(100%, var(--design-w));
+  margin: 3rem auto 0;           /* 기존 5rem → 3rem (상단만 살짝) */
+  display:grid;
+  grid-template-columns: min(46rem,45%) 1fr;
+  gap: 3rem;
+  align-items:center;
+  justify-content:center;
+}
+
+/* 썸네일 2x2 */
+.zz-left{
+  display:grid; grid-template-columns:repeat(2,1fr);
+  gap:2rem; align-items:center; justify-content:center;
+}
+.zz-thumb{
+  position:relative; padding:0; background:none; cursor:pointer; overflow:hidden;
+  aspect-ratio:9/19; border-radius:1.4rem;
+  outline:.2rem solid transparent; border:.1rem solid #a6a7ab;
+  transition: transform .25s ease, box-shadow .25s ease, outline-color .25s ease, border-color .25s ease;
+}
+.zz-thumb:hover{ transform:translateY(-.3rem); }
+.zz-thumb.is-active{ border:.5rem dotted #a6a7ab; }
+.zz-thumb img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s ease; }
+.zz-thumb:hover img{ transform:scale(1.02); }
+
+/* 우측 슬라이더 */
+.zz-right{
+  position:relative; display:flex; justify-content:center; align-items:center;
+  height:62rem; padding-left:30rem;   /* 기존 값 유지(구조 영향 최소화) */
+}
+.zz-swiper{
+  position:absolute; inset:0; opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .6s ease; border:none;
+  display:flex; justify-content:center; align-items:center;
+}
+.zz-swiper.is-active{ position:relative; opacity:1; visibility:visible; pointer-events:auto; }
+.zz-swiper .swiper{ width:45rem; height:70rem; border:none; border-radius:1.6rem; overflow:hidden; }
+.zz-swiper .swiper-wrapper{ height:100%; transition-timing-function:cubic-bezier(.22,.61,.36,1) !important; }
+.zz-swiper .swiper-slide{ display:flex; align-items:center; justify-content:center; }
+.zz-swiper img{ width:100%; height:100%; object-fit:cover; border:none; box-shadow:none; transition:transform .6s ease; padding:1rem; overflow:visible; }
+.zz-swiper .swiper-button-prev,
+.zz-swiper .swiper-button-next{
+  --swiper-navigation-size:3.2rem;
+  width:4.6rem; height:4.6rem; border-radius:50%; background:rgba(255,200,120,.25);
+  backdrop-filter:blur(.6rem); color:#ff9f47; border:.1rem solid rgba(255,180,90,.3);
+  box-shadow:0 .6rem 1.8rem rgba(255,168,68,.25), 0 0 1.8rem .6rem rgba(255,200,120,.16);
+  transition:all .25s ease;
+}
+.zz-swiper .swiper-button-prev{ left:-6rem; }
+.zz-swiper .swiper-button-next{ right:-6rem; }
+
 /* ===== ZigZag Meta Card (오렌지 톤) ===== */
-/* ================= Vars ================= */
-:root{
-  --zz-ink:#0f172a;          /* 텍스트 잉크 */
-  --zz-paper:#fffdf6;        /* 종이(크림) */
-  --zz-paper-2:#faf5ea;      /* 살짝 더 짙은 크림 */
-  --zz-bd:#e9e3d6;           /* 종이 테두리 */
-  --zz-dot:#d8d2c6;          /* 천공 점선 */
-  --zz-shadow:0 12px 34px rgba(15,23,42,.12);
-
-  --zz-coral:#ff7a6e;        /* Zigzag 코랄 */
-  --zz-orange:#ffb35f;       /* Zigzag 오렌지 */
-  --zz-amber:#ffcf7f;        /* 밝은 앰버 하이라이트 */
+.zz-meta{
+  border: .1rem solid #ffc27a;
+  border-radius: 2rem;
+  background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+  box-shadow: 0 .6rem 1.8rem rgba(0,0,0,.06),
+              inset 0 0 0 .1rem rgba(255,200,120,.9);
+  padding: 2.4rem 2rem;
+  text-align: center;
+  width: min(100%, 56rem);
+  margin: 4rem auto 0;                /* 지그재그 내부 요소와 간격 */
+  transition: box-shadow .25s ease, transform .25s ease;
+  font-size: 1.5rem;
 }
-
-/* ================= Shell ================= */
-.zz-meta.phone-meta.g-card-meta2{
-  position:relative;
-  width:min(72rem, 92vw);
-  margin:4rem auto 0;
-  padding:2.4rem 2rem 2rem;
-  color:var(--zz-ink);
-  background:
-    linear-gradient(180deg, var(--zz-paper), var(--zz-paper-2));
-  border:1px solid var(--zz-bd);
-  border-radius:1.6rem;
-  box-shadow: var(--zz-shadow), inset 0 0 0 .1rem rgba(255,255,255,.9);
-  overflow:hidden;
-  isolation:isolate;
-  transition:transform .2s ease, box-shadow .25s ease, border-color .25s ease;
-}
-.zz-meta.phone-meta.g-card-meta2:hover{
-  transform:translateY(-.2rem);
-  box-shadow:0 18px 44px rgba(15,23,42,.16);
-  border-color:color-mix(in oklab, var(--zz-bd) 70%, var(--zz-amber) 30%);
-}
-
-/* 상단 에디토리얼 리본 */
-.zz-meta .zz-label{
-  position:absolute; left:1.6rem; top:.8rem;
-  display:inline-block;
-  padding:.28rem .8rem .34rem;
-  border:1px solid color-mix(in oklab, var(--zz-ink) 18%, transparent);
-  border-radius:.6rem;
-  background:
-    linear-gradient(180deg, #fffefd, #fff6e6);
-  font:700 1.05rem/1 ui-sans-serif, "Noto Sans KR", system-ui;
-  letter-spacing:.12em;
-  color:#6b7280;
-  text-transform:uppercase;
-  box-shadow:inset 0 1px 0 #fff, 0 4px 12px rgba(0,0,0,.06);
-  z-index:2;
-}
-
-/* 상단 지그재그 데코 스트립 */
-.zz-meta .zz-deco{
-  position:absolute; left:0; right:0; top:0; height:1.1rem;
-  background:
-    repeating-linear-gradient(135deg,
-      var(--zz-coral) 0 14px,
-      var(--zz-orange) 14px 28px);
-  mask: radial-gradient(12px at 12px 0,#0000 98%,#000) repeat-x left top/24px 100%;
-  opacity:.95;
-  z-index:1;
-}
-
-/* 타이틀/텍스트 */
-.zz-meta .zz-title{
-  margin:1.2rem 0 .6rem;
-  font:700 1.9rem/1.2 "Poppins","Noto Sans KR",ui-sans-serif;
-  letter-spacing:.01em;
+.zz-meta:hover{ transform: translateY(-.2rem); box-shadow: 0 1rem 2.6rem rgba(255,179,95,.22); }
+.zz-meta h3{
+  margin:0 0 .8rem; font-weight:600; font-size:2rem; color:#111; letter-spacing:.01em;
 }
 .zz-meta .meta-desc{
-  margin:0 0 1.2rem;
-  font-size:1.45rem; line-height:1.6;
-  color:#2b2b2b;
+  font-size:1.5rem; color:#4a3a28; margin:0 0 1.6rem; line-height:1.65;
 }
+.zz-meta .meta-bullets{ margin:0 0 2rem; padding:0; list-style:none; }
+.zz-meta .meta-bullets li{ margin:.4rem 0; font-size:1.35rem; color:#374151; line-height:1.5; }
+.zz-meta .meta-actions{ display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap; }
 
-/* 천공(티켓) 스타일 구분선 */
-.zz-meta .meta-bullets{
-  position:relative;
-  margin:1.2rem 0 1.8rem;
-  padding:1.2rem 0 0;
-  list-style:none;
-}
-.zz-meta .meta-bullets::before{
-  content:"";
-  position:absolute; left:-2rem; right:-2rem; top:0; height:.1rem;
-  background:
-    radial-gradient(circle at 0 .05rem, var(--zz-dot) .05rem, #0000 .06rem) repeat-x left top/10px 2px;
-  opacity:.9;
-}
-.zz-meta .meta-bullets li{
-  margin:.45rem 0; font-size:1.35rem; color:#374151;
-}
-.zz-meta .meta-bullets li strong{ color:#111; }
-
-/* 버튼 */
-.zz-meta .meta-actions{
-  display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap;
-}
+/* 버튼(오렌지) — 기존 .meta-btn 계열이 있더라도 카드 안에서만 톤 변경 */
 .zz-meta .meta-btn{
-  --glow: color-mix(in oklab, var(--zz-orange) 55%, var(--zz-coral) 45%);
+  --glow: rgba(255,179,95,.45);
   display:inline-flex; align-items:center; justify-content:center;
-  min-width:12rem;
-  padding:1rem 1.6rem;
-  border-radius:999rem;
-  font-weight:800; font-size:1.35rem;
-  text-decoration:none; border:.12rem solid transparent;
+  min-width:12rem; padding:1rem 1.6rem; border-radius:999rem;
+  font-weight:700; font-size:1.35rem; text-decoration:none; border:.12rem solid transparent;
+  background: radial-gradient(80% 140% at 50% 0%, #fff2e0, #ffd9a0 45%, #ffb35f 100%);
   color:#111;
-  background:
-    radial-gradient(80% 140% at 50% 0%, #fff3e3,
-      color-mix(in oklab, var(--zz-amber) 70%, #fff 30%) 48%,
-      var(--zz-orange) 100%);
-  box-shadow: 0 .6rem 1.6rem rgba(255,179,95,.35), inset 0 1px 0 #fff;
-  transition: transform .15s ease, filter .2s ease, box-shadow .2s ease;
+  box-shadow: 0 .6rem 1.6rem var(--glow), inset 0 1px 0 #fff;
+  transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
 }
-.zz-meta .meta-btn:hover{
-  transform:translateY(-.1rem);
-  filter:saturate(1.06);
-  box-shadow:0 .8rem 2rem rgba(255,179,95,.42);
+.zz-meta .meta-btn:hover{ transform: translateY(-.1rem); filter: saturate(1.08); }
+.zz-meta .meta-btn:active{ transform: translateY(0); }
+.zz-meta .meta-btn--ghost{
+  background:#fff; color:#111; border-color:#ffc27a;
+  box-shadow:0 .6rem 1.4rem rgba(255,191,120,.18), inset 0 1px 0 rgba(255,255,255,.85);
 }
-.zz-meta .meta-btn:active{ transform:translateY(0); }
-
-/* 모서리 천공 디테일 */
-.zz-meta.phone-meta.g-card-meta2::after,
-.zz-meta.phone-meta.g-card-meta2::before{
-  content:"";
-  position:absolute; top:50%;
-  width:10px; height:10px; border-radius:50%;
-  background:radial-gradient(circle at 30% 30%, #e9e3d6 45%, #fff0 46%);
-  transform:translateY(-50%);
-  opacity:.9;
-}
-.zz-meta.phone-meta.g-card-meta2::before{ left:-5px; }
-.zz-meta.phone-meta.g-card-meta2::after{ right:-5px; }
-
-/* 반응형 */
-@media (max-width:560px){
-  .zz-meta.phone-meta.g-card-meta2{ padding:2rem 1.4rem; border-radius:1.2rem; }
-  .zz-meta .zz-title{ font-size:1.7rem; }
-  .zz-meta .meta-desc{ font-size:1.35rem; }
-  .zz-meta .meta-bullets li{ font-size:1.25rem; }
+.zz-meta .meta-btn--ghost:hover{
+  background: linear-gradient(180deg,#fff,#fff7ef);
+  box-shadow:0 .8rem 2rem rgba(255,191,120,.26);
 }
 
-/* 색상 테마 확장 (선택) */
-.zz-meta--coral{ /* 기본: 위 변수 사용 */ }
 .zz-meta--ink {
   --zz-coral:#111; --zz-orange:#2b2b2b; --zz-amber:#6b7280;
 }
+.zz-meta--coral{
+  --meta-border:#ffb3a1;
+  --meta-verylight:#fff0ec;
+  --meta-light:#ffd1c6;
+  --meta-base:#ff8e73;
+  --meta-shadow: 255,142,115;
+  --meta-inset: 255,189,169;
+}
+
+
+/* 색상 테마 확장 (선택) */
+
 
 /* ========== 29CM — 데스크탑 디자인으로 정리(난잡 X) ========== */
 .proj--29cm-v2{ margin:8rem 0; }
@@ -1460,9 +1447,9 @@ button:hover ~ #cursorSun,
 .contact__title em{ font-style: italic; text-decoration: underline; }
 .contact__title span{ color: #000; }
 .contact__subtitle{
-  margin: 0;
+  margin: 6rem auto;
   color: #374151;
-  font-size: clamp(1.4rem, 1.4vw, 1.6rem);
+  font-size:3rem;
   letter-spacing: .02em;
 }
 
@@ -1480,12 +1467,7 @@ button:hover ~ #cursorSun,
   grid-template-columns: 1fr;
   gap: 1.6rem;
 }
-@media (min-width: 720px){
-  .contact__card{
-    grid-template-columns: 1fr auto;
-    align-items: center;
-  }
-}
+
 
 /* Info rows */
 .contact__info{ display: grid; gap: 1.0rem; }
@@ -1532,9 +1514,6 @@ button:hover ~ #cursorSun,
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-@media (min-width: 720px){
-  .contact__actions{ justify-content: flex-end; }
-}
 .btn-contact{
   display: inline-flex;
   align-items: center;
@@ -1573,6 +1552,46 @@ button:hover ~ #cursorSun,
   font-size: 1.3rem;
 }
 
+
+/* ==== Final Contact (Applicant tone) ==== */
+.contact--final{
+  position:relative; margin:0 auto; padding-bottom:6rem;
+  background:
+    radial-gradient(120rem 60rem at 90% -10%, rgba(13,110,253,.06), transparent 60%),
+    radial-gradient(80rem 48rem at 0% 100%, rgba(255,179,95,.08), transparent 60%);
+  border-radius:24px; overflow:hidden; isolation:isolate;
+}
+
+
+/* 강점 배지 */
+.contact__strengths{
+  display:flex; flex-wrap:wrap; gap:.6rem  .6rem; margin:1.2rem 0 1.2rem; justify-content:flex-end;
+}
+.contact__strengths .pill{
+  padding:.6rem 1rem; border-radius:999rem; font-weight:800; font-size:1.2rem; letter-spacing:.02em;
+  background:#fff; border:1px solid #ececec; color:#374151;
+  box-shadow:0 6px 14px rgba(0,0,0,.05);
+}
+
+/* 사실형 노트 */
+.trust-note{
+  margin: .2rem 0 1.8rem; color:#374151; font-size:1.35rem; line-height:1.65; text-align:right;
+}
+
+/* 기존 카드 강화 */
+.contact__card--final{ position:relative; border-radius:22px; backdrop-filter:blur(2px); overflow:hidden; }
+.contact__card--final::before{ content:""; position:absolute; inset:-1px;
+  background: linear-gradient(180deg, rgba(255,255,255,.65), rgba(250,250,250,.95)); z-index:-1; }
+
+/* CTA 애니메이션/화살표 */
+.btn-contact--pulse{ position:relative; }
+.btn-contact--pulse::after{
+  content:""; position:absolute; inset:-2px; border-radius:999rem;
+  box-shadow:0 0 0 0 rgba(17,17,17,.14); animation:btnPulse 2.4s ease-out infinite;
+}
+@keyframes btnPulse{ 0%{box-shadow:0 0 0 0 rgba(17,17,17,.22);} 70%{box-shadow:0 0 0 12px rgba(17,17,17,0);} 100%{box-shadow:0 0 0 0 rgba(17,17,17,0);} }
+.btn-contact .arrow{ display:inline-block; transform:translateX(0); transition:transform .18s ease; }
+.btn-contact:hover .arrow{ transform:translateX(.18em); }
 
 
 
@@ -1831,6 +1850,8 @@ button:hover ~ #cursorSun,
 .contact__cta{ display:flex; justify-content:center; gap:1rem; }
 [data-reveal]{ opacity:0; transform:translateY(1.2rem); }
 [data-reveal].is-visible{ opacity:1; transform:none; transition:.6s ease; }
+
+
 
   /* Tabs */
   .tabset__btn{ padding:1rem 1.2rem; font-size:1.4rem; }

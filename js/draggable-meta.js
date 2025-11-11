@@ -1,7 +1,7 @@
 // =========================================================
-// draggable-meta.smooth.js — 초기 우하단 배치 + 부드러운 드래그
-//  • .floating-window--imac-br 요소는 최초에 아이맥(view bound) 우하단 16px로 배치
-//  • 이후엔 translate3d 기반으로 드래그 (경계는 가장 가까운 .device--imac 내부)
+// draggable-meta.smooth.js — 드래그만 담당 (초기 위치/배치는 CSS로)
+//  • 초기 위치: CSS(.floating-window--imac-br)에서 right/bottom으로 지정
+//  • 드래그: translate3d만 갱신 (JS는 초기 좌표를 전혀 세팅하지 않음)
 //  • 버튼(.meta-actions) 위에서는 드래그/툴팁 비활성
 // =========================================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -23,14 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if(el.matches(':has(.meta-actions:hover)')) return;
     tt.textContent = el.getAttribute('data-tooltip') || '드래그해서 위치를 바꿔보세요';
     tt.style.opacity = '1';
-    if(x!=null&&y!=null){ tt.style.left=`${x}px`; tt.style.top=`${y-14}px`; tt.style.transform='translate(-50%,-100%)'; }
-    else { const r=el.getBoundingClientRect(); tt.style.left=`${r.left+r.width/2}px`; tt.style.top=`${Math.max(8,r.top-10)}px`; tt.style.transform='translate(-50%,-100%)'; }
+    if(x!=null&&y!=null){ tt.style.left=`${x}px`; tt.style.top=`${y-14}px`; }
+    else { const r=el.getBoundingClientRect(); tt.style.left=`${r.left+r.width/2}px`; tt.style.top=`${Math.max(8,r.top-10)}px`; }
   };
-  const moveTT=(x,y)=>{ tt.style.left=`${x}px`; tt.style.top=`${y-14}px`; tt.style.transform='translate(-50%,-100%)'; };
+  const moveTT=(x,y)=>{ tt.style.left=`${x}px`; tt.style.top=`${y-14}px`; };
   const hideTT=()=> tt.style.opacity='0';
 
   wins.forEach(win=>{
-    const bound = win.closest('.device--imac') || win.closest('section') || document.body;
+    const bound  = win.closest('.device--imac') || win.closest('section') || document.body;
     if(getComputedStyle(bound).position === 'static') bound.style.position = 'relative';
     const handle = win.querySelector('[data-drag-handle]') || win;
 
@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let raf=0, nextTx=0, nextTy=0, needs=false;
     let zSeed=1000;
 
+    // 현재 transform만 읽어 translate 오프셋 확보
     const parseTxTy = (el)=>{
       const t = getComputedStyle(el).transform;
       if(!t || t==='none') return {tx:0, ty:0};
@@ -57,67 +58,39 @@ document.addEventListener('DOMContentLoaded', () => {
       maxT = Math.max(0, br.height - wh);
     };
 
-    // 초기 우하단 배치(아이맥 내부)
-    const placeBottomRight = (margin=16)=>{
-      const br = bound.getBoundingClientRect();
-      const ww = win.offsetWidth, wh = win.offsetHeight;
-      const x = Math.max(0, br.width  - ww - margin);
-      const y = Math.max(0, br.height - wh - margin);
-      // translate3d 기준 좌표로 전환
-      win.style.left='0'; win.style.top='0';
-      win.style.right='auto'; win.style.bottom='auto';
-      win.style.transform=`translate3d(${x}px, ${y}px, 0)`;
-      startTx = x; startTy = y;
-      win.dataset.initialPlaced = '1';
-    };
-
-    // right/bottom으로 배치되어 있으면 translate로 전환
-    const ensureTranslatePosition = ()=>{
-      const br = bound.getBoundingClientRect();
-      const wr = win.getBoundingClientRect();
-      const style = getComputedStyle(win);
-      const usingRB = (style.right !== 'auto' || style.bottom !== 'auto');
-      if(usingRB || style.left !== '0px' || style.top !== '0px'){
-        const left = wr.left - br.left;
-        const top  = wr.top  - br.top;
-        win.style.left = '0'; win.style.top = '0';
-        win.style.right = 'auto'; win.style.bottom = 'auto';
-        win.style.transform = `translate3d(${left}px, ${top}px, 0)`;
-      }
-    };
-
-    // 최초 세팅
+    // 최초: 경계만 계산 (★ 초기 위치/transform은 CSS가 담당)
     updateBounds();
 
-    // ★ 여기서 클래스가 있으면 우하단으로 초기 배치
-    if (win.classList.contains('floating-window--imac-br') && win.dataset.initialPlaced !== '1'){
-      placeBottomRight(16);
-    } else {
-      ensureTranslatePosition();
-      // startTx/startTy 동기화
-      const p = parseTxTy(win); startTx = p.tx; startTy = p.ty;
-    }
-
+    // 리사이즈 시 현재 transform을 범위 내로만 클램프
     window.addEventListener('resize', ()=>{
       updateBounds();
-      // 리사이즈 시 현재 좌표를 경계로 클램프
       const p = parseTxTy(win);
       const clampedX = Math.min(Math.max(p.tx, minL), maxL);
       const clampedY = Math.min(Math.max(p.ty, minT), maxT);
+      // 초기 배치엔 관여 안 하고, 이미 존재하는 transform만 정돈
       win.style.transform = `translate3d(${clampedX}px, ${clampedY}px, 0)`;
-      startTx = clampedX; startTy = clampedY;
     }, {passive:true});
 
-    const render = ()=>{ raf=0; if(!needs) return; needs=false; win.style.transform = `translate3d(${nextTx}px, ${nextTy}px, 0)`; };
+    const render = ()=>{
+      raf=0; if(!needs) return;
+      needs=false;
+      win.style.transform = `translate3d(${nextTx}px, ${nextTy}px, 0)`;
+    };
 
     const onDown = (e)=>{
       if(e.target.closest('.meta-actions')) return;
-      dragging=true; win.classList.add('dragging'); win.style.zIndex=String(++zSeed); hideTT();
-      const p = parseTxTy(win); startTx=p.tx; startTy=p.ty; startX=e.clientX; startY=e.clientY;
+      dragging=true;
+      win.classList.add('dragging');
+      win.style.zIndex=String(++zSeed);
+      hideTT();
+      const p = parseTxTy(win);
+      startTx=p.tx; startTy=p.ty; startX=e.clientX; startY=e.clientY;
       handle.setPointerCapture?.(e.pointerId);
     };
+
     const onMove = (e)=>{
-      if(!dragging) return; e.preventDefault();
+      if(!dragging) return;
+      e.preventDefault();
       let tx = startTx + (e.clientX - startX);
       let ty = startTy + (e.clientY - startY);
       tx = Math.min(Math.max(tx, minL), maxL);
@@ -126,11 +99,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if(!raf) raf = requestAnimationFrame(render);
       hideTT();
     };
+
     const onUp = ()=>{
       if(!dragging) return;
-      dragging=false; win.classList.remove('dragging');
+      dragging=false;
+      win.classList.remove('dragging');
       cancelAnimationFrame(raf); raf=0;
-      const p = parseTxTy(win); startTx=p.tx; startTy=p.ty;
+      const p = parseTxTy(win); // 최종값 동기화(필요 시)
+      startTx=p.tx; startTy=p.ty;
     };
 
     handle.addEventListener('pointerdown', onDown);

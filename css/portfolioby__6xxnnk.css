@@ -504,34 +504,30 @@ button:hover ~ #cursorSun,
 }
 
 /* ------- Floating Window (크림톤 + 살짝 더 넓게) ------- */
-/* 우하단 시작 팝업: CSS 초기 배치값 무효화(자바스크립트가 좌표를 잡게) */
-
-
+/* 베이스: 위치 기준은 오직 transform(=JS) */
 .floating-window{
   position: absolute;
-  /* top/left는 '기본형'에선 아예 두지 않는 게 안전 */
+  /* edge 리셋 */
+  inset: auto;              /* top/right/bottom/left 전부 auto */
   width: 420px;
-  background-color: #f6f6f6;
+  background: #f6f6f6;
   border-radius: 10px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  box-shadow: 0 12px 30px rgba(0,0,0,.25);
   overflow: hidden;
   z-index: 9999;
   transition: box-shadow .25s ease, transform .25s ease;
-
   will-change: transform;
-  transform: translate3d(0,0,0);  /* ← 이것만 유지 (위의 translate(-50%,-50%)는 제거) */
   touch-action: none;
 }
-.floating-window--imac-br{
-  /* 폴백: 화면에 바로 우하단 배치 */
-  right: 16px;
-  bottom: 16px;
-  left: auto;
-  top: auto;
 
-  /* 드래그용 transform 기본값 */
-  transform: translate3d(0,0,0);
+.floating-window--imac-br {
+  right:5%;
+  bottom:20%;
+  left:auto;
+  top:auto;
 }
+
+/* 드래그 상태 */
 .floating-window.dragging{
   cursor: grabbing;
   user-select: none;

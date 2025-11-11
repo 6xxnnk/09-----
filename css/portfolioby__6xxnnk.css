@@ -1494,151 +1494,91 @@ button:hover ~ #cursorSun,
   letter-spacing: .02em;
 }
 
-/* Card */
-.contact__card{
-  margin: 2.4rem auto 1.2rem;
-  border-radius: 20px;
-  background:
-    linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
-  box-shadow:
-    0 16px 38px rgba(0,0,0,.10),
-    inset 0 0 0 1px rgba(240,240,240,.95);
-  padding: clamp(1.6rem, 3vw, 2.4rem);
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.6rem;
-}
-
-
-/* Info rows */
-.contact__info{ display: grid; gap: 1.0rem; }
-.contact__row{
-  display: grid;
-  grid-template-columns: 96px 1fr;
-  gap: 1.2rem;
-  align-items: center;
-  margin: 0;
-}
-.contact__row dt{
-  margin: 0;
-  text-transform: lowercase;
-  font-weight: 800;
-  letter-spacing: .02em;
-  color: #111;
-}
-.contact__row dd{
-  margin: 0;
-  color: #2b2b2b;
-  word-break: break-all;
-}
-.contact__link{
-  display: inline-flex;
-  align-items: center;
-  gap: .6rem;
-  padding: .4rem .8rem;
-  border-radius: 8px;
-  color: #00376b;
-  font-weight: 700;
-  border: 1px dashed transparent;
-  transition: border-color .18s ease, transform .12s ease, background .18s ease;
-}
-.contact__link:hover{
-  background: var(--accent-2, #FFE8EB);
-  border-color: #111;
-  transform: translateY(-1px);
-}
-
-/* Actions (buttons) */
-.contact__actions{
-  display: flex;
-  gap: .8rem;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
-.btn-contact{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.0rem 1.6rem;
-  border-radius: 999rem;
-  font-weight: 800;
-  letter-spacing: .02em;
-  text-decoration: none;
-  border: 1px solid #111;
-  transition: transform .12s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
-  box-shadow: 0 10px 24px rgba(0,0,0,.12);
-}
-.btn-contact:hover{ transform: translateY(-1px); box-shadow: 0 14px 34px rgba(0,0,0,.18); }
-
-.btn-contact--primary{
-  background: #111; color: #fff; border-color: #111;
-}
-.btn-contact--primary:hover{
-  background: var(--accent-2, #FFE8EB);
-  color: #111;
-}
-
-.btn-contact--ghost{
-  background: transparent; color: #111; border-color: #111;
-}
-.btn-contact--ghost:hover{
-  color: #fff; background: #111; border-color: #111;
-}
-
-/* Small note */
-.contact__hint{
-  margin: .4rem 0 0;
+.creator-statement {
+  padding: 10rem 2rem;
   text-align: center;
-  color: #6b7280;
+  position: relative;
+  overflow: hidden;
+}
+
+.creator__inner {
+  max-width: 780px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.creator__headline {
+  font-family: "Manrope", "Noto Sans KR", sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 2.8vw, 3rem);
+  color: #111;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.2rem;
+}
+
+.creator__desc {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 400;
+  font-size: 1.7rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 3.2rem;
+}
+
+.contact__strengths {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.pill {
+  font-family: "Manrope", sans-serif;
   font-size: 1.3rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.pill:hover {
+  background: #ffed99;
+  color: #000000;
+  border-color: #ffed99;
+  transform: translateY(-2px);
 }
 
 
-/* ==== Final Contact (Applicant tone) ==== */
-.contact--final{
-  position:relative; margin:0 auto; padding-bottom:6rem;
-  background:
-    radial-gradient(120rem 60rem at 90% -10%, rgba(13,110,253,.06), transparent 60%),
-    radial-gradient(80rem 48rem at 0% 100%, rgba(255,179,95,.08), transparent 60%);
-  border-radius:24px; overflow:hidden; isolation:isolate;
+.contact__head{ position: relative; }
+#contact-bounce{
+  position:absolute;
+  left:50%; transform:translateX(-50%);
+  /* 제목 위로 살짝 띄우기: 필요하면 값 조절 */
+  top:-7rem;
+
+  width:min(72rem, 92vw);
+  height:180px;              /* 레이어 높이 (필요 시 조정) */
+  overflow:hidden;
+  pointer-events:auto;       /* 클릭으로 공 추가 */
+  background: #ffffff00;/* 투명 (배경색이 필요하면 연한 그라데이션으로 바꿔도 OK) */
+  z-index: 999;
 }
 
-
-/* 강점 배지 */
-.contact__strengths{
-  display:flex; flex-wrap:wrap; gap:.6rem  .6rem; margin:1.2rem 0 1.2rem; justify-content:flex-end;
+/* 공 기본 스타일 */
+#contact-bounce .ball{
+  position:absolute;
+  display:inline-block;
+  width:14px; height:14px;
+  border-radius:50%;
+  background:#111;
+  /* 보기 좋은 살짝의 그림자 */
+  box-shadow:0 6px 16px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.6);
+  will-change: transform;
+  z-index: 999;
 }
-.contact__strengths .pill{
-  padding:.6rem 1rem; border-radius:999rem; font-weight:800; font-size:1.2rem; letter-spacing:.02em;
-  background:#fff; border:1px solid #ececec; color:#374151;
-  box-shadow:0 6px 14px rgba(0,0,0,.05);
-}
-
-/* 사실형 노트 */
-.trust-note{
-  margin: .2rem 0 1.8rem; color:#374151; font-size:1.35rem; line-height:1.65; text-align:right;
-}
-
-/* 기존 카드 강화 */
-.contact__card--final{ position:relative; border-radius:22px; backdrop-filter:blur(2px); overflow:hidden; }
-.contact__card--final::before{ content:""; position:absolute; inset:-1px;
-  background: linear-gradient(180deg, rgba(255,255,255,.65), rgba(250,250,250,.95)); z-index:-1; }
-
-/* CTA 애니메이션/화살표 */
-.btn-contact--pulse{ position:relative; }
-.btn-contact--pulse::after{
-  content:""; position:absolute; inset:-2px; border-radius:999rem;
-  box-shadow:0 0 0 0 rgba(17,17,17,.14); animation:btnPulse 2.4s ease-out infinite;
-}
-@keyframes btnPulse{ 0%{box-shadow:0 0 0 0 rgba(17,17,17,.22);} 70%{box-shadow:0 0 0 12px rgba(17,17,17,0);} 100%{box-shadow:0 0 0 0 rgba(17,17,17,0);} }
-.btn-contact .arrow{ display:inline-block; transform:translateX(0); transition:transform .18s ease; }
-.btn-contact:hover .arrow{ transform:translateX(.18em); }
-
-
-
-
-
-
 /* ===========================
    RESPONSIVE ONLY (add-on)
    - iPhone:  ≤ 428px (42.8rem)

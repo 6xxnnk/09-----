@@ -121,10 +121,12 @@ button:hover ~ #cursorSun,
 
 /* ================= Hero ================= */
 .hero{
-  min-height:100vh;
-  display:grid; place-items:center;
-  padding:6rem 0 4rem;
-  position:relative;
+  /* 기존: height: calc(100dvh - 10rem);  ← 제거 */
+  min-height: clamp(48rem, 100svh - 10rem, 100dvh - 10rem);
+  height: auto;                 /* 내용이 늘면 자연히 커지게 */
+  display: grid; place-items: center;
+  padding: 6rem 0 4rem;
+  position: relative;
   transition: opacity .36s ease, transform .36s ease;
 }
 .hero::before{
@@ -1274,7 +1276,8 @@ button:hover ~ #cursorSun,
 .ig-ellipsis{ font-size:22px; line-height:1; background:transparent; border:0; cursor:pointer; padding:4px 6px; }
 
 .ig-actions{ display:flex; gap:8px; }
-.ig-btn{ height:34px; padding:0 12px; border-radius:8px; border:1px solid #dbdbdb; background:#efefef; font-weight:600; font-size:14px; }
+.ig-btn{ height:34px; padding:0 12px; border-radius:8px; border:1px solid #dbdbdb; 
+  background:#efefef; font-weight:600; font-size:1.5rem; }
 .ig-btn--icon{ width:34px; padding:0; display:grid; place-items:center; }
 .ig-icon{ width:18px; height:18px; fill:currentColor; color:#111; }
 
@@ -1799,3 +1802,510 @@ button:hover ~ #cursorSun,
 }
 
 
+
+
+/* ===========================================
+   📱 Responsive only (Tablet / Smartphone)
+   — Design is preserved, sizes scale down
+=========================================== */
+
+/* ---------- Tablet (<= 1024px) ---------- */
+@media (max-width: 1024px){
+
+  /* Global rhythm */
+  :root{
+    --gutter: clamp(1.6rem, 4vw, 4rem);
+  }
+
+  /* Hero */
+  .logo{ font-size: clamp(4.8rem, 6.2vw, 9.6rem); }
+  .search-wrap{ width: min(96vw, 90rem); }
+  .hero{ padding: 4rem 0 3rem; }
+
+  /* About CV map: already uses --cv-scale; just give it a touch more room */
+  .about-cvmap{ --cv-scale: clamp(.66, (100vw - 2*var(--gutter)) / var(--cv-w), .95); }
+
+  /* Projects section spacing */
+  .projects{
+    margin: 28rem 0;
+    height: 200vh;
+  }
+  .projects-title{ font-size: clamp(6.4rem, 7vw, 9rem); margin-bottom: 26rem; }
+
+  /* ===== iMac mock (proportional downscale) ===== */
+  .device--imac{ --imac-scale: .9; }  /* only scale factor changes */
+
+  /* Floating window stays readable but tighter */
+  .floating-window{ width: 380px; }
+
+  /* ===== Glossier phones ===== */
+  #glossier-phones{
+    grid-template-columns: minmax(52rem, 60rem) minmax(30rem, 1fr);
+    gap: 2rem;
+  }
+  #glossier-phones .phone-pair{
+    grid-template-columns: 30rem 30rem;
+    gap: 2rem;
+  }
+  .phone-glossier.frame-base{ width: 30rem; height: 62.4rem; }
+  .phone-glossier .layer2{ width: 28.9rem; height: 61.1rem; }
+  .phone-glossier .screen{ width: 27rem; height: 58.6rem; top: 1.2rem; }
+
+  .g-card-meta.phone-meta{ max-width: 60rem; margin-top: 8rem; }
+
+  /* ===== Zigzag ===== */
+  .zz-layout{
+    grid-template-columns: min(42rem, 48%) 1fr;
+    gap: 2rem;
+  }
+  .zz-right{ height: 58rem; padding-left: 18rem; }
+  .zz-swiper .swiper{ width: 40rem; aspect-ratio: 9/19; }
+
+  /* ===== 29CM ===== */
+  .cm-layout{
+    grid-template-columns: 1fr min(40rem, 44%);
+    gap: 2rem;
+  }
+  .cm-swiper.swiper{ width: min(50rem, 86%); height: 62rem; }
+  .cm-section-29 .cm-row{ --gap: 6rem; }
+  .cm-section-29 .cm-phone{ width: 23rem; }
+
+  /* ===== Instagram-like ===== */
+  .ig-hd{ grid-template-columns: 132px 1fr; gap: 18px; }
+  .ig-hd__avatar{ width:132px; height:132px; }
+  .ig__title strong, .ig__title p{ font-size: 7.2rem; }
+
+  /* ===== Contact / Footer ===== */
+  .creator__headline{ font-size: 3.2rem; }
+  .creator__desc{ font-size: 1.6rem; }
+
+  .contact__title{ font-size: clamp(4.2rem, 6vw, 6.8rem); }
+  .contact__subtitle{ font-size: clamp(1.5rem, 2vw, 1.9rem); }
+
+  .contact-chips .chip{
+    --chip-pad-y: .8rem; --chip-pad-x: 1.2rem;
+    font-size: 1.35rem;
+  }
+}
+
+/* ---------- Smartphone (<= 560px) ---------- */
+@media (max-width: 560px){
+
+  /* Global rhythm */
+  html{ font-size: 58.5%; }                 /* rem slightly smaller */
+  :root{ --gutter: clamp(1.2rem, 5vw, 2rem); }
+
+  /* Hero */
+  .hero{ min-height: 92vh; padding: 3rem 0 2.4rem; }
+  .logo{ font-size: clamp(3.6rem, 9vw, 6.8rem); letter-spacing: -.1em; }
+  .search-wrap{ width: 94vw; padding: .4rem; }
+  .search-bar{ padding: .6rem; border-width: .4rem; }
+  .input-area input, .typing-ghost{ font-size: clamp(1.5rem, 4vw, 1.8rem); }
+  .hero__subcopy{ font-size: 1.6rem; }
+
+  /* About CV map */
+  .about-cvmap{ --cv-scale: clamp(.54, (100vw - 2*var(--gutter)) / var(--cv-w), .8); }
+  .bubble__label{ font-size: 2.6rem; }
+  .list-plain li{ font-size: 1.6rem; }
+
+  /* Projects section */
+  .projects{
+    margin: 16rem 0;
+    height: auto;     /* mobile doesn’t need fixed tall canvas */
+  }
+  .projects-title{ font-size: clamp(4rem, 10vw, 6rem); margin-bottom: 12rem; }
+
+  /* ===== iMac mock ===== */
+  .device--imac{ --imac-scale: .62; }
+  .floating-window{ width: 92vw; right: auto; left: 50%; transform: translateX(-50%); }
+
+  /* ===== Glossier phones ===== */
+  #glossier-phones{
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  #glossier-phones .phone-pair{
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 1.6rem;
+  }
+  .phone-glossier.frame-base{ width: 27.6rem; height: 57.4rem; }
+  .phone-glossier .layer2{ width: 26.4rem; height: 56.1rem; }
+  .phone-glossier .screen{ width: 24.9rem; height: 53.6rem; top: 1.1rem; }
+
+  .g-card-meta.phone-meta{
+    max-width: 94vw;
+    margin: 3rem auto 0;
+    padding: 1.8rem 1.6rem;
+    font-size: 1.4rem;
+  }
+  .g-card-meta h3{ font-size: 1.8rem; }
+  .g-card-meta .meta-desc{ font-size: 1.4rem; }
+
+  /* ===== Zigzag ===== */
+  .zz-layout{
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+    margin-top: 2rem;
+  }
+  .zz-left{ gap: 1rem; }
+  .zz-right{
+    height: auto;
+    padding-left: 0;
+  }
+  .zz-swiper{ position: relative; opacity: 1; visibility: visible; pointer-events: auto; }
+  .zz-swiper .swiper{ width: min(92vw, 40rem); aspect-ratio: 9/19; }
+
+  /* ===== 29CM ===== */
+  .cm-layout{
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+  }
+  .cm-swiper.swiper{ width: min(92vw, 44rem); height: 58rem; }
+  .cm-right{ grid-template-columns: repeat(2,1fr); gap: 1rem; }
+  .cm-section-29 .cm-row{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+  }
+  .cm-section-29 .cm-phone{ width: 20rem; }
+  .phone-meta--29cm{
+    width: 92vw;
+    max-width: none;
+    margin: 3.6rem auto 0;
+    padding: 1.8rem 1.4rem;
+  }
+
+  /* ===== Instagram-like ===== */
+  .ig-hd{
+    grid-template-columns: 96px 1fr;
+    gap: 14px;
+  }
+  .ig-hd__avatar{ width:96px; height:96px; }
+  .ig-hd__username{ font-size: 20px; }
+  .ig-counters strong, .ig-counters span{ font-size: 14px; }
+  .ig__title strong, .ig__title p{ font-size: 4.8rem; }
+
+  /* ===== Contact / Footer ===== */
+  .creator-statement{ padding: 6rem 1.6rem; }
+  .creator__headline{ font-size: 2.6rem; }
+  .creator__desc{ font-size: 1.5rem; }
+
+  .p-footer{ min-height: 72vh; }
+  .footer-inner{ padding: 4rem var(--gutter); }
+  .contact__title{ font-size: clamp(3.6rem, 8.6vw, 5.2rem); }
+  .contact__subtitle{ font-size: clamp(1.4rem, 3.6vw, 1.7rem); }
+
+  .contact-chips{ padding: clamp(2.4rem, 6vw, 3.6rem) 0; }
+  .contact-chips .chip{
+    --chip-pad-y: .7rem; --chip-pad-x: 1.1rem;
+    font-size: 1.3rem;
+  }
+
+  /* Footer background dots — keep performance-friendly */
+  .sun-dot--1{ width:160px; height:160px; }
+  .sun-dot--2{ width:260px; height:260px; }
+  .sun-dot--3{ width:80px;  height:80px; }
+  .sun-dot--4{ width:160px; height:160px; }
+}
+
+/* ---------- Very small phones (<= 390px) ---------- */
+@media (max-width: 390px){
+  .phone-glossier.frame-base{ width: 25.6rem; height: 53.6rem; }
+  .phone-glossier .layer2{ width: 24.5rem; height: 52.3rem; }
+  .phone-glossier .screen{ width: 23.2rem; height: 49.8rem; }
+
+  .zz-swiper .swiper{ width: 88vw; }
+  .cm-swiper.swiper{ width: 88vw; height: 54rem; }
+}
+/* ===== 모바일 최적 축소 (<=560px) ===== */
+@media (max-width:560px){
+
+  /* iMac: 가로·세로 중 더 빡센 쪽에 맞춰 자동 스케일 */
+  .device--imac{
+    /* 기준 크기 그대로 사용 */
+    --imac-w-base: 120rem;
+    --imac-h-base: 90.4rem;
+
+    /* 가용폭/높이에 따른 스케일을 동적으로 계산 */
+    --imac-scale-w: calc((100vw - 2*var(--gutter)) / var(--imac-w-base));
+    /* 상단/하단 여백 합계(헤더 간격 등) 여유 12rem 정도 확보 */
+    --imac-scale-h: calc((100svh - 12rem) / var(--imac-h-base));
+
+    /* 둘 중 더 작은 값으로 최종 스케일 결정 (너무 커지는 것 방지용 상한도 함께) */
+    --imac-scale: min(var(--imac-scale-w), var(--imac-scale-h), .7);
+  }
+
+  /* 팝업(플로팅 윈도우): 화면 고정 + 가운데 하단 정렬 + 폭 유연 */
+  .floating-window{
+    position: fixed !important;
+    left: 50% !important; right: auto !important;
+    top: auto !important;
+    bottom: max(12px, env(safe-area-inset-bottom, 12px)) !important;
+    transform: translateX(-50%) !important;
+    width: clamp(280px, 92vw, 380px) !important;
+    max-height: 60svh;                 /* 너무 길면 스크롤 */
+    overflow: auto;
+    z-index: 9999;
+  }
+  /* 기존 위치 유틸을 쓰고 있었다면 리셋 */
+  .floating-window--imac-br{ inset: auto !important; }
+
+  /* iMac 주변 여백 살짝 축소(전체가 한눈에 들어오도록) */
+  .projects-title{ margin-bottom: 10rem; }
+}
+
+/* ===== 초소형 단말 추가 보정 (<=390px) ===== */
+@media (max-width:390px){
+  .device--imac{
+    /* 더 타이트하게 높이에 맞춤 */
+    --imac-scale-h: calc((100svh - 8rem) / var(--imac-h-base));
+    --imac-scale: min(var(--imac-scale-w), var(--imac-scale-h), .64);
+  }
+  .floating-window{ width: clamp(260px, 94vw, 340px) !important; }
+}
+/* ===== 모바일 최적화 (<=560px) ===== */
+@media (max-width:560px){
+
+  /* 1) 불필요한 세로 여백 제거 */
+  .projects{
+    height:auto !important;
+    margin:8rem 0 !important;      /* 섹션 간격만 소폭 유지 */
+  }
+  .projects-title{ margin-bottom:12rem !important; }
+
+  /* 2) iMac 전체가 화면 안에 들어오도록 자동 축소 */
+  .device--imac{
+    /* 기준 크기 (기존과 동일) */
+    --imac-w-base: 120rem;
+    --imac-h-base: 90.4rem;
+
+    /* 가로/세로 중 더 빡센 쪽에 맞춤 */
+    --imac-scale-w: calc((100vw - 2*var(--gutter)) / var(--imac-w-base));
+    /* 상하 여유 16rem 확보(타이틀·여백) */
+    --imac-scale-h: calc((100svh - 16rem) / var(--imac-h-base));
+
+    /* 최종 스케일: 과축소 방지 하한 .42, 과대 방지 상한 .66 */
+    --imac-scale: clamp(.42, min(var(--imac-scale-w), var(--imac-scale-h)), .66);
+
+    /* 래퍼 자체 크기도 스케일에 맞춰 재계산 */
+    width:  calc(var(--imac-w-base) * var(--imac-scale)) !important;
+    height: calc(var(--imac-h-base) * var(--imac-scale)) !important;
+
+    margin-inline:auto;
+  }
+  /* 스케일 강제 적용(이전 선언 덮어쓰기) */
+  .device--imac .imac-shell{
+    transform-origin: top left;
+    transform: scale(var(--imac-scale)) !important;
+  }
+
+  /* 3) 플로팅 팝업: 화면 하단 중앙 고정 + 스크롤 가능 */
+  .floating-window{
+    position: fixed !important;
+    left:50% !important; right:auto !important;
+    bottom: max(12px, env(safe-area-inset-bottom, 12px)) !important;
+    top:auto !important;
+    transform: translateX(-50%) !important;
+    width: clamp(260px, 92vw, 360px) !important;
+    max-height: 60svh; overflow:auto;
+    inset:auto !important;       /* 유틸 클래스 리셋 */
+    z-index: 9999;
+  }
+}
+
+/* ===== 초소형 단말 보정 (<=390px) ===== */
+@media (max-width:390px){
+  .device--imac{
+    --imac-scale-h: calc((100svh - 12rem) / var(--imac-h-base));
+    --imac-scale: clamp(.38, min(var(--imac-scale-w), var(--imac-scale-h)), .6);
+  }
+}
+
+/* ===== Zigzag 반응형 패치 ===== */
+
+/* 태블릿: 2열 → 1열 스택, 스와이퍼 폭 자동 */
+@media (max-width: 1024px){
+  .zz-layout{
+    grid-template-columns: 1fr !important;
+    gap: 2.4rem !important;
+    align-items: start !important;
+  }
+  .zz-right{
+    height: auto !important;
+    padding-left: 0 !important;
+    justify-content: center !important;
+  }
+  .zz-swiper.is-active{ position: relative !important; }
+  .zz-swiper .swiper{
+    width: min(46rem, 92vw) !important;
+    aspect-ratio: 9/19 !important;
+  }
+  .zz-swiper .swiper-button-prev{ left: -3rem !important; }
+  .zz-swiper .swiper-button-next{ right: -3rem !important; }
+  .zz-left{
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+    gap: 1.2rem !important;
+  }
+  .g-card-meta.phone-meta.zz-meta--zigzag{
+    max-width: min(60rem, 92vw) !important;
+    margin: 4rem auto !important;
+  }
+}
+
+/* 모바일: 여백 최소화 + 너비 기준 스케일 */
+@media (max-width: 560px){
+  .proj--zigzag-v2{ padding-top: 2rem !important; }
+
+  /* 썸네일은 2열(초소형에서 1열로 아래에서 다시 보정) */
+  .zz-left{
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: .8rem !important;
+  }
+  .zz-thumb{
+    outline: .16rem solid transparent !important;
+    border: .08rem solid #bfc3ca !important;
+    border-radius: 1.2rem !important;
+  }
+
+  /* 스와이퍼: 가로폭에 맞춰 축소 */
+  .zz-right{ padding-left: 0 !important; }
+  .zz-swiper .swiper{
+    width: clamp(26rem, 88vw, 38rem) !important;
+    aspect-ratio: 9/19 !important;
+    border-radius: 1.2rem !important;
+  }
+  .zz-swiper .swiper-button-prev,
+  .zz-swiper .swiper-button-next{
+    width: 3.8rem !important; height: 3.8rem !important;
+  }
+  .zz-swiper .swiper-button-prev{ left: -2.2rem !important; }
+  .zz-swiper .swiper-button-next{ right: -2.2rem !important; }
+
+  /* 섹션 상하 간격 */
+  .zigzag{ align-items: center !important; }
+  .g-card-meta.phone-meta.zz-meta--zigzag{
+    margin: 3.2rem auto !important;
+    padding: 2rem 1.6rem !important;
+  }
+}
+
+/* 초소형 단말(아이폰 SE 등): 썸네일 1열 + 스와이퍼 더 축소 */
+@media (max-width: 390px){
+  .zz-left{ grid-template-columns: 1fr !important; }
+  .zz-swiper .swiper{
+    width: clamp(24rem, 92vw, 32rem) !important;
+  }
+  .zz-swiper .swiper-button-prev{ left: -1.6rem !important; }
+  .zz-swiper .swiper-button-next{ right: -1.6rem !important; }
+}
+/* ===== About Me (cvmap) — 초소형 안전 스케일 ===== */
+@media (max-width: 390px){
+  .about-cvmap{
+    /* 가로·세로 중 더 빡센 쪽에 맞춰 자동 스케일 */
+    --cv-w: var(--design-w);
+    --cv-h: 80rem;
+    --cv-scale-w: calc((100vw - 2*var(--gutter)) / var(--cv-w));
+    --cv-scale-h: calc((100svh - 12rem) / var(--cv-h));
+    /* 과축소/과대 방지: 0.38 ~ 0.62 범위 */
+    --cv-scale: clamp(.38, min(var(--cv-scale-w), var(--cv-scale-h)), .62);
+
+    /* 섹션 자체 높이도 스케일 값에 맞춰 고정 → 스크롤 튀는 것 방지 */
+    height: calc(var(--cv-h) * var(--cv-scale)) !important;
+    transform-origin: top center;
+    transform: scale(var(--cv-scale)) !important;
+    margin-block: 4rem !important;   /* 위아래 여유 */
+  }
+}
+
+/* ===== Zigzag — 초소형에서 1장씩만, 넘침 방지 ===== */
+@media (max-width: 390px){
+  /* 레이아웃 간격 축소 + 1열 썸네일 유지(이미 선언돼 있어도 보수적으로 재확인) */
+  .zz-layout{ grid-template-columns: 1fr !important; gap: 1.2rem !important; }
+  .zz-left{ grid-template-columns: 1fr !important; gap: .8rem !important; }
+
+  /* 스와이퍼 프레임은 뷰포트 폭에 맞춰 축소 */
+  .zz-right{ height: auto !important; padding-left: 0 !important; }
+  .zz-swiper{ position: relative !important; opacity: 1 !important; visibility: visible !important; }
+  .zz-swiper .swiper{
+    width: min(92vw, 32rem) !important;
+    aspect-ratio: 9/19 !important;
+    overflow: hidden !important;
+    border-radius: 1.2rem !important;
+  }
+
+  /* 🔒 한 화면에 슬라이드 1개만 보이도록 강제 */
+  .zz-swiper .swiper-wrapper{ display: flex !important; }
+  .zz-swiper .swiper-slide{
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* 네비 버튼은 프레임 안쪽으로 살짝 */
+  .zz-swiper .swiper-button-prev{ left: .4rem !important; }
+  .zz-swiper .swiper-button-next{ right: .4rem !important; }
+}
+/* =========================
+   ABOUT ME – 반응형 오버라이드
+   (파일 최하단에 붙이기)
+========================= */
+
+/* 공통: 높이/폭 중 더 빡센 쪽에 맞춰 스케일 계산 */
+.about-cvmap{
+  --cv-w: var(--design-w);
+  --cv-h: 80rem;
+  --cv-scale-w: calc((100vw - 2*var(--gutter)) / var(--cv-w));
+  --cv-scale-h: calc((100svh - 12rem) / var(--cv-h)); /* 상하 여유 */
+  --cv-scale: clamp(.6, var(--cv-scale-w), 1);
+}
+
+/* 태블릿 이하: 높이도 함께 고려 */
+@media (max-width: 1024px){
+  .about-cvmap.about-cvmap{
+    --cv-scale: min(var(--cv-scale-w), var(--cv-scale-h));
+    height: calc(var(--cv-h) * var(--cv-scale)) !important;
+    transform-origin: top center !important;
+    transform: scale(var(--cv-scale)) !important;
+    margin-block: 4rem !important;
+  }
+}
+
+/* 스마트폰(<=560px): 더 타이트하게 맞춤 */
+@media (max-width: 560px){
+  .about-cvmap.about-cvmap{
+    --cv-scale-h: calc((100svh - 10rem) / var(--cv-h));
+    --cv-scale: clamp(.44, min(var(--cv-scale-w), var(--cv-scale-h)), .78);
+    height: calc(var(--cv-h) * var(--cv-scale)) !important;
+    transform: scale(var(--cv-scale)) !important;
+    margin-block: 3.2rem !important;
+  }
+
+  /* 스케일 후 텍스트 가독성 살짝 보정 */
+  .bubble__label{ font-size: 2.6rem; }
+  .list-plain li{ font-size: 1.6rem; }
+  .ink-title-svg{ height: 22rem; }
+}
+
+/* 초소형(<=390px): 세로 우선 피팅 + 글자 크기 추가 보정 */
+@media (max-width: 390px){
+  .about-cvmap.about-cvmap{
+    --cv-scale-h: calc((100svh - 8rem) / var(--cv-h));
+    --cv-scale: clamp(.36, min(var(--cv-scale-w), var(--cv-scale-h)), .64);
+    height: calc(var(--cv-h) * var(--cv-scale)) !important;
+    transform: scale(var(--cv-scale)) !important;
+    margin-block: 2.4rem !important;
+  }
+
+  .bubble__label{ font-size: 2.3rem; }
+  .list-plain li{ font-size: 1.5rem; }
+  .ink-title-svg{ height: 20rem; }
+
+  /* 드문 경우: 초기 등장 애니메이션이 밀어내면 고정 */
+  .cv-center[data-reveal]{ 
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) !important;
+  }
+}
+
+/* 안전 가드: 섹션 박스가 밖으로 잘리지 않도록 */
+.about-cvmap{ overflow: visible !important; }

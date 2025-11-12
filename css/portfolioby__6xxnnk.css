@@ -1826,13 +1826,6 @@ button:hover ~ #cursorSun,
 
   .g-card-meta.phone-meta{ max-width: 60rem; margin-top: 8rem; }
 
-  /* ===== Zigzag ===== */
-  .zz-layout{
-    grid-template-columns: min(42rem, 48%) 1fr;
-    gap: 2rem;
-  }
-  .zz-right{ height: 58rem; padding-left: 18rem; }
-  .zz-swiper .swiper{ width: 40rem; aspect-ratio: 9/19; }
 
   /* ===== 29CM ===== */
   .cm-layout{
@@ -1916,18 +1909,6 @@ button:hover ~ #cursorSun,
   .g-card-meta .meta-desc{ font-size: 1.4rem; }
 
   /* ===== Zigzag ===== */
-  .zz-layout{
-    grid-template-columns: 1fr;
-    gap: 1.6rem;
-    margin-top: 2rem;
-  }
-  .zz-left{ gap: 1rem; }
-  .zz-right{
-    height: auto;
-    padding-left: 0;
-  }
-  .zz-swiper{ position: relative; opacity: 1; visibility: visible; pointer-events: auto; }
-  .zz-swiper .swiper{ width: min(92vw, 40rem); aspect-ratio: 9/19; }
 
   /* ===== 29CM ===== */
   .cm-layout{
@@ -1982,14 +1963,7 @@ button:hover ~ #cursorSun,
 }
 
 /* ---------- Very small phones (<= 390px) ---------- */
-@media (max-width: 390px){
-  .phone-glossier.frame-base{ width: 25.6rem; height: 53.6rem; }
-  .phone-glossier .layer2{ width: 24.5rem; height: 52.3rem; }
-  .phone-glossier .screen{ width: 23.2rem; height: 49.8rem; }
 
-  .zz-swiper .swiper{ width: 88vw; }
-  .cm-swiper.swiper{ width: 88vw; height: 54rem; }
-}
 /* ===== 모바일 최적 축소 (<=560px) ===== */
 @media (max-width:560px){
 
@@ -2096,15 +2070,8 @@ button:hover ~ #cursorSun,
 
 
 
-/* 초소형 단말(아이폰 SE 등): 썸네일 1열 + 스와이퍼 더 축소 */
-@media (max-width: 390px){
-  .zz-left{ grid-template-columns: 1fr !important; }
-  .zz-swiper .swiper{
-    width: clamp(24rem, 92vw, 32rem) !important;
-  }
-  .zz-swiper .swiper-button-prev{ left: -1.6rem !important; }
-  .zz-swiper .swiper-button-next{ right: -1.6rem !important; }
-}
+
+
 /* ===== About Me (cvmap) — 초소형 안전 스케일 ===== */
 @media (max-width: 390px){
   .about-cvmap{
@@ -2269,36 +2236,6 @@ img.is-fallback{ object-fit: contain; background:#f6f6f6; }
     font-size: 1.45rem;
   }
 
-  /* Zigzag 레이아웃: 좌/우 → 세로 */
-  .zz-layout{
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    width: min(100%, 94vw);
-    margin: 2.4rem auto 0;
-  }
-
-  /* 썸네일 그리드 간격 축소 */
-  .zz-left{
-    gap: 1.2rem;
-  }
-
-  /* 우측 스와이퍼: 고정 높이 제거 + 비율 기준 */
-  .zz-right{
-    height: auto;
-    padding-left: 0;
-  }
-  .zz-swiper .swiper{
-    width: min(44rem, 92vw);
-    aspect-ratio: 9 / 19;
-    height: auto;
-    border-radius: 1.6rem;
-  }
-
-  /* 네비 버튼: 프레임 밖으로 튀지 않게 안쪽 배치 */
-  .zz-swiper .swiper-button-prev{ left: .6rem; }
-  .zz-swiper .swiper-button-next{ right: .6rem; }
-}
-
 /* 폰 사이즈: 480px 이하 */
 @media (max-width: 480px){
 
@@ -2326,36 +2263,7 @@ img.is-fallback{ object-fit: contain; background:#f6f6f6; }
   .g-card-meta h3{ font-size: 1.8rem; }
   .g-card-meta .meta-desc{ font-size: 1.4rem; }
 
-  /* Zigzag 썸네일: 여백 최소화 */
-  .zz-left{
-    grid-template-columns: repeat(2, 1fr);
-    gap: .8rem;
-  }
-  .zz-thumb{
-    border-radius: 1.2rem;
-  }
-
-  .zz-swiper .swiper{
-    width: 94vw;
-    aspect-ratio: 9 / 19;
-  }
-
-  /* 네비 버튼: 화면 안쪽 고정 + 터치 타겟 키우기 */
-  .zz-swiper .swiper-button-prev,
-  .zz-swiper .swiper-button-next{
-    --swiper-navigation-size: 2.8rem;
-    width: 3.8rem; height: 3.8rem;
-  }
-  .zz-swiper .swiper-button-prev{ left: .4rem; }
-  .zz-swiper .swiper-button-next{ right: .4rem; }
-
-  /* 액티브 썸네일 테두리: 점선 대신 얇은 실선로 깔끔하게 */
-  .zz-thumb.is-active{
-    border: .2rem solid #111;
-    outline-color: rgba(0,0,0,.06);
-  }
 }
-
 /* 초소형: 360px 이하(older Android 대비) */
 @media (max-width: 360px){
   .glossier{ font-size: 3.2rem; }

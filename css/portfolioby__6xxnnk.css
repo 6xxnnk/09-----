@@ -105,9 +105,9 @@ button:hover ~ #cursorSun,
 /* ================= Utilities ================= */
 .wrap{ min-height:100dvh; width:100%; display:flex; flex-direction:column; }
 .container{
-  /* 중앙 정렬 + 대칭 */
-  width:min(100%, var(--design-w));
-  margin-inline:auto;
+  width: min(100%, var(--design-w));
+  margin-inline: auto;
+  
 }
 .section{ padding:10rem 0; }
 .lead{ color:#374151; font-size:clamp(1.6rem, 1.2vw, 1.8rem); margin:0 0 3rem; }
@@ -194,26 +194,24 @@ button:hover ~ #cursorSun,
    (버블은 데스크탑 좌표를 절대값으로 유지, 섹션만 scale)
 ========================================================= */
 .about-cvmap{
-  /* 데스크탑 디자인 좌표계 */
-  --cv-w: var(--design-w);
+  --cv-w: var(--design-w);  /* 120rem */
   --cv-h: 80rem;
-  /* 가로 기준 스케일: 가터를 뺀 가용폭을 기준으로 */
-  --cv-scale: clamp(.6, (100vw - 2*var(--gutter)) / var(--cv-w), 1);
 
-  width: var(--cv-w);
-  height: calc(var(--cv-h) * var(--cv-scale));   /* 섹션 높이도 스케일에 맞춤 */
-  margin:0 auto;
-  min-height: initial;
-  position:relative;
+  /* 컨테이너 인라인 크기(100cqi)를 기준으로 스케일 계산 */
+  --cv-scale: clamp(.42, (100cqi - 2*var(--gutter)) / var(--cv-w), 1);
+
+  width: var(--cv-w);                 /* 좌표계 유지 */
+  max-width: 100%;                    /* 레이아웃 과대 방지 */
+  height: calc(var(--cv-h) * var(--cv-scale));
+  margin: 0 auto;
+  position: relative;
   display:flex; justify-content:center; align-items:center; text-align:center;
-  overflow:visible;
-
-  /* 중앙 정렬 + 동일 좌표계 */
+  overflow: visible;
   transform-origin: top center;
-  transform:
-    scale(var(--cv-scale));
-  margin-inline:auto;
+  transform: scale(var(--cv-scale));
 }
+
+
 
 .cv-center{   
   position: absolute;
@@ -2388,78 +2386,4 @@ img.is-fallback{ object-fit: contain; background:#f6f6f6; }
   .glossier{ font-size: 3.2rem; }
   .g-card-meta.phone-meta{ font-size: 1.3rem; }
   .g-card-meta h3{ font-size: 1.6rem; }
-}
-/* ================== Zigzag 491px 깨짐 핫픽스 ================== */
-
-/* 1) 상태 충돌 차단: 기본은 숨김, .is-active만 보임 (강한 특이성으로 고정) */
-.proj--zigzag-v2 .zz-swiper{
-  position: absolute;
-  inset: 0;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  border: none;
-  transition: opacity .3s ease;
-}
-.proj--zigzag-v2 .zz-swiper.is-active{
-  position: relative;
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-}
-
-/* 2) 중간 폭(520px 이하)도 모바일 스택 규칙을 적용 */
-@media (max-width: 520px){
-  /* 레이아웃 폭/그리드 */
-  .proj--zigzag-v2 .zz-layout{
-    grid-template-columns: 1fr !important;
-    width: min(100%, 94vw) !important;
-    gap: 2rem !important;
-    margin: 2.4rem auto 0 !important;
-  }
-
-  /* 오른쪽 영역: 고정 높이/좌패딩 제거 */
-  .proj--zigzag-v2 .zz-right{
-    height: auto !important;
-    padding-left: 0 !important;
-  }
-
-  /* 스와이퍼 프레임: 비율 기반으로 줄이기 */
-  .proj--zigzag-v2 .zz-swiper .swiper{
-    width: 94vw !important;
-    max-width: 44rem !important;
-    aspect-ratio: 9/19 !important;
-    height: auto !important;
-    border-radius: 1.6rem;
-  }
-
-  /* 내비 버튼: 프레임 안쪽으로 */
-  .proj--zigzag-v2 .zz-swiper .swiper-button-prev,
-  .proj--zigzag-v2 .zz-swiper .swiper-button-next{
-    --swiper-navigation-size: 2.8rem;
-    width: 3.8rem; height: 3.8rem;
-  }
-  .proj--zigzag-v2 .zz-swiper .swiper-button-prev{ left: .4rem !important; }
-  .proj--zigzag-v2 .zz-swiper .swiper-button-next{ right: .4rem !important; }
-
-  /* 썸네일 간격/모양 약간 축소 */
-  .proj--zigzag-v2 .zz-left{
-    grid-template-columns: repeat(2, 1fr);
-    gap: .8rem !important;
-  }
-  .proj--zigzag-v2 .zz-thumb{ border-radius: 1.2rem; }
-  .proj--zigzag-v2 .zz-thumb.is-active{
-    border: .2rem solid #111 !important;
-    outline-color: rgba(0,0,0,.06);
-  }
-}
-
-/* 3) 834px 이하(태블릿 포함)에서도 스택/유동 크기 강제 보강 */
-@media (max-width: 834px){
-  .proj--zigzag-v2 #glossier-phones{ grid-template-columns: 1fr !important; width: min(100%, 94vw); gap: 2rem; }
-  .proj--zigzag-v2 .phone-glossier.frame-base{
-    width: clamp(22rem, 44vw, 30rem);
-    height: auto; aspect-ratio: 9/19; border-radius: 3.2rem;
-  }
-  .proj--zigzag-v2 .zz-right{ padding-left: 0 !important; height: auto !important; }
 }

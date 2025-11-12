@@ -311,169 +311,63 @@
 
 
 <!-- 2: Glossier — iPhone (1대) -->
-<section class="phones" id="phones">
-  <div id="glossier" class="glossier">...</div>
-
-  <div class="phone-row" id="glossier-phones">
-    <!-- 1) 왼쪽: 온보딩 이미지 iPhone -->
-    <div class="phone-pair">
-      <div class="frame-base phone-glossier phone-onboarding">
-        <div class="layer2">
-          <div class="screen">
-            <!-- 단일 온보딩 이미지 -->
-            <img class="onboarding-shot" src="img/글로시에온보딩.jpg" data-design="390x844" alt="Glossier Onboarding" />
-          </div>
-          <div class="mask">
-            <span class="speaker"></span>
-            <span class="camera"><span class="lenz left"></span><span class="lenz right"></span></span>
-          </div>
-        </div>
-        <span class="side-button mute"></span>
-        <span class="side-button volume-up"></span>
-        <span class="side-button volume-down"></span>
-        <span class="side-button hold"></span>
-        <span class="port"></span>
-      </div>
-
-      <!-- 2) 오른쪽: 실제 사이트 iPhone -->
-      <div class="frame-base phone-glossier phone-live">
-        <div class="layer2">
-          <div class="screen">
-            <div class="phone-embed-wrap" data-design="390x844" data-zoom="1">
-              <iframe
-                class="phone-embed"
-                src="https://6xxnnk.github.io/glossier.renewal/"
-                title="Glossier Mobile (Live)"
-                loading="lazy"
-              ></iframe>
-            </div>
-          </div>
-          <div class="mask">
-            <span class="speaker"></span>
-            <span class="camera"><span class="lenz left"></span><span class="lenz right"></span></span>
-          </div>
-        </div>
-        <span class="side-button mute"></span>
-        <span class="side-button volume-up"></span>
-        <span class="side-button volume-down"></span>
-        <span class="side-button hold"></span>
-        <span class="port"></span>
-      </div>
-    </div><!--  -->
-
-    <!-- 3) META 카드 -->
-    <div class="phone-meta phone-meta--glossier g-card-meta">
-      <h3>Glossier Mobile App</h3>
-      <p class="meta-desc">
-        아이폰13,14 레이아웃<br>
-        홈 → 상품 탐색 → 결제까지 <strong>핵심 플로우를 간결하게 연결</strong> <br>
-        <strong>디자인 시스템</strong>(타이포·그리드·토큰)과 <strong>모션</strong>으로 실제 앱 감도 강화
-      </p>
-
-      <div class="meta-actions">
-        <a class="meta-btn" href="https://6xxnnk.github.io/glossier.renewal/" target="_blank" 
-        rel="noopener">사이트 열기</a>
-        <a class="meta-btn meta-btn--ghost" href="img/조윤경_글로시에_결합.pdf"
-         target="_blank" rel="noopener">작업과정 보기</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
 <section class="proj proj--zigzag-v2" id="zigzag">
   <div class="zigzag">....</div>
 
-<div class="zz-layout">
-    
-    <!-- 왼쪽: 2x2 썸네일 -->
-    <div class="zz-left" id="zzThumbs" >
-      <button class="zz-thumb is-active" data-target="1" data-tooltip="click me!" aria-label="썸네일 1">
-        <img src="img/zigzag-HOME.jpg" alt="" >
+  <div class="zz-layout">
+    <!-- 왼쪽: 2x2 썸네일 (각 버튼에 표시할 mock 이미지 경로를 data-mock에 명시) -->
+    <div class="zz-left" id="zzThumbs">
+      <button class="zz-thumb is-active" data-target="1" data-tooltip="click me!" aria-label="썸네일 1"
+              data-mock="img/zigzag-HOME-mockip.png">
+        <img src="img/zigzag-HOME.jpg" alt="">
         <span class="dot">1</span>
       </button>
-      <button class="zz-thumb" data-target="2" data-tooltip="click me!" aria-label="썸네일 2">
+
+      <button class="zz-thumb" data-target="2" data-tooltip="click me!" aria-label="썸네일 2"
+              data-mock="img/zigzag-PRODUCT-mockip.png">
         <img src="img/zigzag-PRODUCT.jpg" alt="">
         <span class="dot">2</span>
       </button>
-      <button class="zz-thumb" data-target="3" data-tooltip="click me!" aria-label="썸네일 3">
+
+      <button class="zz-thumb" data-target="3" data-tooltip="click me!" aria-label="썸네일 3"
+              data-mock="img/zigzag-ORDER-mockip.png">
         <img src="img/zigzag-ORDER.jpg" alt="">
         <span class="dot">3</span>
       </button>
-      <button class="zz-thumb" data-target="4" data-tooltip="click me!" aria-label="썸네일 4">
+
+      <button class="zz-thumb" data-target="4" data-tooltip="click me!" aria-label="썸네일 4"
+              data-mock="img/zigzag-MYPAGE-mockip.png">
         <img src="img/zigzag-MYPAGE.jpg" alt="">
         <span class="dot">4</span>
       </button>
     </div>
 
-    <!-- 오른쪽: 각 썸네일에 대응하는 슬라이더 4개 중 1개만 표시 -->
+    <!-- 오른쪽: 단일 스테이지 -->
     <div class="zz-right" id="zzRight">
-      <!-- S1 -->
-      <div class="zz-swiper is-active" data-id="1">
-        <div class="swiper" id="zz-s1">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="img/zigzag-HOME-mockip.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/zigzag-PRODUCT-mockip.png" alt=""></div>
-          </div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
-      </div>
-
-      <!-- S2 -->
-      <div class="zz-swiper" data-id="2">
-        <div class="swiper" id="zz-s2">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="img/zigzag-PRODUCT-mockip.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/zigzag-ORDER-mockip.png" alt=""></div>
-          </div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
-      </div>
-
-      <!-- S3 -->
-      <div class="zz-swiper" data-id="3">
-        <div class="swiper" id="zz-s3">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="img/zigzag-MYPAGE-mockip.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/zigzag-order-mockip.png" alt=""></div>
-          </div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
-      </div>
-
-      <!-- S4 -->
-      <div class="zz-swiper" data-id="4">
-        <div class="swiper" id="zz-s4">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="img/zigzag-order-mockip.png" alt="" ></div>
-            <div class="swiper-slide"><img src="img/zigzag-HOME-mockip.png" alt=""></div>
-          </div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
-      </div>
+      <figure class="zz-stage" aria-live="polite">
+        <!-- 초기 노출 이미지는 is-active 썸네일의 data-mock과 일치 -->
+        <img id="zzStageImg" src="img/zigzag-HOME-mockip.png" alt="" data-src="img/zigzag-HOME-mockip.png">
+      </figure>
+      <noscript>
+        <img src="img/zigzag-HOME-mockip.png" alt="">
+      </noscript>
     </div>
   </div>
 
- <div class="g-card-meta phone-meta zz-meta--zigzag">
-  <h3>ZigZag App Renewal</h3>
-  <p class="meta-desc">
-    탐색 → 상품 → 결제까지 핵심 플로우를 단축시킨 <strong>콘텐츠 중심 설계</strong>
-  </p>
-  <ul class="meta-bullets">
-    <li>필터 구조 개선으로 <strong>탐색 효율 향상</strong></li>
-    <li>팝업 최소화 및 <strong>개인화 피드 강화</strong></li>
-    <li>가격 신뢰도 확보를 위한 <strong>할인가 시각화</strong></li>
-  </ul>
-  <div class="meta-actions">
-    <a class="meta-btn" href="img/조윤경_지그재그.pdf" target="_blank" rel="noopener">작업과정 보기</a>
+  <div class="g-card-meta phone-meta zz-meta--zigzag">
+    <h3>ZigZag App Renewal</h3>
+    <p class="meta-desc">
+      탐색 → 상품 → 결제까지 핵심 플로우를 단축시킨 <strong>콘텐츠 중심 설계</strong>
+    </p>
+    <ul class="meta-bullets">
+      <li>필터 구조 개선으로 <strong>탐색 효율 향상</strong></li>
+      <li>팝업 최소화 및 <strong>개인화 피드 강화</strong></li>
+      <li>가격 신뢰도 확보를 위한 <strong>할인가 시각화</strong></li>
+    </ul>
+    <div class="meta-actions">
+      <a class="meta-btn" href="img/조윤경_지그재그.pdf" target="_blank" rel="noopener">작업과정 보기</a>
+    </div>
   </div>
-</div>
-
-
 </section>
 
 

@@ -2309,3 +2309,6 @@ button:hover ~ #cursorSun,
 
 /* 안전 가드: 섹션 박스가 밖으로 잘리지 않도록 */
 .about-cvmap{ overflow: visible !important; }
+
+img[onerror]{ opacity:.9; }
+img.is-fallback{ object-fit: contain; background:#f6f6f6; }

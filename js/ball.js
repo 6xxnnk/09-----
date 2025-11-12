@@ -1,85 +1,66 @@
-document.addEventListener('DOMContentLoaded', function(){
-  const canvasEl = document.getElementById('contact-bounce');
-  if(!canvasEl) return; // 엘리먼트 없으면 중단(초기 빈 실행 이슈 방지)
 
-  // 섹션 전체 크기를 실시간 참조
-  const canvas = {
-    el: canvasEl,
-    get width(){ return this.el.clientWidth; },
-    get height(){ return this.el.clientHeight; }
-  };
+  (function(){
+    const bg = document.querySelector('.footer-bg');
+    if (!bg) return;
 
-  const colors = ["#111", "#ffd74f", "#ffb35f", "#ffcf7f"];
+    const MAX = 16;     // 커서로 끌리는 최대 거리(px)
+    const EASE = 0.18;  // 부드럽게 따라가는 정도
 
-  function makeBall({color="#111", x=0, y=0, dx=2, dy=3, size=14}={}){
-    const el = document.createElement('span');
-    el.className = 'ball';
-    el.style.backgroundColor = color;
-    el.style.width = size + 'px';
-    el.style.height = size + 'px';
-    canvas.el.appendChild(el);
+    let active = null;  // 현재 호버 중인 dot
+    let raf = null;
 
-    // 시작 위치를 영역 안으로 클램프
-    let px = Math.max(0, Math.min(x, canvas.width  - size));
-    let py = Math.max(0, Math.min(y, canvas.height - size));
-    let vx = dx, vy = dy;
+    function loop(){
+      if (!active) return;
+      const rect = active.getBoundingClientRect();
+      const cx = rect.left + rect.width/2;
+      const cy = rect.top  + rect.height/2;
+      const dx = (mouse.x - cx);
+      const dy = (mouse.y - cy);
+      const mag = Math.hypot(dx, dy) || 1;
+      const nx = (dx / mag) * Math.min(MAX, Math.abs(dx));
+      const ny = (dy / mag) * Math.min(MAX, Math.abs(dy));
 
-    function tick(){
-      px += vx; py += vy;
+      // 현재 오프셋을 읽고 보간
+      const cur = active._offset || {x:0, y:0};
+      cur.x += (nx - cur.x) * EASE;
+      cur.y += (ny - cur.y) * EASE;
+      active._offset = cur;
 
-      // 벽 충돌
-      if (px <= 0 || px >= canvas.width  - size) vx = -vx;
-      if (py <= 0 || py >= canvas.height - size) vy = -vy;
+      active.style.transform =
+        `translate(-50%,-50%) translate(${cur.x}px,${cur.y}px) scale(1.06)`;
 
-      el.style.transform = `translate(${px}px, ${py}px)`;
-      requestAnimationFrame(tick);
+      raf = requestAnimationFrame(loop);
     }
-    requestAnimationFrame(tick);
-  }
 
-  // 초기 공 여러 개 뿌리기 (섹션이 충분히 렌더된 뒤)
-  function seed(){
-    const W = Math.max(10, canvas.width  - 20);
-    const H = Math.max(10, canvas.height - 20);
-    for(let i=0;i<8;i++){
-      const size = 12 + Math.round(Math.random()*6);
-      makeBall({
-        color: colors[i % colors.length],
-        x: Math.random() * W,
-        y: Math.random() * H,
-        dx: (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random()*2.5),
-        dy: (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random()*2.5),
-        size
-      });
-    }
-  }
+    const mouse = {x:0, y:0};
+    window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
 
-  // 클릭하면 그 위치에 공 추가
-  canvas.el.addEventListener('click', (e)=>{
-    const r = canvas.el.getBoundingClientRect();
-    const size = 12 + Math.round(Math.random()*6);
-    makeBall({
-      color: colors[Math.floor(Math.random()*colors.length)],
-      x: e.clientX - r.left - size/2,
-      y: e.clientY - r.top  - size/2,
-      dx: (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random()*3),
-      dy: (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random()*3),
-      size
+    bg.addEventListener('pointerover', e => {
+      const dot = e.target.closest('.sun-dot');
+      if (!dot) return;
+      active = dot;
+      // CSS 애니메이션은 hover로 이미 pause됨
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(loop);
     });
-  });
 
-  // 레이아웃이 0x0일 때(비가시/탭 전환) 대비 — 보이는 순간 시드
-  if (canvas.width > 0 && canvas.height > 0) {
-    seed();
-  } else {
-    const io = new IntersectionObserver((entries)=>{
-      if(entries.some(en => en.isIntersecting)){
-        seed();
-        io.disconnect();
-      }
+    bg.addEventListener('pointerout', e => {
+      const dot = e.target.closest('.sun-dot');
+      if (!dot || dot !== active) return;
+      // 원상복귀 애니메이션
+      const back = () => {
+        const cur = active._offset || {x:0, y:0};
+        cur.x *= (1 - EASE*1.2);
+        cur.y *= (1 - EASE*1.2);
+        active._offset = cur;
+        active.style.transform = `translate(-50%,-50%) translate(${cur.x}px,${cur.y}px)`;
+        if (Math.abs(cur.x) + Math.abs(cur.y) < 0.5){
+          active.style.transform = 'translate(-50%,-50%)';
+          active = null;
+          return;
+        }
+        requestAnimationFrame(back);
+      };
+      back();
     });
-    io.observe(canvas.el);
-  }
-
-  // 리사이즈해도 애니메이션은 자동 적응(폭/높이는 getter로 읽음)
-});
+  })();
